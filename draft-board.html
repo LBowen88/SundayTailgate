@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 Draft Board — Sunday Tailgate FFL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #06080f; --gold: #d4a234; --gold-2: #f0cc7a;
+      --white: #ffffff; --green: #3dfd98; --navy: #0d1b3e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--black);
+      background-image:
+        radial-gradient(ellipse 85% 55% at 8% 0%,   rgba(30,61,143,0.22)  0%, transparent 60%),
+        radial-gradient(ellipse 60% 45% at 94% 98%,  rgba(139,26,36,0.18)  0%, transparent 60%),
+        radial-gradient(ellipse 50% 35% at 50% 12%,  rgba(212,162,52,0.09) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 30% at 88% 30%,  rgba(30,61,143,0.09)  0%, transparent 50%),
+        radial-gradient(ellipse 35% 25% at 12% 75%,  rgba(139,26,36,0.09)  0%, transparent 50%);
+      background-size: auto;
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.048;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px; position: sticky; top: 0; z-index: 100;
+      background: rgba(6,8,15,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 48px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.87rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--gold); font-weight: 700; }
+    .nav-has-dropdown { position: relative; }
+    .nav-dropdown-toggle { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .nav-chevron { font-size: 0.6rem; opacity: 0.5; transition: transform 0.2s; }
+    .nav-has-dropdown.open .nav-chevron { transform: rotate(180deg); }
+    .nav-dropdown-menu {
+      display: none; position: absolute; top: calc(100% + 10px); left: 50%;
+      transform: translateX(-50%); background: var(--navy);
+      border: 1px solid rgba(212,162,52,0.22); border-radius: 10px;
+      padding: 6px 0; min-width: 230px; list-style: none; z-index: 9999;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.65); max-height: 80vh; overflow-y: auto;
+    }
+    .nav-has-dropdown.open .nav-dropdown-menu { display: block; }
+    .nav-dropdown-menu li a { display: flex; align-items: center; gap: 10px; padding: 9px 16px; font-size: 0.84rem; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .nav-dropdown-menu li a:hover { background: rgba(212,162,52,0.1); color: var(--gold); }
+    .nav-dropdown-menu li.dd-sep { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4px; padding-top: 4px; }
+
+    /* ─── PAGE HEADER ─── */
+    .page-hero { text-align: center; padding: 56px 48px 28px; position: relative; overflow: hidden; }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 18px; font-size: 0.67rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: rgba(212,162,52,0.09); border: 1px solid rgba(212,162,52,0.26); padding: 6px 16px; border-radius: 100px; }
+    .page-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5.5vw, 5rem); letter-spacing: 0.04em; line-height: 1; margin-bottom: 10px; }
+    .page-title span { color: var(--gold); text-shadow: 0 0 40px rgba(212,162,52,0.28); }
+    .page-sub { font-size: 0.87rem; font-weight: 500; color: rgba(255,255,255,0.33); max-width: 520px; margin: 0 auto; line-height: 1.65; }
+
+    /* ─── CONTROLS ─── */
+    .controls-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 24px 40px 0; }
+    .view-toggle { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 3px; }
+    .vt-btn { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 6px; border: none; background: transparent; color: rgba(255,255,255,0.45); font-family: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .vt-btn.active { background: rgba(212,162,52,0.18); color: var(--gold); border: 1px solid rgba(212,162,52,0.35); }
+    .vt-btn:hover:not(.active) { color: var(--white); background: rgba(255,255,255,0.06); }
+    .snake-rule-pills { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.25); }
+    .srp { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 5px; padding: 4px 10px; }
+    .srp.odd { color: rgba(61,253,152,0.65); }
+    .srp.even { color: rgba(212,162,52,0.65); }
+
+    /* ─── TEAM LEGEND / FILTER ─── */
+    .legend-section { padding: 28px 40px 24px; }
+    .legend-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+    .legend-title { font-size: 0.64rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .legend-prompt { font-size: 0.72rem; font-weight: 600; color: rgba(212,162,52,0.6); }
+    .legend-chips { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; }
+
+    .lc-all {
+      display: flex; align-items: center; gap: 6px; padding: 8px 16px;
+      border-radius: 10px; border: 1.5px solid rgba(212,162,52,0.35);
+      background: rgba(212,162,52,0.1); color: var(--gold);
+      font-size: 0.78rem; font-weight: 800; cursor: pointer; transition: all 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .lc-all:hover { background: rgba(212,162,52,0.18); }
+    .lc-all.dimmed { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.3); }
+
+    .lc-team {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 14px 7px 9px; border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.03);
+      font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      transition: background 0.15s, border-color 0.18s, box-shadow 0.15s, opacity 0.15s;
+      color: rgba(255,255,255,0.6);
+    }
+    .lc-team:hover { color: var(--white); background: rgba(255,255,255,0.07); }
+    .lc-team.active {
+      color: var(--white); border-color: var(--tc, rgba(255,255,255,0.3));
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 0 12px var(--tc-glow, rgba(255,255,255,0.1));
+    }
+    .lc-team.dimmed { opacity: 0.22; }
+    .lc-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ─── TEAM FOCUS PANEL ─── */
+    .focus-panel {
+      display: none; margin: 0 40px 20px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 16px 20px;
+      border-left: 3px solid var(--focus-color, var(--gold));
+    }
+    .fp-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .fp-label { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .fp-name { font-size: 0.88rem; font-weight: 800; color: rgba(255,255,255,0.9); }
+    .fp-count { font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.3); margin-left: auto; }
+    .fp-picks { display: flex; flex-wrap: wrap; gap: 6px; }
+    .fp-pick {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.06em;
+      padding: 4px 12px; border-radius: 6px;
+      background: var(--focus-color, var(--gold)); color: var(--focus-fg, #000);
+      line-height: 1; cursor: default;
+    }
+    .fp-pick.is-traded { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.5); }
+
+    /* ─── BOARD ─── */
+    .board-outer { padding: 0 32px 56px; }
+    .board-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+    .board-scroll::-webkit-scrollbar { height: 5px; }
+    .board-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 3px; }
+    .board-scroll::-webkit-scrollbar-thumb { background: rgba(212,162,52,0.35); border-radius: 3px; }
+
+    /* ─── GRID ─── */
+    .db-grid {
+      display: grid;
+      grid-template-columns: 52px repeat(10, minmax(120px, 1fr));
+      background: transparent;
+      gap: 3px; padding: 3px;
+      min-width: 1240px;
+    }
+
+    /* Column headers */
+    .db-corner { background: rgba(255,255,255,0.02); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 8px 4px 10px; gap: 3px; border: 1px solid rgba(255,255,255,0.04); }
+    .db-corner-rnd { font-size: 0.42rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.15); }
+    .db-corner-slk { font-size: 0.42rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.1); }
+
+    .db-col-head {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2px; padding: 14px 6px 12px;
+      background: rgba(255,255,255,0.028); border-radius: 8px; text-align: center;
+      border-top: 3px solid rgba(255,255,255,0.08);
+    }
+    .col-pick-word { font-size: 0.44rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.18); }
+    .col-pick-num  { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.02em; color: rgba(255,255,255,0.45); line-height: 1; }
+
+    /* Round labels */
+    .db-rnd {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.02); border-radius: 8px; gap: 1px; padding: 0 4px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .db-rnd.phase-start { border-top: 2px solid rgba(212,162,52,0.3); }
+    .rnd-n    { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); line-height: 1; }
+    .rnd-phase { font-size: 0.36rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(212,162,52,0.5); line-height: 1; }
+
+    /* Pick cells */
+    .db-cell {
+      position: relative; display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: center;
+      min-height: 68px; gap: 3px; border-radius: 8px; overflow: hidden; cursor: default;
+      padding: 7px 8px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-top: 3px solid var(--tc, rgba(255,255,255,0.15));
+      transition: background 0.14s, opacity 0.2s, filter 0.2s;
+    }
+    .db-cell:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.13); z-index: 20; }
+    .cell-pick { font-family: 'Bebas Neue', sans-serif; font-size: 0.62rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); line-height: 1; }
+    .cell-team-name { font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.82); line-height: 1.25; word-break: break-word; }
+    .cell-team-name.is-traded { color: var(--gold); }
+
+    .db-cell.f-dim   { opacity: 0.06; filter: grayscale(1); pointer-events: none; }
+    .db-cell.traded  { background: rgba(255,255,255,0.035); }
+    .trade-nub { display: none; }
+    .trade-via { font-size: 0.54rem; font-weight: 700; letter-spacing: 0.04em; color: rgba(255,255,255,0.38); text-transform: uppercase; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+    /* ─── KEEPER POPUP ─── */
+    .keeper-popup {
+      position: fixed; z-index: 500; pointer-events: none;
+      background: #0d1b3e; border: 1px solid rgba(212,162,52,0.35);
+      border-radius: 12px; padding: 14px 18px; min-width: 220px; max-width: 300px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+      opacity: 0; transform: translateY(6px) scale(0.97);
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .keeper-popup.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .kp-header { font-size: 0.58rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px; }
+    .kp-pick   { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.06em; color: var(--gold); margin-bottom: 8px; line-height: 1; }
+    .kp-team   { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.8); }
+    .kp-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 8px 0; }
+    .kp-players { display: flex; flex-direction: column; gap: 5px; }
+    .kp-player { display: flex; align-items: center; gap: 7px; }
+    .kp-player-name { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.82); flex: 1; }
+    .kp-player-name.is-keeper { color: var(--gold); }
+    .kp-empty { font-size: 0.72rem; color: rgba(255,255,255,0.25); font-style: italic; }
+    .kp-traded-warn { font-size: 0.64rem; color: rgba(204,51,51,0.7); font-weight: 600; margin-top: 6px; }
+
+    /* Traded picks highlight / fade */
+    .tp-row { transition: background 0.15s, border-color 0.15s, opacity 0.2s; }
+    .tp-row.hl  { background: rgba(212,162,52,0.08); border-color: rgba(212,162,52,0.25); }
+    .tp-row.tp-dim { opacity: 0.1; }
+
+    /* ═══ WOW ENHANCEMENTS ════════════════════════════════════ */
+
+    /* Yard-line grid overlay (matches index.html) */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        repeating-linear-gradient(
+          180deg,
+          transparent 0px, transparent 119px,
+          rgba(255,255,255,0.018) 119px, rgba(255,255,255,0.018) 120px
+        );
+      background-size: 100% 120px;
+    }
+
+    /* Cell hover: team-color glow */
+    .db-cell:hover {
+      background: rgba(255,255,255,0.055) !important;
+      box-shadow: 0 0 22px -4px var(--tc, rgba(255,255,255,0.2));
+      border-color: var(--tc, rgba(255,255,255,0.18)) !important;
+      z-index: 20;
+    }
+
+    /* Phase-start round labels — more dramatic gold rule */
+    .db-rnd.phase-start {
+      border-top: 2px solid rgba(212,162,52,0.55) !important;
+      background: rgba(212,162,52,0.04) !important;
+    }
+    .db-rnd.phase-start .rnd-phase {
+      color: rgba(212,162,52,0.75) !important;
+    }
+
+    /* Active team chip glow */
+    .lc-team.active {
+      box-shadow: 0 0 16px var(--tc-glow, rgba(255,255,255,0.15)), 0 0 0 1px var(--tc, rgba(255,255,255,0.3)) !important;
+    }
+
+    /* Page hero stronger glow */
+    .page-hero::before {
+      background: radial-gradient(ellipse, rgba(212,162,52,0.16) 0%, transparent 70%) !important;
+      width: 700px !important;
+      height: 460px !important;
+    }
+
+    /* Trade panel left-border glow */
+    .trade-panel {
+      border-left: 3px solid rgba(212,162,52,0.35) !important;
+    }
+
+    /* Focus panel — glow on the colored left border */
+    .focus-panel {
+      box-shadow: -3px 0 16px -2px var(--focus-color, var(--gold));
+    }
+
+    /* Column header top-border uses team slot order — already team-colored */
+    /* Make col-head borders more vivid */
+    .db-col-head {
+      border-top: 3px solid rgba(255,255,255,0.15) !important;
+      transition: border-color 0.2s;
+    }
+
+    /* Keeper popup refined */
+    .keeper-popup {
+      backdrop-filter: blur(12px);
+      background: rgba(13,27,62,0.97) !important;
+    }
+
+    /* ─── LIST VIEW ─── */
+    #list-view { display: none; padding: 0 32px 60px; }
+    .lv-list { display: flex; flex-direction: column; gap: 5px; }
+    .lv-row { display: flex; align-items: center; gap: 14px; padding: 11px 18px; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); transition: background 0.12s; border-left: 3px solid var(--tc, rgba(255,255,255,0.1)); }
+    .lv-row:hover { background: rgba(255,255,255,0.06); }
+    .lv-row.f-dim { opacity: 0.1; pointer-events: none; }
+    .lv-num  { font-size: 0.62rem; font-weight: 700; color: rgba(255,255,255,0.18); min-width: 28px; text-align: right; }
+    .lv-pick { font-family: 'Bebas Neue', sans-serif; font-size: 1.08rem; letter-spacing: 0.06em; color: var(--gold); min-width: 56px; line-height: 1; }
+    .lv-team { display: flex; align-items: center; gap: 10px; flex: 1; }
+    .lv-name { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.82); }
+    .lv-trade { display: inline-flex; align-items: center; gap: 5px; font-size: 0.6rem; font-weight: 900; letter-spacing: 0.05em; color: var(--gold); background: rgba(212,162,52,0.11); border: 1px solid rgba(212,162,52,0.28); padding: 3px 9px 3px 7px; border-radius: 5px; white-space: nowrap; }
+    .lv-phase-sep { padding: 14px 0 6px; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(212,162,52,0.45); border-bottom: 1px solid rgba(212,162,52,0.1); margin-bottom: 4px; }
+
+    /* ─── TRADED PICKS ─── */
+    .trade-panel { margin: 0 32px 56px; display: none; background: rgba(212,162,52,0.04); border: 1px solid rgba(212,162,52,0.16); border-radius: 12px; padding: 20px 24px; }
+    .tp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .tp-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.04em; color: var(--gold); }
+    .tp-count { font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.28); margin-left: auto; }
+    .tp-list { display: flex; flex-direction: column; gap: 7px; }
+    .tp-row { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 10px 14px; }
+    .tp-round { font-size: 0.6rem; font-weight: 900; color: var(--gold); background: rgba(212,162,52,0.13); border: 1px solid rgba(212,162,52,0.28); padding: 2px 9px; border-radius: 4px; white-space: nowrap; }
+    .tp-team  { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; font-weight: 700; }
+    .tp-dot   { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .tp-arr   { font-size: 0.9rem; color: rgba(212,162,52,0.4); }
+
+    .page-load { grid-column: 1/-1; text-align: center; padding: 52px; color: rgba(255,255,255,0.2); font-size: 0.85rem; }
+    /* ── Team Modal ── */
+    .team-modal-overlay {
+      position: fixed; inset: 0; background: rgba(4,8,18,0.88);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .team-modal-overlay.open { display: flex; }
+    .team-modal {
+      background: linear-gradient(160deg, #0d1a2e 0%, #080f1e 100%);
+      border: 1px solid rgba(212,162,52,0.2); border-radius: 20px;
+      width: 100%; max-width: 660px; max-height: 88vh; overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 80px rgba(212,162,52,0.05);
+      animation: modal-in 0.25s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(18px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-topbar { padding: 20px 22px 16px; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 14px; }
+    .modal-team-info { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .modal-av { width: 56px; height: 56px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .modal-team-name { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; color: #fff; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .modal-team-sub { font-size: 0.75rem; color: rgba(255,255,255,0.38); }
+    .modal-close-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.45); width: 32px; height: 32px; border-radius: 50%; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, color 0.15s; flex-shrink: 0; }
+    .modal-close-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .modal-tabs { display: flex; padding: 0 22px; border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; gap: 2px; }
+    .modal-tab { background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; color: rgba(255,255,255,0.38); font-family: inherit; font-size: 0.78rem; font-weight: 600; padding: 11px 14px 13px; cursor: pointer; transition: color 0.15s, border-color 0.15s; letter-spacing: 0.2px; white-space: nowrap; }
+    .modal-tab:hover { color: rgba(255,255,255,0.65); }
+    .modal-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .modal-body { padding: 18px 22px; overflow-y: auto; flex: 1; }
+    .col-chart-wrap { padding: 8px 0 0; }
+    .col-chart { display: flex; align-items: flex-end; height: 220px; gap: 5px; padding: 0 2px; }
+    .col-item { flex: 1; display: flex; flex-direction: column; align-items: center; min-width: 0; height: 100%; }
+    .col-zone { width: 100%; flex: 1; position: relative; }
+    .col-bar { position: absolute; bottom: 0; left: 1px; right: 1px; border-radius: 5px 5px 2px 2px; min-height: 4px; transition: height 0.5s cubic-bezier(0.16,1,0.3,1); }
+    .col-po .col-bar { left: 0; right: 0; }
+    .col-avg-tick { position: absolute; left: -3px; right: -3px; height: 0; border-top: 1.5px dashed rgba(212,162,52,0.65); pointer-events: none; z-index: 2; }
+    .col-score-lbl { position: absolute; left: 0; right: 0; font-size: 0.44rem; font-weight: 700; color: rgba(255,255,255,0.5); text-align: center; line-height: 1; pointer-events: none; z-index: 3; }
+    .col-wk-lbl { font-size: 0.5rem; color: rgba(255,255,255,0.25); text-align: center; margin-top: 5px; line-height: 1.4; white-space: nowrap; }
+    .col-po .col-wk-lbl { color: rgba(212,162,52,0.5); }
+    .col-res-W { color: #febc2e; font-weight: 800; font-size: 0.46rem; }
+    .col-res-L { color: rgba(255,95,87,0.75); font-weight: 800; font-size: 0.46rem; }
+    .col-legend { display: flex; gap: 14px; justify-content: center; margin-top: 14px; font-size: 0.62rem; color: rgba(255,255,255,0.35); flex-wrap: wrap; }
+    .col-legend span { display: flex; align-items: center; gap: 5px; }
+    .leg-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+    .leg-dash { display: inline-block; width: 14px; border-top: 1.5px dashed rgba(212,162,52,0.65); }
+    .rp-draft-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.56rem; font-weight: 800; letter-spacing: 0.04em; background: rgba(212,162,52,0.15); color: #febc2e; border: 1px solid rgba(212,162,52,0.35); padding: 2px 7px 2px 4px; border-radius: 4px; flex-shrink: 0; white-space: nowrap; }
+    .sm-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .sm-row:last-child { border-bottom: none; }
+    .sm-icon { font-size: 1.1rem; width: 26px; text-align: center; flex-shrink: 0; }
+    .sm-info { flex: 1; }
+    .sm-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.9px; color: rgba(255,255,255,0.28); margin-bottom: 2px; }
+    .sm-val { font-size: 0.88rem; font-weight: 700; color: #fff; }
+    .sm-badge-col { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .sm-rank { font-size: 0.68rem; font-weight: 800; padding: 3px 9px; border-radius: 100px; flex-shrink: 0; white-space: nowrap; }
+    .sm-rank.best  { background: rgba(212,162,52,0.18); color: #febc2e; border: 1px solid rgba(212,162,52,0.35); }
+    .sm-rank.mid   { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.38); border: 1px solid rgba(255,255,255,0.08); }
+    .sm-rank.worst { background: rgba(255,95,87,0.1); color: rgba(255,95,87,0.75); border: 1px solid rgba(255,95,87,0.18); }
+    .sm-avg { font-size: 0.6rem; color: rgba(255,255,255,0.28); white-space: nowrap; }
+    .roster-section-title { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.1px; color: rgba(255,255,255,0.22); margin: 0 0 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .roster-grid { display: flex; flex-direction: column; gap: 4px; margin-bottom: 18px; }
+    .roster-player { display: flex; align-items: center; gap: 9px; padding: 8px 11px; background: rgba(255,255,255,0.022); border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; }
+    .rp-pos { font-size: 0.58rem; font-weight: 800; padding: 2px 5px; border-radius: 3px; letter-spacing: 0.4px; width: 30px; text-align: center; flex-shrink: 0; }
+    .rp-QB  { background: rgba(212,162,52,0.18); color: #f0cc7a; }
+    .rp-RB  { background: rgba(61,253,152,0.14); color: #3dfd98; }
+    .rp-WR  { background: rgba(212,162,52,0.1);  color: #f0cc7a; }
+    .rp-TE  { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.48); }
+    .rp-K   { background: rgba(255,95,87,0.1);   color: rgba(255,95,87,0.65); }
+    .rp-DEF { background: rgba(120,140,255,0.1);  color: rgba(160,170,255,0.65); }
+    .rp-name { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.8); flex: 1; }
+    .rp-team-tag { font-size: 0.62rem; font-weight: 700; color: rgba(255,255,255,0.28); flex-shrink: 0; }
+
+    /* ─── HAMBURGER ─── */
+    .nav-hamburger {
+      display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      cursor: pointer; padding: 8px 10px; z-index: 101; flex-shrink: 0;
+    }
+    .nav-hamburger span { display: block; width: 20px; height: 2px; background: rgba(255,255,255,0.75); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(6,8,15,0.97); backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        flex-direction: column; align-items: stretch; gap: 0; padding: 8px 0 14px; z-index: 200; list-style: none;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links > li > a, .nav-links > li > .nav-dropdown-toggle { display: block; padding: 12px 24px; font-size: 0.92rem; }
+      .nav-dropdown-menu { position: static !important; transform: none !important; left: auto !important; background: rgba(255,255,255,0.04); border: none; border-radius: 0; padding: 4px 0; box-shadow: none; min-width: 0; }
+      .nav-dropdown-menu li a { padding: 9px 36px; font-size: 0.82rem; }
+      .page-hero { padding: 40px 24px 20px; }
+      .controls-bar { padding: 20px 20px 0; flex-direction: column; align-items: flex-start; }
+      .snake-rule-pills { flex-wrap: wrap; }
+      .legend-section { padding: 20px 20px 16px; }
+    }
+    @media (max-width: 480px) {
+      nav { padding: 12px 16px; }
+      .page-hero { padding: 32px 16px 16px; }
+      .controls-bar { padding: 16px 16px 0; }
+      .legend-section { padding: 16px 16px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── AMBIENT GLOW ORBS ─── -->
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;">
+    <div style="position:absolute;width:900px;height:600px;background:rgba(30,61,143,0.22);border-radius:50%;filter:blur(110px);top:-200px;left:-200px;"></div>
+    <div style="position:absolute;width:700px;height:500px;background:rgba(139,26,36,0.17);border-radius:50%;filter:blur(100px);bottom:-150px;right:-180px;"></div>
+    <div style="position:absolute;width:500px;height:350px;background:rgba(212,162,52,0.09);border-radius:50%;filter:blur(90px);top:30%;left:50%;transform:translateX(-50%);"></div>
+  </div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="Sunday Tailgate FFL" /></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav-has-dropdown" id="nav-teams-li">
+        <a href="#" class="nav-dropdown-toggle" onclick="toggleTeamsDropdown(event);">Teams <span class="nav-chevron">▾</span></a>
+        <ul class="nav-dropdown-menu" id="nav-teams-dropdown"><li><a href="#">Loading…</a></li></ul>
+      </li>
+      <li><a href="draft-board.html" class="active">2026 Draft Board</a></li>
+      <li><a href="keeper-options.html">2026 Keeper Options</a></li>
+      <li><a href="keeper-tracker.html">Historical Keeper Tracker</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HEADER ─── -->
+  <div class="page-hero">
+    <div class="page-eyebrow"><span class="dot"></span>Sunday Tailgate FFL · 2026 Season</div>
+    <h1 class="page-title">2026 <span>Draft Board</span></h1>
+    <p class="page-sub">Snake draft · 15 rounds · 10 picks per round · Last place picks first · Trades reflected live</p>
+  </div>
+
+  <!-- ─── CONTROLS ─── -->
+  <div class="controls-bar">
+    <div class="view-toggle">
+      <button class="vt-btn active" id="btn-grid" onclick="setView('grid')">⊞ &nbsp;Grid</button>
+      <button class="vt-btn" id="btn-list" onclick="setView('list')">≡ &nbsp;List</button>
+    </div>
+    <div class="snake-rule-pills">
+    </div>
+  </div>
+
+  <!-- ─── TEAM LEGEND / FILTER ─── -->
+  <div class="legend-section">
+    <div class="legend-header">
+      <span class="legend-title">Teams</span>
+      <span class="legend-prompt">— Select a team below to highlight their picks across the board</span>
+    </div>
+    <div class="legend-chips" id="legend-chips">
+      <div class="lc-all" id="lc-all-btn" onclick="clearFilter()">All Teams</div>
+      <!-- team chips injected by JS -->
+    </div>
+  </div>
+
+  <!-- ─── FOCUS PANEL (shown when team filtered) ─── -->
+  <div class="focus-panel" id="focus-panel">
+    <div class="fp-top">
+      <div id="fp-helmet"></div>
+      <div>
+        <div class="fp-label">Picks for</div>
+        <div class="fp-name" id="fp-name">—</div>
+      </div>
+      <div class="fp-count" id="fp-count"></div>
+    </div>
+    <div class="fp-picks" id="fp-picks"></div>
+  </div>
+
+  <!-- ─── GRID VIEW ─── -->
+  <div id="grid-view" class="board-outer">
+    <div class="board-scroll">
+      <div class="db-grid" id="draft-grid">
+        <div class="page-load">Loading draft order from Sleeper…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── LIST VIEW ─── -->
+  <div id="list-view">
+    <div class="lv-list" id="lv-list"></div>
+  </div>
+
+  <!-- ─── TRADED PICKS ─── -->
+  <div class="trade-panel" id="trade-panel">
+    <div class="tp-head">
+      <span style="font-size:1rem;">⇄</span>
+      <span class="tp-title">Traded 2026 Picks</span>
+      <span class="tp-count" id="tp-count"></span>
+    </div>
+    <div class="tp-list" id="tp-list"></div>
+  </div>
+
+  <!-- ─── KEEPER POPUP ─── -->
+  <div id="keeper-popup" class="keeper-popup">
+    <div class="kp-header">Keeper Eligibility</div>
+    <div class="kp-pick" id="kp-pick"></div>
+    <div class="kp-team" id="kp-team"></div>
+    <div class="kp-divider"></div>
+    <div class="kp-players" id="kp-players"></div>
+  </div>
+
+  <!-- Team Modal (shared with index.html) -->
+  <div id="team-modal" class="team-modal-overlay">
+    <div class="team-modal">
+      <div class="modal-topbar">
+        <div class="modal-team-info">
+          <div class="modal-av" id="modal-avatar"></div>
+          <div style="min-width:0;">
+            <div class="modal-team-name" id="modal-team-name">—</div>
+            <div class="modal-team-sub" id="modal-team-sub">—</div>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="weekly">Weekly Scores</button>
+        <button class="modal-tab" data-tab="metrics">Season Metrics</button>
+        <button class="modal-tab" data-tab="roster">Final Roster</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    const LEAGUE_ID  = '1200568850395955200';
+    const BASE       = 'https://api.sleeper.app/v1';
+    const ROUNDS     = 15;
+    const TOTAL_WKS  = 17;
+    const PLAYOFF_WK = 15;
+    const api = p => fetch(`${BASE}${p}`).then(r => r.json());
+    const setEl = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+
+    /* ── helpers ── */
+    function ordinal(n) { const s=['th','st','nd','rd'],v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
+    function ini(name) {
+      return (name||'?').replace(/[^a-zA-Z ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase()||'??';
+    }
+    function abbr(name) {
+      const n = (name||'').toLowerCase();
+      if (n.includes('paintin'))                            return 'PAINT';
+      if (n.includes('dawg'))                               return 'DAWG';
+      if (n.includes('glorified'))                          return 'GLOR';
+      if (n.includes('dancooper')||n.includes('cooper10'))  return 'DC10';
+      if (n.includes('guns')||n.includes('rosen'))          return 'GUNS';
+      if (n.includes('blugh'))                              return 'MBLG';
+      if (n.includes('pound the rock'))                     return 'ROCK';
+      if (n.includes('kenfig')||n.includes('bengal'))       return 'KENF';
+      if (n.includes('mayfield'))                           return 'MAYD';
+      if (n.includes('mccaf')||n.includes('nature'))        return 'MCCF';
+      return (name||'').slice(0,4).toUpperCase();
+    }
+    function getTeamColors(name) {
+      const n = (name||'').toLowerCase().replace(/[^a-z0-9 ]/g,'');
+      if (n.includes('paintin'))                            return { bg:'#f2ead8', fg:'#111111' };
+      if (n.includes('dawg'))                               return { bg:'#cc0000', fg:'#ffffff' };
+      if (n.includes('glorified'))                          return { bg:'#003087', fg:'#ffffff' };
+      if (n.includes('dancooper')||n.includes('cooper10'))  return { bg:'#39ff14', fg:'#000000' };
+      if (n.includes('guns')||n.includes('rosen'))          return { bg:'#ff69b4', fg:'#000000' };
+      if (n.includes('blugh'))                              return { bg:'#87ceeb', fg:'#000000' };
+      if (n.includes('pound the rock'))                     return { bg:'#ffd700', fg:'#000000' };
+      if (n.includes('kenfig')||n.includes('bengal'))       return { bg:'#ff6600', fg:'#000000' };
+      if (n.includes('mayfield'))                           return { bg:'#1a5c2a', fg:'#ffffff' };
+      if (n.includes('mccaf')||n.includes('nature'))        return { bg:'#111111', fg:'#ffde00' };
+      return { bg:'#1a2a4a', fg:'#ffffff' };
+    }
+    function helmetSVG(name, size) {
+      size = size || 32;
+      const { bg, fg } = getTeamColors(name);
+      const initials = ini(name);
+      const uid = 'hsvg_' + (name || '').replace(/[^a-zA-Z0-9]/g, '').slice(0, 14).toLowerCase();
+      const fs = initials.length > 2 ? 8 : 10;
+      const S = 'M 36 36 Q 41 34 41 24 L 41 15 Q 41 3 26 2 Q 12 1 8 12 Q 6 18 8 27 Q 10 35 19 38 Q 28 41 36 38 Z';
+      return `<svg width="${size}" height="${size}" viewBox="0 0 44 43" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+        <defs>
+          <linearGradient id="${uid}sh" x1="0.4" y1="0" x2="0.6" y2="1">
+            <stop offset="0%"   stop-color="#fff" stop-opacity="0.15"/>
+            <stop offset="45%"  stop-color="#000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000" stop-opacity="0.45"/>
+          </linearGradient>
+          <radialGradient id="${uid}sp" cx="74%" cy="18%" r="28%">
+            <stop offset="0%"   stop-color="#fff" stop-opacity="0.85"/>
+            <stop offset="35%"  stop-color="#fff" stop-opacity="0.30"/>
+            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <path d="${S}" fill="${bg}"/>
+        <path d="${S}" fill="url(#${uid}sh)"/>
+        <path d="${S}" fill="url(#${uid}sp)"/>
+        <path d="${S}" fill="none" stroke="rgba(0,0,0,0.40)" stroke-width="0.8"/>
+        <circle cx="28" cy="24" r="5.5" fill="${bg}"/>
+        <circle cx="28" cy="24" r="5.5" fill="rgba(0,0,0,0.15)"/>
+        <circle cx="28" cy="24" r="5.5" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="0.7"/>
+        <circle cx="28" cy="24" r="3.2" fill="rgba(0,0,0,0.82)"/>
+        <rect x="4"   y="13"   width="3"  height="18" rx="1.5" fill="${fg}" opacity="0.75"/>
+        <rect x="1"   y="13"   width="10" height="3"  rx="1.5" fill="${fg}" opacity="0.72"/>
+        <rect x="1"   y="19.5" width="10" height="3"  rx="1.5" fill="${fg}" opacity="0.68"/>
+        <rect x="1"   y="26"   width="9"  height="3"  rx="1.5" fill="${fg}" opacity="0.62"/>
+        <path d="M 8 37 Q 18 43 28 42 Q 38 41 41 36"
+          fill="none" stroke="${fg}" stroke-width="1.4" stroke-opacity="0.45" stroke-linecap="round"/>
+        <text x="21" y="20" text-anchor="middle" dominant-baseline="middle"
+          font-family="'Arial Black', Impact, sans-serif"
+          font-size="${fs}" font-weight="900" fill="${fg}" fill-opacity="0.92"
+          style="user-select:none;">${initials}</text>
+      </svg>`;
+    }
+    const pickId = (r, s) => `${r}.${String(s).padStart(2,'0')}`;
+
+    /* ── draft phases ── */
+    const PHASES = { 1:'EARLY', 6:'MID', 11:'LATE' };
+
+    /* ── state ── */
+    let selectedTeams = new Set();   // multi-select
+    let currentView  = 'grid';
+    let G = {
+      allPicks: [], draftSlot: [],
+      standings: [], placements: {}, weeklyScores: {}, weeklyResults: {},
+      txnCounts: {}, rosterMap: {}, userMap: {},
+      playersCache: null, draftPicksMap: null, currentRID: null,
+      // keeper data
+      keeperRosterMap: {},   // roster_id → Set<player_id>
+      draftData2025: {},     // player_id → { round, name, pos }
+      tradedAway2026: {},    // rid → Set<round>
+      picksReceived2026: {}, // rid → Set<round>
+      picks2026Raw: [],      // raw traded picks array
+      teams: []
+    };
+
+    /* ── view toggle ── */
+    function setView(v) {
+      currentView = v;
+      document.getElementById('grid-view').style.display = v === 'grid' ? 'block' : 'none';
+      document.getElementById('list-view').style.display = v === 'list' ? 'block' : 'none';
+      document.getElementById('btn-grid').classList.toggle('active', v === 'grid');
+      document.getElementById('btn-list').classList.toggle('active', v === 'list');
+    }
+
+    /* ── filter ── */
+    function clearFilter() {
+      selectedTeams.clear();
+      applyFilter();
+    }
+    function selectTeam(name) {
+      if (selectedTeams.has(name)) selectedTeams.delete(name);
+      else selectedTeams.add(name);
+      applyFilter();
+    }
+    function applyFilter() {
+      const active = selectedTeams.size > 0;
+      /* legend chips */
+      document.getElementById('lc-all-btn')?.classList.toggle('dimmed', active);
+      document.querySelectorAll('.lc-team').forEach(c => {
+        c.classList.toggle('active', !active || selectedTeams.has(c.dataset.team));
+        c.classList.toggle('dimmed', active && !selectedTeams.has(c.dataset.team));
+      });
+      /* grid cells */
+      document.querySelectorAll('.db-cell[data-team]').forEach(c => {
+        c.classList.toggle('f-dim', active && !selectedTeams.has(c.dataset.team));
+      });
+      /* list rows */
+      document.querySelectorAll('.lv-row[data-team]').forEach(r => {
+        r.classList.toggle('f-dim', active && !selectedTeams.has(r.dataset.team));
+      });
+      /* highlight / fade trade rows involving selected teams */
+      document.querySelectorAll('.tp-row').forEach(row => {
+        const from = row.dataset.from || '';
+        const to   = row.dataset.to   || '';
+        const involved = selectedTeams.has(from) || selectedTeams.has(to);
+        row.classList.toggle('hl',      active && involved);
+        row.classList.toggle('tp-dim',  active && !involved);
+      });
+
+      /* focus panel — show combined picks when 1+ teams selected */
+      const panel = document.getElementById('focus-panel');
+      if (!panel) return;
+      if (!active) { panel.style.display = 'none'; return; }
+      const teams = G.draftSlot.filter(t => selectedTeams.has(t.name));
+      if (!teams.length) { panel.style.display = 'none'; return; }
+      const { bg, fg } = getTeamColors(teams[0].name);
+      panel.style.display = 'block';
+      panel.style.setProperty('--focus-color', bg);
+      panel.style.setProperty('--focus-fg', fg);
+      if (teams.length === 1) {
+        document.getElementById('fp-helmet').innerHTML = helmetSVG(teams[0].name, 36);
+        document.getElementById('fp-name').textContent = teams[0].name;
+      } else {
+        document.getElementById('fp-helmet').innerHTML = teams.slice(0,3).map(t => helmetSVG(t.name, 24)).join('');
+        document.getElementById('fp-name').textContent = `${teams.length} Teams Selected`;
+      }
+      const myPicks = G.allPicks.filter(p => selectedTeams.has(p.owner.name));
+      document.getElementById('fp-count').textContent = `${myPicks.length} picks`;
+      document.getElementById('fp-picks').innerHTML = myPicks.map(p =>
+        `<div class="fp-pick${p.traded?' is-traded':''}" title="${p.traded?'Traded from '+p.orig.name:''}" style="--focus-color:${getTeamColors(p.owner.name).bg};--focus-fg:${getTeamColors(p.owner.name).fg}">${pickId(p.round, p.slot)}</div>`
+      ).join('');
+    }
+
+    /* ── keeper popup ── */
+    const KEEPERS_2025 = new Set([
+      'Derrick Henry',"De'Von Achane",'Jahmyr Gibbs','Saquon Barkley',
+      'Justin Jefferson','Bijan Robinson','Puka Nacua','Mike Evans',
+      'Josh Allen','Chase Brown'
+    ]);
+
+    function showKeeperPopup(cell, evt) {
+      evt.stopPropagation();
+      const popup = document.getElementById('keeper-popup');
+      const rid   = parseInt(cell.dataset.rid);
+      const round = parseInt(cell.dataset.round);
+      const pid   = cell.dataset.pid;
+      const teamName = cell.dataset.team;
+      const { bg } = getTeamColors(teamName);
+
+      // Find players this team holds that were drafted in this round
+      const rosterPids = G.keeperRosterMap[rid] || new Set();
+      const players = [];
+      for (const [playerId, d] of Object.entries(G.draftData2025)) {
+        if (d.round === round && rosterPids.has(playerId)) {
+          players.push({ name: d.name, pos: d.pos, isKeeper2025: KEEPERS_2025.has(d.name) });
+        }
+      }
+
+      // Check if round pick is blocked (traded away net)
+      const tradedAway  = G.tradedAway2026[rid]?.has(round);
+      const hasReceived = G.picksReceived2026[rid]?.has(round);
+      const pickBlocked = tradedAway && !hasReceived;
+
+      // Build popup content
+      document.getElementById('kp-pick').textContent = pid;
+      document.getElementById('kp-team').innerHTML = `${helmetSVG(teamName, 22)}<span style="color:${bg};">${teamName}</span>`;
+
+      let playersHtml = '';
+      if (!Object.keys(G.draftData2025).length) {
+        playersHtml = `<div class="kp-empty">Loading draft data…</div>`;
+      } else if (players.length === 0) {
+        playersHtml = `<div class="kp-empty">No eligible player held in this round</div>`;
+      } else {
+        playersHtml = players.map(p => {
+          const posHtml = `<span class="kb-pos pos-${p.pos}" style="font-size:0.5rem;padding:1px 4px;">${p.pos}</span>`;
+          const keepBadge = p.isKeeper2025 ? `<span style="font-size:0.46rem;font-weight:800;color:var(--gold);background:rgba(212,162,52,0.15);border:1px solid rgba(212,162,52,0.4);padding:1px 5px;border-radius:3px;">★ 1 Strike</span>` : '';
+          return `<div class="kp-player">${posHtml}<span class="kp-player-name${p.isKeeper2025?' is-keeper':''}">${p.name}</span>${keepBadge}</div>`;
+        }).join('');
+      }
+      if (pickBlocked) {
+        playersHtml += `<div class="kp-traded-warn">⚠ Pick traded away — cannot keep</div>`;
+      }
+      document.getElementById('kp-players').innerHTML = playersHtml;
+
+      // Position popup near the cell (fixed positioning = viewport coords, no scrollY)
+      const rect = cell.getBoundingClientRect();
+      const pw = 280;
+      let left = rect.left + rect.width / 2 - pw / 2;
+      let top  = rect.bottom + 10;
+      if (left < 8) left = 8;
+      if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+      if (top + 180 > window.innerHeight - 8) top = rect.top - 180 - 10;
+      if (top < 8) top = 8;
+      popup.style.left  = left + 'px';
+      popup.style.top   = top + 'px';
+      popup.style.width = pw + 'px';
+      popup.classList.add('show');
+    }
+
+    document.addEventListener('click', e => {
+      const popup = document.getElementById('keeper-popup');
+      if (popup && !popup.contains(e.target) && !e.target.closest('.db-cell')) {
+        popup.classList.remove('show');
+      }
+      const li = document.getElementById('nav-teams-li');
+      if (li && !li.contains(e.target)) li.classList.remove('open');
+    });
+
+    /* ── mobile nav ── */
+    function toggleMobileNav() {
+      document.getElementById('nav-links').classList.toggle('open');
+      document.getElementById('nav-hamburger').classList.toggle('open');
+    }
+
+    /* ── nav dropdown ── */
+    function toggleTeamsDropdown(e) {
+      e.preventDefault();
+      document.getElementById('nav-teams-li')?.classList.toggle('open');
+    }
+
+    /* ── main ── */
+    async function init() {
+      try {
+        const [rosters, users, wb, lb, tradedPicks] = await Promise.all([
+          api(`/league/${LEAGUE_ID}/rosters`),
+          api(`/league/${LEAGUE_ID}/users`),
+          api(`/league/${LEAGUE_ID}/winners_bracket`).catch(()=>[]),
+          api(`/league/${LEAGUE_ID}/losers_bracket`).catch(()=>[]),
+          api(`/league/${LEAGUE_ID}/traded_picks`).catch(()=>[])
+        ]);
+
+        const userMap = {};
+        (users||[]).forEach(u => {
+          userMap[u.user_id] = { name: u.metadata?.team_name || u.display_name, username: u.display_name };
+          G.userMap[u.user_id] = userMap[u.user_id];
+        });
+        rosters.forEach(r => { G.rosterMap[r.roster_id] = r; });
+
+        const teams = (rosters||[]).map(r => ({
+          roster_id: r.roster_id,
+          name: userMap[r.owner_id]?.name || 'Unknown',
+          wins: r.settings?.wins || 0,
+          losses: r.settings?.losses || 0,
+          fpts: (r.settings?.fpts||0) + (r.settings?.fpts_decimal||0)/100,
+          fpts_against: (r.settings?.fpts_against||0) + (r.settings?.fpts_against_decimal||0)/100,
+          starters: r.starters||[], players: r.players||[], reserve: r.reserve||[],
+          user: userMap[r.owner_id] || { name:'Unknown', username:'Unknown' }
+        }));
+
+        /* placements */
+        const pl = {};
+        [[1,2],[3,4],[5,6],[7,8]].forEach(([wp,lp]) => {
+          const m = (wb||[]).find(x => x.p === wp);
+          if (m?.w != null) pl[m.w] = wp;
+          if (m?.l != null) pl[m.l] = lp;
+        });
+        const tb = (lb||[]).find(m => m.p != null) || (lb||[])[0];
+        if (tb) {
+          if (tb.w != null && !pl[tb.w]) pl[tb.w] = 10;
+          if (tb.l != null && !pl[tb.l]) pl[tb.l] = 9;
+        }
+        let np = 1;
+        [...teams].sort((a,b) => b.wins-a.wins||b.fpts-a.fpts).forEach(t => {
+          if (pl[t.roster_id] == null) { while(Object.values(pl).includes(np)) np++; pl[t.roster_id] = np++; }
+        });
+
+        G.placements = pl;
+        G.standings  = [...teams].sort((a,b) => (pl[a.roster_id]||99)-(pl[b.roster_id]||99));
+
+        const ranked    = [...teams].sort((a,b) => (pl[a.roster_id]||99)-(pl[b.roster_id]||99));
+        const draftSlot = [...ranked].reverse(); // rank10→rank1
+
+        /* fetch weekly data in background for the modal */
+        const wks = Array.from({length: TOTAL_WKS}, (_, i) => i + 1);
+        Promise.all([
+          Promise.all(wks.map(w => api(`/league/${LEAGUE_ID}/matchups/${w}`).catch(()=>[]))),
+          Promise.all(wks.map(w => api(`/league/${LEAGUE_ID}/transactions/${w}`).then(d=>d||[]).catch(()=>[])))
+        ]).then(([matchupWks, txnWks]) => {
+          matchupWks.forEach((data, idx) => {
+            const week = idx + 1;
+            if (!Array.isArray(data)) return;
+            const groups = {};
+            data.forEach(item => {
+              if (item.matchup_id == null) return;
+              (groups[item.matchup_id] = groups[item.matchup_id] || []).push(item);
+            });
+            Object.values(groups).forEach(pair => {
+              if (pair.length !== 2) return;
+              const [a, b] = pair;
+              const pa = a.points || 0, pb = b.points || 0;
+              [a, b].forEach((x, xi) => {
+                const rid = x.roster_id;
+                (G.weeklyScores[rid] = G.weeklyScores[rid] || {})[week] = x.points || 0;
+                (G.weeklyResults[rid] = G.weeklyResults[rid] || {})[week] = xi === 0 ? (pa >= pb ? 'W':'L') : (pb >= pa ? 'W':'L');
+              });
+            });
+          });
+          txnWks.forEach(txns => {
+            txns.forEach(t => {
+              (t.roster_ids || []).forEach(rid => { G.txnCounts[rid] = (G.txnCounts[rid] || 0) + 1; });
+            });
+          });
+        }).catch(() => {});
+
+        /* build grid */
+        const grid = [];
+        for (let r = 0; r < ROUNDS; r++) {
+          const isOdd = (r % 2 === 0);
+          const row = [];
+          for (let s = 0; s < 10; s++) {
+            const ti = isOdd ? s : (9 - s);
+            row.push({ owner: draftSlot[ti], orig: draftSlot[ti], traded: false });
+          }
+          grid.push(row);
+        }
+
+        /* apply trades */
+        const picks26 = (tradedPicks||[]).filter(tp => String(tp.season) === '2026');
+        for (const tp of picks26) {
+          const rIdx = tp.round - 1;
+          if (rIdx < 0 || rIdx >= ROUNDS) continue;
+          const origTeam = teams.find(t => t.roster_id === tp.roster_id);
+          const newOwner = teams.find(t => t.roster_id === tp.owner_id);
+          if (!origTeam || !newOwner || origTeam.roster_id === newOwner.roster_id) continue;
+          const isOdd   = (rIdx % 2 === 0);
+          const slotIdx = draftSlot.findIndex(t => t.roster_id === origTeam.roster_id);
+          const slot    = isOdd ? slotIdx : (9 - slotIdx);
+          if (slot >= 0 && slot <= 9) grid[rIdx][slot] = { owner: newOwner, orig: origTeam, traded: true };
+        }
+
+        const allPicks = [];
+        grid.forEach((row, rIdx) => {
+          row.forEach((cell, sIdx) => {
+            allPicks.push({ round: rIdx+1, slot: sIdx+1, overall: rIdx*10+sIdx+1, ...cell });
+          });
+        });
+
+        G.allPicks  = allPicks;
+        G.draftSlot = draftSlot;
+        G.teams     = teams;
+        G.picks2026Raw = picks26;
+
+        // Build roster → player set for keeper lookup
+        teams.forEach(t => {
+          G.keeperRosterMap[t.roster_id] = new Set(t.players);
+        });
+
+        // Build traded-away / received for 2026
+        picks26.forEach(p => {
+          if (p.owner_id !== p.roster_id) {
+            if (!G.tradedAway2026[p.roster_id]) G.tradedAway2026[p.roster_id] = new Set();
+            G.tradedAway2026[p.roster_id].add(p.round);
+            if (!G.picksReceived2026[p.owner_id]) G.picksReceived2026[p.owner_id] = new Set();
+            G.picksReceived2026[p.owner_id].add(p.round);
+          }
+        });
+
+        // Fetch 2025 draft picks in background for keeper popup
+        api(`/league/${LEAGUE_ID}/drafts`).then(drafts => {
+          const dId = drafts?.[0]?.draft_id;
+          if (!dId) return;
+          return api(`/draft/${dId}/picks`);
+        }).then(picks => {
+          if (!picks) return;
+          picks.forEach(p => {
+            if (p.player_id) {
+              const name = [p.metadata?.first_name, p.metadata?.last_name].filter(Boolean).join(' ');
+              G.draftData2025[p.player_id] = { round: p.round, name, pos: p.metadata?.position || '' };
+            }
+          });
+        }).catch(() => {});
+
+        renderLegendChips(draftSlot, pl);
+        renderGrid(draftSlot, grid);
+        renderListView(allPicks);
+        renderTrades(picks26, teams);
+        renderNavDropdown(ranked, pl);
+
+      } catch (err) {
+        console.error('[DraftBoard]', err);
+        document.getElementById('draft-grid').innerHTML =
+          `<div class="page-load" style="color:rgba(255,95,87,0.6);">Error: ${err.message}</div>`;
+      }
+    }
+
+    /* ── legend chips (bigger, helmet + name) ── */
+    function renderLegendChips(draftSlot, pl) {
+      const wrap = document.getElementById('legend-chips');
+      if (!wrap) return;
+      const chips = draftSlot.map(team => {
+        const { bg } = getTeamColors(team.name);
+        const safeN  = team.name.replace(/'/g, "\\'");
+        return `<div class="lc-team active" data-team="${team.name}"
+          style="--tc:${bg};--tc-glow:${bg}55;"
+          onclick="selectTeam('${safeN}')">
+          ${helmetSVG(team.name, 26)}
+          <span>${team.name}</span>
+        </div>`;
+      }).join('');
+      wrap.insertAdjacentHTML('beforeend', chips);
+    }
+
+    /* ── grid (column headers: pick numbers only) ── */
+    function renderGrid(draftSlot, grid) {
+      const el = document.getElementById('draft-grid');
+      if (!el) return;
+      let html = '';
+
+      /* corner */
+      html += `<div class="db-corner"><span class="db-corner-rnd">RND</span><span class="db-corner-slk">↕ SLOT</span></div>`;
+
+      /* column headers — pick numbers only */
+      for (let i = 1; i <= 10; i++) {
+        html += `<div class="db-col-head">
+          <span class="col-pick-word">Pick</span>
+          <span class="col-pick-num">${i}</span>
+        </div>`;
+      }
+
+      /* rows */
+      grid.forEach((row, rIdx) => {
+        const round  = rIdx + 1;
+        const isOdd  = (rIdx % 2 === 0);
+        const phLbl  = PHASES[round] ? `<span class="rnd-phase">${PHASES[round]}</span>` : '';
+        const phCls  = PHASES[round] ? ' phase-start' : '';
+
+        html += `<div class="db-rnd${phCls}">
+          <span class="rnd-n">R${round}</span>
+          ${phLbl}
+        </div>`;
+
+        row.forEach((cell, sIdx) => {
+          const slot = sIdx + 1;
+          const { bg } = getTeamColors(cell.owner.name);
+          const pid  = pickId(round, slot);
+          const tradeInfo = cell.traded
+            ? `<div class="trade-via">via ${cell.orig.name}</div>`
+            : '';
+          html += `<div class="db-cell${cell.traded?' traded':''}"
+            data-team="${cell.owner.name}"
+            data-rid="${cell.owner.roster_id}"
+            data-round="${round}"
+            data-pid="${pid}"
+            style="--tc:${bg};"
+            onclick="showKeeperPopup(this, event)">
+            <span class="cell-pick">${pid}</span>
+            <span class="cell-team-name${cell.traded?' is-traded':''}">${cell.owner.name}</span>
+            ${tradeInfo}
+          </div>`;
+        });
+      });
+
+      el.innerHTML = html;
+    }
+
+    /* ── list view with phase separators ── */
+    function renderListView(allPicks) {
+      const el = document.getElementById('lv-list');
+      if (!el) return;
+      const phaseLabels = { 1:'Early Rounds · 1–5', 6:'Mid Rounds · 6–10', 11:'Late Rounds · 11–15' };
+      let html = '';
+      allPicks.forEach(p => {
+        if (phaseLabels[p.round] && p.slot === 1) {
+          html += `<div class="lv-phase-sep">${phaseLabels[p.round]}</div>`;
+        }
+        const { bg } = getTeamColors(p.owner.name);
+        const tradeBadge = p.traded
+          ? `<span class="lv-trade">${helmetSVG(p.orig.name, 16)}&nbsp;via ${p.orig.name}</span>`
+          : '';
+        html += `<div class="lv-row" data-team="${p.owner.name}" style="--tc:${bg};">
+          <span class="lv-num">${p.overall}</span>
+          <span class="lv-pick">${pickId(p.round, p.slot)}</span>
+          <div class="lv-team">
+            ${helmetSVG(p.owner.name, 26)}
+            <span class="lv-name">${p.owner.name}</span>
+          </div>
+          ${tradeBadge}
+        </div>`;
+      });
+      el.innerHTML = html;
+    }
+
+    /* ── traded picks panel ── */
+    function renderTrades(picks26, teams) {
+      if (!picks26?.length) return;
+      const panel = document.getElementById('trade-panel');
+      const list  = document.getElementById('tp-list');
+      if (!panel) return;
+      panel.style.display = 'block';
+      const count = document.getElementById('tp-count');
+      if (count) count.textContent = `${picks26.length} pick${picks26.length!==1?'s':''} moved`;
+      if (list) list.innerHTML = picks26.sort((a,b) => a.round-b.round).map(tp => {
+        const from = teams.find(t => t.roster_id === tp.roster_id);
+        const to   = teams.find(t => t.roster_id === tp.owner_id);
+        if (!from || !to) return '';
+        const fc = getTeamColors(from.name), tc = getTeamColors(to.name);
+        return `<div class="tp-row" data-from="${from.name}" data-to="${to.name}">
+          <span class="tp-round">Round ${tp.round}</span>
+          <div class="tp-team"><div class="tp-dot" style="background:${fc.bg};"></div>${from.name}</div>
+          <span class="tp-arr">⇒</span>
+          <div class="tp-team"><div class="tp-dot" style="background:${tc.bg};"></div>${to.name}</div>
+        </div>`;
+      }).join('');
+    }
+
+    /* ── nav dropdown ── */
+    function renderNavDropdown(ranked, pl) {
+      const menu = document.getElementById('nav-teams-dropdown');
+      if (!menu) return;
+      const icon = n => n===1?'🥇':n===2?'🥈':n===3?'🥉':n>=9?'🚽':'';
+      menu.innerHTML = ranked.map((t, i) =>
+        `<li${i===8?' class="dd-sep"':''}><a href="team.html?roster_id=${t.roster_id}" onclick="document.getElementById('nav-teams-li').classList.remove('open');">${helmetSVG(t.name,26)}<span>${t.name}${icon(pl[t.roster_id]||99)?' '+icon(pl[t.roster_id]||99):''}</span></a></li>`
+      ).join('');
+    }
+
+    /* ── team modal ── */
+    function openModal(rosterId) {
+      G.currentRID = rosterId;
+      const team = G.standings.find(t => t.roster_id === rosterId);
+      if (!team) return;
+      const pl = G.placements[rosterId] ?? '—';
+      document.getElementById('modal-team-name').textContent = team.user.name;
+      document.getElementById('modal-team-sub').textContent = `@${team.user.username} · ${team.wins}-${team.losses} reg. season · ${ordinal(pl)} place`;
+      const av = document.getElementById('modal-avatar');
+      av.style.background = 'none'; av.innerHTML = helmetSVG(team.user.name, 44);
+      document.getElementById('team-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      switchTab('weekly');
+    }
+    function closeModal() {
+      document.getElementById('team-modal').classList.remove('open');
+      document.body.style.overflow = ''; G.currentRID = null;
+    }
+    function switchTab(tabName) {
+      document.querySelectorAll('.modal-tab').forEach(t => t.classList.toggle('active', t.dataset.tab===tabName));
+      const team = G.standings.find(t => t.roster_id === G.currentRID);
+      if (!team) return;
+      const body = document.getElementById('modal-body');
+      if      (tabName==='weekly')  renderWeeklyTab(team, body);
+      else if (tabName==='metrics') renderMetricsTab_modal(team, body);
+      else if (tabName==='roster')  renderRosterTab(team, body);
+    }
+    function renderWeeklyTab(team, container) {
+      const scores  = G.weeklyScores[team.roster_id] || {};
+      const results = G.weeklyResults[team.roster_id] || {};
+      const lgAvg = {};
+      for (let w = 1; w <= TOTAL_WKS; w++) {
+        const wks = G.standings.map(t => G.weeklyScores[t.roster_id]?.[w] || 0).filter(s => s > 0);
+        lgAvg[w] = wks.length ? wks.reduce((a,b)=>a+b,0)/wks.length : 0;
+      }
+      const allVals = [];
+      for (let w = 1; w <= TOTAL_WKS; w++) {
+        if (scores[w]) allVals.push(scores[w]);
+        if (lgAvg[w])  allVals.push(lgAvg[w]);
+      }
+      const maxSc = allVals.length ? Math.max(...allVals) * 1.12 : 220;
+      let cols = '';
+      for (let w = 1; w <= TOTAL_WKS; w++) {
+        const sc   = scores[w] ?? null;
+        const avg  = lgAvg[w] || 0;
+        const res  = results[w] || null;
+        const pct  = sc  ? (sc  / maxSc * 100).toFixed(1) : '0';
+        const aPct = avg ? (avg / maxSc * 100).toFixed(1) : '0';
+        const isPO = w >= PLAYOFF_WK;
+        const wlbl = w === PLAYOFF_WK ? 'R1' : w === 16 ? 'R2' : w === 17 ? 'SF' : String(w);
+        const barBg = res === 'W' ? 'linear-gradient(to top,#b8840e,#febc2e)' : res === 'L' ? 'linear-gradient(to top,rgba(180,50,40,0.85),rgba(255,95,87,0.65))' : 'rgba(255,255,255,0.1)';
+        const lblBot = sc ? Math.min(parseFloat(pct) + 1.5, 93).toFixed(1) : '50';
+        cols += `<div class="col-item${isPO?' col-po':''}">
+          <div class="col-zone">
+            ${sc != null ? `<div class="col-bar" style="height:${pct}%;background:${barBg}"></div>` : ''}
+            ${avg ? `<div class="col-avg-tick" style="bottom:${aPct}%"></div>` : ''}
+            ${sc != null ? `<div class="col-score-lbl" style="bottom:${lblBot}%">${Math.round(sc)}</div>` : ''}
+          </div>
+          <div class="col-wk-lbl">${wlbl}${res?`<br><span class="col-res-${res}">${res}</span>`:''}</div>
+        </div>`;
+      }
+      container.innerHTML = `
+        <div class="col-chart-wrap"><div class="col-chart">${cols}</div></div>
+        <div class="col-legend">
+          <span><span class="leg-swatch" style="background:#d4a234"></span>Win</span>
+          <span><span class="leg-swatch" style="background:rgba(255,95,87,0.7)"></span>Loss</span>
+          <span><span class="leg-dash"></span>Lg avg that week</span>
+          <span style="color:rgba(212,162,52,0.45);">R1/R2/SF = Playoff</span>
+        </div>`;
+      if (!Object.keys(scores).length) {
+        container.innerHTML = `<div style="text-align:center;padding:48px 0;color:rgba(255,255,255,0.22);font-size:0.85rem;">Weekly data loading…</div>`;
+      }
+    }
+    function renderMetricsTab_modal(team, container) {
+      const s = G.standings, n = s.length, rid = team.roster_id;
+      if (!n) { container.innerHTML = `<div style="text-align:center;padding:48px 0;color:rgba(255,255,255,0.22);font-size:0.85rem;">Loading metrics…</div>`; return; }
+      const byPts  = [...s].sort((a,b)=>b.fpts-a.fpts);
+      const byPA   = [...s].sort((a,b)=>a.fpts_against-b.fpts_against);
+      const byTxnD = [...s].sort((a,b)=>(G.txnCounts[b.roster_id]||0)-(G.txnCounts[a.roster_id]||0));
+      const byWins = [...s].sort((a,b)=>b.wins-a.wins||b.fpts-a.fpts);
+      const allHigh = [...s].map(t=>{const ws=Object.values(G.weeklyScores[t.roster_id]||{}).filter(x=>x>0);return{r:t.roster_id,v:ws.length?Math.max(...ws):0};}).sort((a,b)=>b.v-a.v);
+      const allLow  = [...s].map(t=>{const ws=Object.values(G.weeklyScores[t.roster_id]||{}).filter(x=>x>0);return{r:t.roster_id,v:ws.length?Math.min(...ws):0};}).sort((a,b)=>b.v-a.v);
+      const wkScores = Object.values(G.weeklyScores[rid]||{}).filter(x=>x>0);
+      const highSc = wkScores.length?Math.max(...wkScores):0;
+      const lowSc  = wkScores.length?Math.min(...wkScores):0;
+      const ptsRk  = byPts.findIndex(t=>t.roster_id===rid)+1;
+      const paRk   = byPA.findIndex(t=>t.roster_id===rid)+1;
+      const txnRk  = byTxnD.findIndex(t=>t.roster_id===rid)+1;
+      const winsRk = byWins.findIndex(t=>t.roster_id===rid)+1;
+      const highRk = allHigh.findIndex(x=>x.r===rid)+1;
+      const lowRk  = allLow.findIndex(x=>x.r===rid)+1;
+      const finPl  = G.placements[rid]??n;
+      const regPl  = byWins.findIndex(t=>t.roster_id===rid)+1;
+      const avg    = v => s.reduce((a,t)=>a+v(t),0)/n;
+      const avgPF  = avg(t=>t.fpts), avgPA = avg(t=>t.fpts_against);
+      const avgHigh = avg(t=>{const ws=Object.values(G.weeklyScores[t.roster_id]||{}).filter(x=>x>0);return ws.length?Math.max(...ws):0;});
+      const avgLow  = avg(t=>{const ws=Object.values(G.weeklyScores[t.roster_id]||{}).filter(x=>x>0);return ws.length?Math.min(...ws):0;});
+      const avgTxn = avg(t=>G.txnCounts[t.roster_id]||0);
+      const avgWins = avg(t=>t.wins);
+      const badge = (rank, total, _hiGood=true, leagueAvg='') => {
+        const pct = rank / total;
+        const cls = pct <= 0.3 ? 'best' : pct >= 0.7 ? 'worst' : 'mid';
+        return `<div class="sm-badge-col"><span class="sm-rank ${cls}">#${rank} of ${total}</span>${leagueAvg?`<span class="sm-avg">Lg avg: ${leagueAvg}</span>`:''}</div>`;
+      };
+      const rows = [
+        { icon:'🏅', label:'FINAL PLACEMENT',          val: ordinal(finPl),                              bk: badge(finPl, n, false) },
+        { icon:'📋', label:'REGULAR SEASON PLACEMENT', val: ordinal(regPl),                              bk: badge(regPl, n, false, `${avgWins.toFixed(1)} wins`) },
+        { icon:'📊', label:'POINTS FOR',               val: `${team.fpts.toFixed(0)} pts`,               bk: badge(ptsRk, n, true, `${avgPF.toFixed(0)} pts`) },
+        { icon:'🎯', label:'POINTS AGAINST',           val: `${(team.fpts_against||0).toFixed(0)} pts`,  bk: badge(paRk,  n, false,`${avgPA.toFixed(0)} pts`) },
+        { icon:'⚡', label:'HIGHEST WEEK',             val: `${highSc.toFixed(1)} pts`,                  bk: badge(highRk, n, true, `${avgHigh.toFixed(1)} pts`) },
+        { icon:'🥶', label:'LOWEST WEEK',              val: `${lowSc.toFixed(1)} pts`,                   bk: badge(lowRk, n, false, `${avgLow.toFixed(1)} pts`) },
+        { icon:'💰', label:'POINTS PER GAME',          val: `${(team.fpts/TOTAL_WKS).toFixed(1)} ppg`,   bk: badge(ptsRk, n, true, `${(avgPF/TOTAL_WKS).toFixed(1)} ppg`) },
+        { icon:'🔄', label:'TRANSACTIONS',             val: `${G.txnCounts[rid]||0} moves`,              bk: badge(txnRk, n, true, `${avgTxn.toFixed(0)} moves`) },
+        { icon:'🏆', label:'REG. SEASON WINS',         val: `${team.wins}W — ${team.losses}L`,           bk: badge(winsRk, n, true, `${avgWins.toFixed(1)} wins`) },
+      ];
+      container.innerHTML = rows.map(r => `<div class="sm-row"><div class="sm-icon">${r.icon}</div><div class="sm-info"><div class="sm-label">${r.label}</div><div class="sm-val">${r.val}</div></div>${r.bk}</div>`).join('');
+    }
+    async function renderRosterTab(team, container) {
+      container.innerHTML = `<div style="text-align:center;padding:28px;color:rgba(255,255,255,0.25);font-size:0.8rem;">Loading roster…</div>`;
+      if (!G.playersCache) {
+        try { G.playersCache = await fetch('https://api.sleeper.app/v1/players/nfl').then(r=>r.json()); }
+        catch(e) { container.innerHTML = `<div style="text-align:center;padding:28px;color:rgba(255,95,87,0.6);font-size:0.8rem;">Could not load player data.</div>`; return; }
+      }
+      if (!G.draftPicksMap) {
+        try {
+          const drafts = await api(`/league/${LEAGUE_ID}/drafts`);
+          const draft  = Array.isArray(drafts) ? drafts[0] : null;
+          G.draftPicksMap = {};
+          if (draft?.draft_id) {
+            const picks = await api(`/draft/${draft.draft_id}/picks`);
+            (picks||[]).forEach(pk => { if (!pk.is_keeper && pk.player_id) G.draftPicksMap[pk.player_id] = { round: pk.round, pick_no: pk.pick_no, roster_id: pk.roster_id }; });
+          }
+        } catch(e) { G.draftPicksMap = {}; }
+      }
+      const players = G.playersCache, draftMap = G.draftPicksMap || {};
+      const resSet = new Set((team.reserve||[]).filter(id=>id&&id!=='0'));
+      const allIds = [...new Set([...(team.starters||[]), ...(team.players||[])])].filter(id=>id&&id!=='0');
+      const ir = [], byPos = {};
+      allIds.forEach(id => {
+        const p = players[id]; if (!p) return;
+        const dp = draftMap[id];
+        const e = { id, name: p.full_name||p.last_name||id, pos: p.position||'UNK', nfl: p.team||'—', draftRound: dp?dp.round:null, draftedByRid: dp?dp.roster_id:null };
+        if (resSet.has(id)) ir.push(e);
+        else { if (!byPos[e.pos]) byPos[e.pos]=[]; byPos[e.pos].push(e); }
+      });
+      const posOrd = ['QB','RB','WR','TE','K','DEF'];
+      const posGroups = [...posOrd.filter(p=>byPos[p]?.length), ...Object.keys(byPos).filter(p=>!posOrd.includes(p)&&byPos[p]?.length)];
+      const posLabel = { QB:'Quarterbacks', RB:'Running Backs', WR:'Wide Receivers', TE:'Tight Ends', K:'Kickers', DEF:'Defense' };
+      const playerRow = pl => {
+        let draftHtml = '';
+        if (pl.draftRound) {
+          const drafter = G.standings.find(t => t.roster_id === pl.draftedByRid);
+          draftHtml = `<span class="rp-draft-badge">${drafter?helmetSVG(drafter.user.name,18):''}Rd ${pl.draftRound}</span>`;
+        }
+        return `<div class="roster-player"><span class="rp-pos rp-${pl.pos}">${pl.pos}</span><span class="rp-name">${pl.name}</span><span class="rp-team-tag">${pl.nfl}</span>${draftHtml}</div>`;
+      };
+      const secHtml = (title, list) => !list.length ? '' : `<div class="roster-section-title">${title}</div><div class="roster-grid">${list.map(playerRow).join('')}</div>`;
+      const html = posGroups.map(pos => secHtml(posLabel[pos]||pos, byPos[pos])).join('') + secHtml('IR / Reserve', ir);
+      const draftLegend = `<div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.06);">
+        <span style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.9px;color:rgba(255,255,255,0.22);">2025 Draft Pick — Keeper Eligible</span>
+        <span style="display:inline-flex;align-items:center;gap:5px;font-size:0.56rem;font-weight:800;letter-spacing:0.04em;background:rgba(212,162,52,0.15);color:#febc2e;border:1px solid rgba(212,162,52,0.35);padding:2px 7px 2px 4px;border-radius:4px;white-space:nowrap;">
+          <svg width="18" height="18" viewBox="0 0 36 34" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;opacity:0.5"><path d="M 6 28 L 6 17 C 6 7 10 2 20 2 C 30 2 32 8 32 15 L 32 24 C 32 26.2 30.2 28 28 28 Z" fill="rgba(255,255,255,0.3)"/><rect x="3.5" y="15" width="3.5" height="13" rx="1.75" fill="rgba(255,255,255,0.3)"/><rect x="1" y="15.5" width="8" height="2" rx="1" fill="rgba(255,255,255,0.3)"/></svg>
+          Drafter · Rd #
+        </span>
+      </div>`;
+      container.innerHTML = (html ? draftLegend + html : '') || `<div style="text-align:center;padding:28px;color:rgba(255,255,255,0.2);font-size:0.8rem;">No roster data.</div>`;
+    }
+
+    /* ── modal event listeners ── */
+    document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+    document.getElementById('team-modal').addEventListener('click', e => { if (e.target===e.currentTarget) closeModal(); });
+    document.querySelectorAll('.modal-tab').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+    document.addEventListener('keydown', e => { if (e.key==='Escape') { closeModal(); document.getElementById('nav-teams-li')?.classList.remove('open'); } });
+
+    init();
+  </script>
+</body>
+</html>
