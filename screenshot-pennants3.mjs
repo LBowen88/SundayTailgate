@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer';
+const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
+const page = await browser.newPage();
+await page.setViewport({ width: 1440, height: 900 });
+await page.goto('http://localhost:3000', { waitUntil: 'networkidle2', timeout: 30000 });
+await new Promise(r => setTimeout(r, 2000));
+await page.evaluate(() => window.scrollTo(0, 508));
+await new Promise(r => setTimeout(r, 300));
+await page.screenshot({ path: './temporary screenshots/screenshot-58-pennants-zoom.png', clip: { x: 140, y: 100, width: 1160, height: 340 } });
+console.log('Done');
+await browser.close();

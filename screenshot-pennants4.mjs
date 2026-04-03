@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer';
+const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
+const page = await browser.newPage();
+await page.setViewport({ width: 1440, height: 900 });
+await page.goto('http://localhost:3000', { waitUntil: 'networkidle2', timeout: 30000 });
+await new Promise(r => setTimeout(r, 2000));
+await page.evaluate(() => window.scrollTo(0, 640));
+await new Promise(r => setTimeout(r, 300));
+await page.screenshot({ path: './temporary screenshots/screenshot-59-pennants-rings.png', clip: { x: 140, y: 20, width: 1160, height: 380 } });
+console.log('Done');
+await browser.close();
