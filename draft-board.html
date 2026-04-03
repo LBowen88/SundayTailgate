@@ -69,6 +69,30 @@
     .page-title span { color: var(--gold); text-shadow: 0 0 40px rgba(212,162,52,0.28); }
     .page-sub { font-size: 0.87rem; font-weight: 500; color: rgba(255,255,255,0.33); max-width: 520px; margin: 0 auto; line-height: 1.65; }
 
+    /* ─── INTERACTION HINT BAR ─── */
+    .hint-bar {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin: 16px 40px 0; padding: 10px 16px;
+      background: rgba(212,162,52,0.05); border: 1px solid rgba(212,162,52,0.12);
+      border-radius: 8px; position: relative; z-index: 1;
+    }
+    .hint-bar .hint-icon {
+      flex-shrink: 0; font-size: 0.72rem; color: rgba(212,162,52,0.6);
+    }
+    .hint-bar .hint-text {
+      font-size: 0.72rem; font-weight: 500; color: rgba(255,255,255,0.38); line-height: 1.5;
+    }
+    .hint-bar .hint-sep {
+      width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.12); flex-shrink: 0;
+    }
+    /* Device-aware wording */
+    .hint-touch { display: none; }
+    .hint-mouse { display: inline; }
+    @media (hover: none) and (pointer: coarse) {
+      .hint-touch { display: inline; }
+      .hint-mouse { display: none; }
+    }
+
     /* ─── CONTROLS ─── */
     .controls-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 24px 40px 0; }
     .view-toggle { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 3px; }
@@ -137,7 +161,7 @@
 
     /* ─── BOARD ─── */
     .board-outer { padding: 0 32px 56px; }
-    .board-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+    .board-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; position: relative; }
     .board-scroll::-webkit-scrollbar { height: 5px; }
     .board-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 3px; }
     .board-scroll::-webkit-scrollbar-thumb { background: rgba(212,162,52,0.35); border-radius: 3px; }
@@ -151,25 +175,33 @@
       min-width: 1240px;
     }
 
-    /* Column headers */
-    .db-corner { background: rgba(255,255,255,0.02); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 8px 4px 10px; gap: 3px; border: 1px solid rgba(255,255,255,0.04); }
+    /* Column headers — corner sticky both axes */
+    .db-corner {
+      background: #080b14; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 8px 4px 10px; gap: 3px; border: 1px solid rgba(255,255,255,0.04);
+      position: sticky; left: 3px; top: 0; z-index: 15;
+      box-shadow: 6px 0 16px -4px rgba(0,0,0,0.5), 0 6px 16px -4px rgba(0,0,0,0.5);
+    }
     .db-corner-rnd { font-size: 0.42rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.15); }
     .db-corner-slk { font-size: 0.42rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.1); }
 
     .db-col-head {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 2px; padding: 14px 6px 12px;
-      background: rgba(255,255,255,0.028); border-radius: 8px; text-align: center;
+      background: #080b14; border-radius: 8px; text-align: center;
       border-top: 3px solid rgba(255,255,255,0.08);
+      position: sticky; top: 0; z-index: 12;
+      box-shadow: 0 6px 16px -4px rgba(0,0,0,0.5);
     }
     .col-pick-word { font-size: 0.44rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.18); }
     .col-pick-num  { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.02em; color: rgba(255,255,255,0.45); line-height: 1; }
 
-    /* Round labels */
+    /* Round labels — sticky left */
     .db-rnd {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.02); border-radius: 8px; gap: 1px; padding: 0 4px;
+      background: #080b14; border-radius: 8px; gap: 1px; padding: 0 4px;
       border: 1px solid rgba(255,255,255,0.04);
+      position: sticky; left: 3px; z-index: 10;
+      box-shadow: 6px 0 16px -4px rgba(0,0,0,0.5);
     }
     .db-rnd.phase-start { border-top: 2px solid rgba(212,162,52,0.3); }
     .rnd-n    { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); line-height: 1; }
@@ -417,13 +449,28 @@
       .page-hero { padding: 40px 24px 20px; }
       .controls-bar { padding: 20px 20px 0; flex-direction: column; align-items: flex-start; }
       .snake-rule-pills { flex-wrap: wrap; }
-      .legend-section { padding: 20px 20px 16px; }
+      .legend-section { padding: 20px 20px 16px; position: relative; }
+      .board-outer { padding: 0 16px 56px; }
+      .trade-panel { margin: 0 16px 40px; padding: 16px 18px; }
+      /* Legend chips → scrollable strip */
+      .legend-chips {
+        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; padding-bottom: 4px;
+        -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+        mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+      }
+      .legend-chips::-webkit-scrollbar { display: none; }
+      .lc-team, .lc-all { flex-shrink: 0; }
+      .hint-bar { margin: 12px 20px 0; }
     }
     @media (max-width: 480px) {
       nav { padding: 12px 16px; }
       .page-hero { padding: 32px 16px 16px; }
       .controls-bar { padding: 16px 16px 0; }
       .legend-section { padding: 16px 16px 12px; }
+      .board-outer { padding: 0 8px 40px; }
+      .trade-panel { margin: 0 8px 32px; padding: 14px 14px; }
+      .hint-bar { margin: 10px 16px 0; }
     }
   </style>
 </head>
@@ -457,6 +504,18 @@
     <div class="page-eyebrow"><span class="dot"></span>Sunday Tailgate FFL · 2026 Season</div>
     <h1 class="page-title">2026 <span>Draft Board</span></h1>
     <p class="page-sub">Snake draft · 15 rounds · 10 picks per round · Last place picks first · Trades reflected live</p>
+  </div>
+
+  <!-- ─── INTERACTION HINTS ─── -->
+  <div class="hint-bar">
+    <span class="hint-icon">&#9432;</span>
+    <span class="hint-text">
+      <span class="hint-touch">Tap</span><span class="hint-mouse">Click</span> any pick to view keeper eligibility
+    </span>
+    <span class="hint-sep"></span>
+    <span class="hint-text">
+      Select team chips to filter picks across the board
+    </span>
   </div>
 
   <!-- ─── CONTROLS ─── -->
