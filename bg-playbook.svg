@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" width="640" height="560">
+  <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+
+    <!-- ── X marker top-left (gold / defensive) ── -->
+    <g stroke="#d4a234" stroke-width="3.2" opacity="0.75">
+      <path d="M55,58 C58,63 64,70 70,77 C73,81 78,88 85,97"/>
+      <path d="M85,58 C80,63 73,71 68,77 C63,83 58,89 55,97"/>
+    </g>
+
+    <!-- ── O marker top-centre (blue / offensive) ── -->
+    <g stroke="#6a8fd8" stroke-width="2.8" opacity="0.75">
+      <path d="M222,72 C235,72 245,83 245,96 C245,109 235,120 222,120 C209,120 199,109 199,96 C199,83 209,72 222,72"/>
+    </g>
+
+    <!-- ── Route arrow: X → O (white) ── -->
+    <g stroke="white" stroke-width="2.0" opacity="0.55">
+      <path d="M87,74 C118,52 172,62 197,88"/>
+      <!-- arrowhead -->
+      <path d="M197,88 L187,80 M197,88 L188,94"/>
+    </g>
+
+    <!-- ── O marker top-right (blue) ── -->
+    <g stroke="#6a8fd8" stroke-width="2.6" opacity="0.70">
+      <path d="M545,82 C556,82 565,91 565,103 C565,115 556,124 545,124 C534,124 525,115 525,103 C525,91 534,82 545,82"/>
+    </g>
+
+    <!-- ── X marker upper-right (gold) ── -->
+    <g stroke="#d4a234" stroke-width="2.8" opacity="0.70">
+      <path d="M432,50 C436,56 443,63 448,70 C451,74 457,81 463,89"/>
+      <path d="M463,50 C458,56 451,64 446,70 C441,76 436,82 432,89"/>
+    </g>
+
+    <!-- ── Sweeping route: X upper-right → O top-right ── -->
+    <g stroke="white" stroke-width="1.9" opacity="0.50">
+      <path d="M464,70 C490,55 520,65 530,82"/>
+      <path d="M530,82 L521,76 M530,82 L523,91"/>
+    </g>
+
+    <!-- ── Dashed route circle mid-left (white) ── -->
+    <g stroke="white" stroke-width="1.8" stroke-dasharray="9,7" opacity="0.40">
+      <path d="M130,245 C130,210 158,182 193,182 C228,182 256,210 256,245 C256,280 228,308 193,308 C158,308 130,280 130,245"/>
+    </g>
+
+    <!-- ── X marker centre (gold) ── -->
+    <g stroke="#d4a234" stroke-width="3.0" opacity="0.72">
+      <path d="M300,215 C304,221 310,228 316,235 C319,239 324,246 331,254"/>
+      <path d="M331,215 C326,221 319,229 314,235 C309,241 304,247 300,254"/>
+    </g>
+
+    <!-- ── O marker centre-right (blue) ── -->
+    <g stroke="#6a8fd8" stroke-width="2.7" opacity="0.72">
+      <path d="M490,248 C503,248 513,259 513,272 C513,285 503,296 490,296 C477,296 467,285 467,272 C467,259 477,248 490,248"/>
+    </g>
+
+    <!-- ── Sweeping route: centre X → right O (white, curved) ── -->
+    <g stroke="white" stroke-width="2.0" opacity="0.48">
+      <path d="M333,234 C365,218 415,220 445,238 C462,248 467,262 467,270"/>
+      <path d="M467,270 L457,263 M467,270 L474,261"/>
+    </g>
+
+    <!-- ── Short diagonal arrow bottom-left area (white) ── -->
+    <g stroke="white" stroke-width="1.9" opacity="0.45">
+      <path d="M62,380 C90,355 128,345 155,345"/>
+      <path d="M155,345 L144,348 M155,345 L152,357"/>
+    </g>
+
+    <!-- ── X marker lower-left (gold) ── -->
+    <g stroke="#d4a234" stroke-width="2.9" opacity="0.70">
+      <path d="M60,430 C64,436 70,443 75,450 C78,454 83,460 90,468"/>
+      <path d="M90,430 C85,436 78,444 73,450 C68,456 63,462 60,468"/>
+    </g>
+
+    <!-- ── O marker lower-centre (blue) ── -->
+    <g stroke="#6a8fd8" stroke-width="2.5" opacity="0.68">
+      <path d="M350,460 C362,460 371,470 371,482 C371,494 362,503 350,503 C338,503 329,494 329,482 C329,470 338,460 350,460"/>
+    </g>
+
+    <!-- ── Route: lower X → lower O (white, sweeping) ── -->
+    <g stroke="white" stroke-width="2.0" opacity="0.48">
+      <path d="M91,448 C155,425 240,430 295,448 C315,455 326,468 328,480"/>
+      <path d="M328,480 L319,472 M328,480 L320,487"/>
+    </g>
+
+    <!-- ── X marker bottom-right (gold, small) ── -->
+    <g stroke="#d4a234" stroke-width="2.6" opacity="0.68">
+      <path d="M548,438 C552,444 558,451 563,457 C566,461 571,467 577,474"/>
+      <path d="M577,438 C572,444 565,452 560,458 C555,464 550,470 548,474"/>
+    </g>
+
+    <!-- ── Dashed arc route bottom-right (white) ── -->
+    <g stroke="white" stroke-width="1.7" stroke-dasharray="8,6" opacity="0.38">
+      <path d="M580,380 C610,355 622,320 610,290 C600,265 578,255 558,260"/>
+      <path d="M558,260 L566,268 M558,260 L566,253"/>
+    </g>
+
+    <!-- ── Small top-right arrow (white) ── -->
+    <g stroke="white" stroke-width="1.8" opacity="0.42">
+      <path d="M578,45 C595,32 615,28 625,38"/>
+      <path d="M625,38 L616,32 M625,38 L619,48"/>
+    </g>
+
+    <!-- ── Mid-page flowing arc (white, very subtle) ── -->
+    <g stroke="white" stroke-width="1.7" opacity="0.35">
+      <path d="M250,155 C278,132 318,128 342,144 C354,153 358,168 352,182"/>
+      <path d="M352,182 L343,175 M352,182 L360,173"/>
+    </g>
+
+  </g>
+</svg>
