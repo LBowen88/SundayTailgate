@@ -78,6 +78,22 @@
     .kt-title span { color: var(--gold); text-shadow: 0 0 50px rgba(212,162,52,0.3); }
     .kt-subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.35); max-width: 520px; margin: 0 auto; line-height: 1.65; }
 
+    /* ─── INTERACTION HINT BAR ─── */
+    .hint-bar {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      max-width: 860px; margin: 0 auto 20px; padding: 10px 16px;
+      background: rgba(212,162,52,0.05); border: 1px solid rgba(212,162,52,0.12);
+      border-radius: 8px; position: relative; z-index: 1;
+    }
+    .hint-bar .hint-icon { flex-shrink: 0; font-size: 0.72rem; color: rgba(212,162,52,0.6); }
+    .hint-bar .hint-text { font-size: 0.72rem; font-weight: 500; color: rgba(255,255,255,0.38); line-height: 1.5; }
+    .hint-touch { display: none; }
+    .hint-mouse { display: inline; }
+    @media (hover: none) and (pointer: coarse) {
+      .hint-touch { display: inline; }
+      .hint-mouse { display: none; }
+    }
+
     /* ─── THREE STRIKES RULE CARD ─── */
     .strikes-rule {
       position: relative; z-index: 1;
@@ -281,6 +297,16 @@
       <div class="kt-eyebrow"><span class="kt-eyebrow-dot"></span>Sunday Tailgate FFL · 2026 Season</div>
       <h1 class="kt-title">Historical<br><span>Keeper Tracker</span></h1>
       <p class="kt-subtitle">Track which players each manager has retained across seasons — and how many strikes remain before they return to the draft pool.</p>
+    </div>
+  </div>
+
+  <!-- ─── INTERACTION HINTS ─── -->
+  <div style="padding: 0 48px; position:relative; z-index:1;">
+    <div class="hint-bar">
+      <span class="hint-icon">&#9432;</span>
+      <span class="hint-text">
+        Use the Teams menu to visit individual team pages
+      </span>
     </div>
   </div>
 
