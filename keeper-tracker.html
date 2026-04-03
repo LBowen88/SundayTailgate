@@ -124,7 +124,9 @@
     .kt-col-headers {
       display: grid;
       grid-template-columns: 260px 1fr 1fr 1fr;
-      gap: 10px; margin-bottom: 12px; padding: 0 4px;
+      gap: 10px; margin-bottom: 12px; padding: 8px 4px;
+      position: sticky; top: var(--nav-h, 81px); z-index: 10;
+      background: rgba(6,8,15,0.96); backdrop-filter: blur(10px);
     }
     .kt-col-hd {
       text-align: center; font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
@@ -588,6 +590,16 @@
   </div>
 
   <script>
+    // Set nav height CSS variable for sticky headers
+    (function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        const h = nav.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
+      window.addEventListener('resize', setNavHeight);
+    })();
+
     const LEAGUE_ID = '1200568850395955200';
     const BASE      = 'https://api.sleeper.app/v1';
     const api = p => fetch(`${BASE}${p}`).then(r => r.json());

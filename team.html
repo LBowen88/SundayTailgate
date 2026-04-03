@@ -241,7 +241,7 @@
     .mu-body { overflow-y: auto; flex: 1; padding: 20px 24px 28px; }
     .mu-lineups { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .mu-lineup-col { display: flex; flex-direction: column; gap: 3px; }
-    .mu-lineup-title { font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.22); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .mu-lineup-title { font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.22); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; position: sticky; top: 0; z-index: 10; background: linear-gradient(160deg, #0d1a2e 0%, #06080f 100%); padding: 6px 0; }
     .mu-player-row {
       display: flex; align-items: center; gap: 7px;
       padding: 5px 8px; border-radius: 7px;
@@ -334,6 +334,8 @@
       font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px;
       color: rgba(255,255,255,0.2); margin: 14px 0 6px;
       display: flex; align-items: center; gap: 8px;
+      position: sticky; top: calc(var(--nav-h, 81px) + var(--tab-h, 49px)); z-index: 10;
+      background: rgba(6,8,15,0.96); backdrop-filter: blur(10px); padding: 8px 0;
     }
     .roster-section-title::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.05); }
 
@@ -479,6 +481,15 @@
   </div>
 
   <script>
+    // Set nav + tab height CSS variables for sticky headers
+    (function setNavHeight() {
+      const nav = document.querySelector('nav');
+      const tabBar = document.querySelector('.tab-bar');
+      if (nav) document.documentElement.style.setProperty('--nav-h', nav.getBoundingClientRect().height + 'px');
+      if (tabBar) document.documentElement.style.setProperty('--tab-h', tabBar.getBoundingClientRect().height + 'px');
+      window.addEventListener('resize', setNavHeight);
+    })();
+
     const LEAGUE_ID  = '1200568850395955200';
     const BASE       = 'https://api.sleeper.app/v1';
     const TOTAL_WKS  = 17;

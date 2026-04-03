@@ -1332,9 +1332,14 @@
     .panel-card {
       background: rgba(255,255,255,0.025);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px; overflow: hidden;
+      border-radius: 16px; overflow: clip;
     }
-    .panel-header { padding: 20px 22px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .panel-header {
+      padding: 20px 22px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky; top: var(--nav-h, 97px); z-index: 10;
+      background: var(--dark-navy-100, #0c1628);
+      border-radius: 16px 16px 0 0;
+    }
     .panel-eyebrow {
       font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
       letter-spacing: 1.4px; color: var(--gold); margin-bottom: 6px;
@@ -2247,6 +2252,16 @@
   </div>
 
   <script>
+    // Set nav height CSS variable for sticky headers
+    (function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        const h = nav.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
+      window.addEventListener('resize', setNavHeight);
+    })();
+
     // ═══════════════════════════════════════════════════════════
     //  Sunday Tailgates — League Dashboard Script
     // ═══════════════════════════════════════════════════════════

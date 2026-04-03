@@ -161,7 +161,7 @@
 
     /* ─── BOARD ─── */
     .board-outer { padding: 0 32px 56px; }
-    .board-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; position: relative; }
+    .board-scroll { overflow: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; position: relative; max-height: calc(100vh - var(--nav-h, 81px) - 16px); }
     .board-scroll::-webkit-scrollbar { height: 5px; }
     .board-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 3px; }
     .board-scroll::-webkit-scrollbar-thumb { background: rgba(212,162,52,0.35); border-radius: 3px; }
@@ -336,7 +336,7 @@
 
     /* ─── TRADED PICKS ─── */
     .trade-panel { margin: 0 32px 56px; display: none; background: rgba(212,162,52,0.04); border: 1px solid rgba(212,162,52,0.16); border-radius: 12px; padding: 20px 24px; }
-    .tp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .tp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; position: sticky; top: var(--nav-h, 81px); z-index: 10; background: rgba(6,8,15,0.96); backdrop-filter: blur(10px); margin: -20px -24px 14px; padding: 20px 24px 14px; border-radius: 12px 12px 0 0; }
     .tp-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.04em; color: var(--gold); }
     .tp-count { font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.28); margin-left: auto; }
     .tp-list { display: flex; flex-direction: column; gap: 7px; }
@@ -609,6 +609,16 @@
   </div>
 
   <script>
+    // Set nav height CSS variable for sticky headers
+    (function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        const h = nav.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
+      window.addEventListener('resize', setNavHeight);
+    })();
+
     const LEAGUE_ID  = '1200568850395955200';
     const BASE       = 'https://api.sleeper.app/v1';
     const ROUNDS     = 15;

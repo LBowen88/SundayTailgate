@@ -88,7 +88,7 @@
     .ls-empty    { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
 
     /* ─── GRID WRAPPER ─── */
-    .kb-outer { position: relative; z-index: 1; padding: 0 24px 80px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .kb-outer { position: relative; z-index: 1; padding: 0 24px 80px; overflow: auto; -webkit-overflow-scrolling: touch; max-height: calc(100vh - var(--nav-h, 81px) - 16px); }
     .kb-outer::-webkit-scrollbar { height: 5px; }
     .kb-outer::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 3px; }
     .kb-outer::-webkit-scrollbar-thumb { background: rgba(212,162,52,0.35); border-radius: 3px; }
@@ -117,9 +117,14 @@
     .kb-team-hd {
       display: flex; flex-direction: column; align-items: center; gap: 5px;
       padding: 10px 6px 8px;
-      background: rgba(255,255,255,0.028); border-radius: 8px;
+      background: #0a1120; border-radius: 8px;
       border-top: 3px solid var(--tc, rgba(255,255,255,0.1));
       text-align: center;
+      position: sticky; top: 0; z-index: 12;
+    }
+    .kb-corner-hd {
+      position: sticky; top: 0; left: 0; z-index: 15;
+      background: #0a1120;
     }
     .kb-team-hd-name { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.03em; color: rgba(255,255,255,0.85); white-space: normal; word-break: break-word; line-height: 1.25; max-width: 100%; text-transform: uppercase; }
     .kb-team-hd-count { font-size: 0.52rem; font-weight: 600; color: rgba(255,255,255,0.25); white-space: nowrap; }
@@ -309,6 +314,16 @@
   </div>
 
   <script>
+    // Set nav height CSS variable for sticky headers
+    (function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        const h = nav.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--nav-h', h + 'px');
+      }
+      window.addEventListener('resize', setNavHeight);
+    })();
+
     const LEAGUE_ID = '1200568850395955200';
     const BASE = 'https://api.sleeper.app/v1';
     const api = p => fetch(`${BASE}${p}`).then(r => r.json());
@@ -516,7 +531,7 @@
       let html = '';
 
       // ── Column header row ──
-      html += `<div class="kb-rnd" style="background:transparent;"><span style="font-size:0.5rem;color:rgba(255,255,255,0.15);letter-spacing:0.1em;">RD</span></div>`;
+      html += `<div class="kb-rnd kb-corner-hd" style="background:#0a1120;"><span style="font-size:0.5rem;color:rgba(255,255,255,0.15);letter-spacing:0.1em;">RD</span></div>`;
       teams.forEach(team => {
         const { bg } = getTeamColors(team.name);
         const readable = isReadable(bg) ? bg : '#d4a234';
