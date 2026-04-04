@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scoring System — Sunday Tailgate FFL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #06080f; --navy: #0d1b3e; --gold: #d4a234; --gold-2: #f0cc7a;
+      --green: #3dfd98; --white: #ffffff; --red: #cc3333;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 85% 55% at 8% 0%,   rgba(30,61,143,0.18)  0%, transparent 60%),
+        radial-gradient(ellipse 60% 45% at 94% 98%,  rgba(139,26,36,0.14)  0%, transparent 60%),
+        radial-gradient(ellipse 50% 35% at 50% 12%,  rgba(212,162,52,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 30% at 88% 30%,  rgba(30,61,143,0.07)  0%, transparent 50%),
+        radial-gradient(ellipse 35% 25% at 12% 75%,  rgba(139,26,36,0.07)  0%, transparent 50%);
+      color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+    }
+
+    /* ─── NAV ─── */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; position: sticky; top: 0; z-index: 200; background: rgba(6,8,15,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 48px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.87rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--gold); font-weight: 700; }
+    .nav-has-dropdown { position: relative; }
+    .nav-dropdown-toggle { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .nav-chevron { font-size: 0.6rem; opacity: 0.5; transition: transform 0.2s; }
+    .nav-has-dropdown.open .nav-chevron { transform: rotate(180deg); }
+    .nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: var(--navy); border: 1px solid rgba(212,162,52,0.22); border-radius: 10px; padding: 6px 0; min-width: 230px; list-style: none; z-index: 9999; box-shadow: 0 16px 48px rgba(0,0,0,0.65); max-height: 80vh; overflow-y: auto; }
+    .nav-has-dropdown.open .nav-dropdown-menu { display: block; }
+    .nav-dropdown-menu li a { display: flex; align-items: center; gap: 10px; padding: 9px 16px; font-size: 0.84rem; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .nav-dropdown-menu li a:hover { background: rgba(212,162,52,0.1); color: var(--gold); }
+
+    /* ─── HAMBURGER ─── */
+    .nav-hamburger {
+      display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      cursor: pointer; padding: 8px 10px; z-index: 201; flex-shrink: 0;
+    }
+    .nav-hamburger span { display: block; width: 20px; height: 2px; background: rgba(255,255,255,0.75); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── HERO ─── */
+    .page-hero { position: relative; overflow: hidden; padding: 56px 48px 36px; text-align: center; z-index: 1; }
+    .page-hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 65% 80% at 50% -5%, rgba(30,61,143,0.22) 0%, transparent 65%); }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 0.67rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); background: rgba(212,162,52,0.09); border: 1px solid rgba(212,162,52,0.28); padding: 6px 18px; border-radius: 100px; }
+    .page-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-dot 2s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+    .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5.5vw, 5rem); letter-spacing: 0.04em; line-height: 1; margin-bottom: 12px; }
+    .page-title span { color: var(--gold); text-shadow: 0 0 40px rgba(212,162,52,0.28); }
+    .page-sub { font-size: 0.87rem; font-weight: 500; color: rgba(255,255,255,0.33); max-width: 580px; margin: 0 auto; line-height: 1.65; }
+
+    /* ─── FORMAT BANNER ─── */
+    .format-banner {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto 40px; padding: 0 48px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;
+    }
+    .fmt-card {
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px; padding: 16px 14px; text-align: center;
+      animation: slide-up 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .fmt-card:nth-child(2) { animation-delay: 0.05s; }
+    .fmt-card:nth-child(3) { animation-delay: 0.1s; }
+    .fmt-card:nth-child(4) { animation-delay: 0.15s; }
+    .fmt-card:nth-child(5) { animation-delay: 0.2s; }
+    .fmt-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold); line-height: 1; margin-bottom: 4px; letter-spacing: 0.04em; }
+    .fmt-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.28); }
+    @keyframes slide-up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ─── CONTENT WRAPPER ─── */
+    .content-wrap { max-width: 960px; margin: 0 auto; padding: 0 48px 100px; position: relative; z-index: 1; }
+
+    /* ─── SCORING CATEGORY ─── */
+    .sc-category {
+      margin-bottom: 32px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      overflow: hidden;
+      animation: slide-up 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .sc-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .sc-header:hover { background: rgba(212,162,52,0.04); }
+    .sc-icon { font-size: 1.2rem; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sc-title { font-size: 0.92rem; font-weight: 800; color: var(--white); letter-spacing: -0.01em; flex: 1; }
+    .sc-count { font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); padding: 3px 10px; border-radius: 100px; }
+    .sc-chevron { font-size: 0.7rem; color: rgba(255,255,255,0.2); transition: transform 0.25s ease; }
+    .sc-category.open .sc-chevron { transform: rotate(180deg); }
+
+    .sc-body { display: none; }
+    .sc-category.open .sc-body { display: block; }
+
+    .sc-row {
+      display: flex; align-items: center; padding: 11px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      transition: background 0.12s;
+    }
+    .sc-row:last-child { border-bottom: none; }
+    .sc-row:hover { background: rgba(212,162,52,0.04); }
+    .sc-label { flex: 1; font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.65); }
+    .sc-value {
+      font-size: 0.88rem; font-weight: 800; min-width: 70px; text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .sc-value.pos { color: var(--green); }
+    .sc-value.neg { color: rgba(255,95,87,0.85); }
+    .sc-value.zero { color: rgba(255,255,255,0.15); }
+    .sc-value.bonus { color: var(--gold); }
+
+    /* Special: points-allowed tiers */
+    .sc-tier-bar {
+      display: flex; align-items: center; gap: 10px; flex: 1;
+    }
+    .sc-tier-range { font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.45); min-width: 80px; }
+    .sc-tier-fill {
+      height: 6px; border-radius: 3px;
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ─── ROSTER POSITIONS ─── */
+    .roster-strip {
+      display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+      max-width: 900px; margin: 0 auto 40px; padding: 0 48px;
+      position: relative; z-index: 1;
+    }
+    .rs-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 14px; border-radius: 8px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em;
+      border: 1px solid;
+    }
+    .rs-chip.qb  { background: rgba(212,162,52,0.14); border-color: rgba(212,162,52,0.35); color: var(--gold-2); }
+    .rs-chip.rb  { background: rgba(61,253,152,0.1); border-color: rgba(61,253,152,0.3); color: var(--green); }
+    .rs-chip.wr  { background: rgba(100,170,255,0.1); border-color: rgba(100,170,255,0.3); color: #8ec5ff; }
+    .rs-chip.te  { background: rgba(255,160,60,0.1); border-color: rgba(255,160,60,0.3); color: #ffb060; }
+    .rs-chip.flex { background: rgba(200,130,255,0.08); border-color: rgba(200,130,255,0.25); color: #c89dff; }
+    .rs-chip.k   { background: rgba(255,95,87,0.08); border-color: rgba(255,95,87,0.25); color: rgba(255,120,110,0.85); }
+    .rs-chip.def { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); }
+    .rs-chip.bn  { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25); }
+    .rs-label { font-size: 0.62rem; font-weight: 600; color: rgba(255,255,255,0.2); text-align: center; max-width: 900px; margin: 0 auto 12px; padding: 0 48px; position: relative; z-index: 1; text-transform: uppercase; letter-spacing: 0.14em; }
+
+    /* ─── LOADING ─── */
+    .page-loading { text-align: center; padding: 80px 20px; color: rgba(255,255,255,0.2); font-size: 0.85rem; position: relative; z-index: 1; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(6,8,15,0.97); backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        flex-direction: column; align-items: stretch; gap: 0; padding: 8px 0 14px; z-index: 200; list-style: none;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links > li > a, .nav-links > li > .nav-dropdown-toggle { display: block; padding: 12px 24px; font-size: 0.92rem; }
+      .nav-dropdown-menu { position: static !important; transform: none !important; left: auto !important; background: rgba(255,255,255,0.04); border: none; border-radius: 0; padding: 4px 0; box-shadow: none; min-width: 0; }
+      .nav-dropdown-menu li a { padding: 9px 36px; font-size: 0.82rem; }
+      .page-hero { padding: 40px 24px 28px; }
+      .format-banner { padding: 0 24px; grid-template-columns: repeat(3, 1fr); }
+      .content-wrap { padding: 0 20px 80px; }
+      .roster-strip { padding: 0 24px; }
+      .rs-label { padding: 0 24px; }
+    }
+    @media (max-width: 480px) {
+      nav { padding: 12px 16px; }
+      .page-hero { padding: 32px 16px 20px; }
+      .format-banner { padding: 0 16px; grid-template-columns: repeat(2, 1fr); }
+      .content-wrap { padding: 0 16px 60px; }
+      .roster-strip { padding: 0 16px; }
+      .rs-label { padding: 0 16px; }
+      .sc-row { padding: 10px 16px; }
+      .sc-header { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── AMBIENT GLOW ORBS ─── -->
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;">
+    <div style="position:absolute;width:900px;height:600px;background:rgba(30,61,143,0.18);border-radius:50%;filter:blur(110px);top:-200px;left:-200px;"></div>
+    <div style="position:absolute;width:700px;height:500px;background:rgba(139,26,36,0.14);border-radius:50%;filter:blur(100px);bottom:-150px;right:-180px;"></div>
+    <div style="position:absolute;width:500px;height:350px;background:rgba(212,162,52,0.08);border-radius:50%;filter:blur(90px);top:30%;left:50%;transform:translateX(-50%);"></div>
+  </div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="Sunday Tailgate FFL" /></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li class="nav-has-dropdown" id="nav-teams-li">
+        <a href="#" class="nav-dropdown-toggle" onclick="toggleTeamsDropdown(event);">Teams <span class="nav-chevron">▾</span></a>
+        <ul class="nav-dropdown-menu" id="nav-teams-dropdown"><li><a href="#">Loading…</a></li></ul>
+      </li>
+      <li><a href="draft-board.html">2026 Draft Board</a></li>
+      <li><a href="keeper-options.html">2026 Keeper Options</a></li>
+      <li><a href="keeper-tracker.html">Historical Keeper Tracker</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <div class="page-hero">
+    <div class="page-hero-glow"></div>
+    <div class="page-eyebrow"><span class="page-eyebrow-dot"></span>Sunday Tailgate FFL · Scoring System</div>
+    <h1 class="page-title">Full <span>Points System</span> Breakdown</h1>
+    <p class="page-sub">Every point counts. Here's exactly how your roster scores — from passing yards to blocked kicks.</p>
+  </div>
+
+  <!-- ─── ROSTER POSITIONS ─── -->
+  <div class="rs-label">Starting Lineup</div>
+  <div class="roster-strip" id="roster-strip"></div>
+
+  <!-- ─── FORMAT CARDS ─── -->
+  <div class="format-banner" id="format-banner"></div>
+
+  <!-- ─── SCORING CATEGORIES ─── -->
+  <div class="content-wrap" id="scoring-content">
+    <div class="page-loading">Loading scoring settings…</div>
+  </div>
+
+  <script>
+    const API  = 'https://api.sleeper.app/v1';
+    const LID  = '1200568850395955200';
+
+    /* ── Nav helpers ── */
+    function toggleMobileNav() {
+      document.getElementById('nav-links').classList.toggle('open');
+      document.getElementById('nav-hamburger').classList.toggle('open');
+    }
+    function toggleTeamsDropdown(e) {
+      e.preventDefault();
+      document.getElementById('nav-teams-li')?.classList.toggle('open');
+    }
+    document.addEventListener('click', e => {
+      const li = document.getElementById('nav-teams-li');
+      if (li && !li.contains(e.target)) li.classList.remove('open');
+    });
+
+    /* ── Toggle category ── */
+    function toggleCat(el) {
+      el.closest('.sc-category').classList.toggle('open');
+    }
+
+    /* ── Friendly names for scoring keys ── */
+    const LABELS = {
+      pass_yd: 'Passing Yards', pass_td: 'Passing TD', pass_int: 'Interception Thrown', pass_2pt: 'Passing 2-PT Conversion',
+      pass_cmp: 'Pass Completion', pass_sack: 'QB Sacked', bonus_pass_yd_400: '400+ Passing Yard Bonus',
+      rush_yd: 'Rushing Yards', rush_td: 'Rushing TD', rush_att: 'Rush Attempt', rush_2pt: 'Rushing 2-PT Conversion',
+      rush_td_50p: '50+ Yard Rush TD Bonus',
+      rec_yd: 'Receiving Yards', rec_td: 'Receiving TD', rec: 'Reception (PPR)', rec_2pt: 'Receiving 2-PT Conversion',
+      rec_td_50p: '50+ Yard Receiving TD Bonus',
+      fum: 'Fumble', fum_lost: 'Fumble Lost', fum_rec: 'Fumble Recovery', fum_rec_td: 'Fumble Recovery TD',
+      fgm_0_19: 'FG Made 0–19 yds', fgm_20_29: 'FG Made 20–29 yds', fgm_30_39: 'FG Made 30–39 yds',
+      fgm_40_49: 'FG Made 40–49 yds', fgm_50p: 'FG Made 50+ yds',
+      fgmiss: 'FG Missed', fgmiss_0_19: 'FG Missed 0–19 yds', fgmiss_20_29: 'FG Missed 20–29 yds',
+      xpm: 'Extra Point Made', xpmiss: 'Extra Point Missed',
+      sack: 'Sack', int: 'Interception', ff: 'Forced Fumble', def_td: 'Defensive TD', safe: 'Safety',
+      blk_kick: 'Blocked Kick', def_2pt: 'Defensive 2-PT Return',
+      pts_allow_0: '0 Points Allowed', pts_allow_1_6: '1–6 Points Allowed', pts_allow_7_13: '7–13 Points Allowed',
+      pts_allow_14_20: '14–20 Points Allowed', pts_allow_21_27: '21–27 Points Allowed',
+      pts_allow_28_34: '28–34 Points Allowed', pts_allow_35p: '35+ Points Allowed',
+      yds_allow_0_100: '0–100 Yards Allowed',
+      st_td: 'Special Teams TD', st_ff: 'ST Forced Fumble', st_fum_rec: 'ST Fumble Recovery',
+      def_st_td: 'DEF/ST TD', def_st_ff: 'DEF/ST Forced Fumble', def_st_fum_rec: 'DEF/ST Fumble Recovery',
+      kr_yd: 'Kick Return Yards', pr_yd: 'Punt Return Yards', def_kr_yd: 'DEF Kick Return Yards', def_pr_yd: 'DEF Punt Return Yards',
+    };
+
+    /* ── Category groupings ── */
+    const CATS = [
+      { id: 'passing', icon: '🏈', color: 'rgba(212,162,52,0.18)', border: 'rgba(212,162,52,0.35)', title: 'Passing',
+        keys: ['pass_cmp','pass_yd','pass_td','pass_int','pass_2pt','pass_sack','bonus_pass_yd_400'] },
+      { id: 'rushing', icon: '🏃', color: 'rgba(61,253,152,0.12)', border: 'rgba(61,253,152,0.3)', title: 'Rushing',
+        keys: ['rush_att','rush_yd','rush_td','rush_2pt','rush_td_50p'] },
+      { id: 'receiving', icon: '🙌', color: 'rgba(100,170,255,0.12)', border: 'rgba(100,170,255,0.3)', title: 'Receiving',
+        keys: ['rec','rec_yd','rec_td','rec_2pt','rec_td_50p'] },
+      { id: 'fumbles', icon: '💥', color: 'rgba(255,95,87,0.1)', border: 'rgba(255,95,87,0.25)', title: 'Fumbles',
+        keys: ['fum','fum_lost','fum_rec','fum_rec_td'] },
+      { id: 'kicking', icon: '🦵', color: 'rgba(255,160,60,0.1)', border: 'rgba(255,160,60,0.3)', title: 'Kicking',
+        keys: ['fgm_0_19','fgm_20_29','fgm_30_39','fgm_40_49','fgm_50p','fgmiss','fgmiss_0_19','fgmiss_20_29','xpm','xpmiss'] },
+      { id: 'dst', icon: '🛡️', color: 'rgba(139,26,36,0.15)', border: 'rgba(200,40,50,0.3)', title: 'Defense & Special Teams',
+        keys: ['sack','int','ff','def_td','safe','blk_kick','def_2pt','st_td','st_ff','st_fum_rec','def_st_td','def_st_ff','def_st_fum_rec','kr_yd','pr_yd','def_kr_yd','def_pr_yd'] },
+      { id: 'pa', icon: '📊', color: 'rgba(200,130,255,0.1)', border: 'rgba(200,130,255,0.25)', title: 'Points Allowed (DEF)',
+        keys: ['pts_allow_0','pts_allow_1_6','pts_allow_7_13','pts_allow_14_20','pts_allow_21_27','pts_allow_28_34','pts_allow_35p','yds_allow_0_100'] },
+    ];
+
+    function fmtVal(v) {
+      if (v === 0) return '0';
+      if (Number.isInteger(v)) return (v > 0 ? '+' : '') + v;
+      return (v > 0 ? '+' : '') + v.toFixed(v % 1 === 0 ? 0 : 2).replace(/\.?0+$/, '');
+    }
+
+    function valClass(v, key) {
+      if (key && key.startsWith('bonus_')) return 'bonus';
+      if (key && (key.endsWith('_50p') && !key.startsWith('fgm') && !key.startsWith('pts'))) return 'bonus';
+      if (v > 0) return 'pos';
+      if (v < 0) return 'neg';
+      return 'zero';
+    }
+
+    function perUnit(key, v) {
+      if (key === 'pass_yd') return `(${(v * 25).toFixed(0)} pts per 25 yds)`;
+      if (key === 'rush_yd' || key === 'rec_yd') return `(${(v * 10).toFixed(0)} pts per 10 yds)`;
+      if (key === 'kr_yd' || key === 'pr_yd' || key === 'def_kr_yd' || key === 'def_pr_yd') return `(${(v * 10).toFixed(0)} pts per 10 yds)`;
+      return '';
+    }
+
+    async function init() {
+      try {
+        const res = await fetch(`${API}/league/${LID}`);
+        const league = await res.json();
+        const ss = league.scoring_settings || {};
+        const roster = league.roster_positions || [];
+        const settings = league.settings || {};
+
+        /* ── Roster strip ── */
+        const posMap = { QB:'qb', RB:'rb', WR:'wr', TE:'te', WRRB_FLEX:'flex', SUPER_FLEX:'flex', K:'k', DEF:'def', BN:'bn' };
+        const posNames = { QB:'QB', RB:'RB', WR:'WR', TE:'TE', WRRB_FLEX:'W/R Flex', SUPER_FLEX:'Super Flex', K:'K', DEF:'DEF', BN:'Bench' };
+        document.getElementById('roster-strip').innerHTML = roster.map(p =>
+          `<span class="rs-chip ${posMap[p]||'bn'}">${posNames[p]||p}</span>`
+        ).join('');
+
+        /* ── Format cards ── */
+        const waiverTypes = { 0:'Rolling', 1:'Rolling (Reverse)', 2:'FAAB' };
+        document.getElementById('format-banner').innerHTML = `
+          <div class="fmt-card"><div class="fmt-val">Full PPR</div><div class="fmt-label">Scoring Format</div></div>
+          <div class="fmt-card"><div class="fmt-val">${settings.num_teams || 10}</div><div class="fmt-label">Teams</div></div>
+          <div class="fmt-card"><div class="fmt-val">${settings.playoff_teams || 8}</div><div class="fmt-label">Playoff Teams</div></div>
+          <div class="fmt-card"><div class="fmt-val">$${settings.waiver_budget || 100}</div><div class="fmt-label">${waiverTypes[settings.waiver_type] || 'Waivers'}</div></div>
+          <div class="fmt-card"><div class="fmt-val">${settings.max_keepers || 1}</div><div class="fmt-label">Max Keepers</div></div>
+        `;
+
+        /* ── Scoring categories ── */
+        let html = '';
+        CATS.forEach((cat, ci) => {
+          const present = cat.keys.filter(k => ss[k] !== undefined);
+          if (!present.length) return;
+          const isOpen = ci < 3 ? ' open' : '';
+          html += `<div class="sc-category${isOpen}" style="animation-delay:${ci * 0.06}s">
+            <div class="sc-header" onclick="toggleCat(this)" style="border-top: 2px solid ${cat.border};">
+              <div class="sc-icon" style="background:${cat.color};border:1px solid ${cat.border};">${cat.icon}</div>
+              <div class="sc-title">${cat.title}</div>
+              <div class="sc-count">${present.length} rules</div>
+              <div class="sc-chevron">▾</div>
+            </div>
+            <div class="sc-body">`;
+          present.forEach(key => {
+            const v = ss[key];
+            const label = LABELS[key] || key.replace(/_/g, ' ');
+            const unit = perUnit(key, v);
+            html += `<div class="sc-row">
+              <div class="sc-label">${label}${unit ? ` <span style="font-size:0.68rem;color:rgba(255,255,255,0.22);font-weight:500;">${unit}</span>` : ''}</div>
+              <div class="sc-value ${valClass(v, key)}">${fmtVal(v)} pts</div>
+            </div>`;
+          });
+          html += '</div></div>';
+        });
+
+        document.getElementById('scoring-content').innerHTML = html;
+
+        /* ── Populate teams dropdown ── */
+        try {
+          const [usersRes, rostersRes] = await Promise.all([
+            fetch(`${API}/league/${LID}/users`).then(r => r.json()),
+            fetch(`${API}/league/${LID}/rosters`).then(r => r.json()),
+          ]);
+          const userMap = {};
+          (usersRes||[]).forEach(u => userMap[u.user_id] = u);
+          const teams = (rostersRes||[]).map(r => {
+            const u = userMap[r.owner_id] || {};
+            return { name: (u.metadata||{}).team_name || u.display_name || 'Team', id: r.roster_id };
+          }).sort((a,b) => a.name.localeCompare(b.name));
+          const ddEl = document.getElementById('nav-teams-dropdown');
+          ddEl.innerHTML = teams.map(t =>
+            `<li><a href="team.html?roster=${t.id}">${t.name}</a></li>`
+          ).join('');
+        } catch(e) {}
+
+      } catch(err) {
+        document.getElementById('scoring-content').innerHTML =
+          `<div class="page-loading" style="color:rgba(255,95,87,0.6);">Failed to load scoring data. Please refresh.</div>`;
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
