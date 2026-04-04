@@ -46,6 +46,27 @@
 - **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
 - **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
 
+## Git & Branching
+- **Never work or commit on `main`.** If the current branch is `main`, immediately prompt the user to create or switch to a feature branch before making any changes.
+- **Always pull before starting work** — avoid conflicts from a stale branch.
+- **Commit frequently** with small, focused commits — not one giant commit at the end.
+- **Use conventional commit messages** (e.g. `feat:`, `fix:`, `refactor:`, `docs:`) for consistency.
+- **Check `git diff` before committing** — review your own changes for accidental modifications, debug logs, or leftover code.
+
+## Proactive Workflow
+- **Read the OpenSpec before starting** — check `OpenSpec/` for active changes/tasks so work stays aligned with the current plan.
+- **Run the dev server and screenshot after every visible change** — don't wait for the user to ask; self-verify continuously.
+- **Never leave `console.log` or debug artifacts** in committed code.
+
+## Safety & Hygiene
+- **Never delete or overwrite files without reading them first** — avoid clobbering in-progress work.
+- **Never modify shared config files** (e.g. `package.json`, `serve.mjs`, `screenshot.mjs`) without asking the user first.
+- **Back up before large refactors** — commit current state on the branch before making sweeping changes.
+
+## Code Quality
+- **Match existing patterns** — before writing new code, check how similar things are done elsewhere in the repo.
+- **Keep HTML files self-contained** unless the user sets up a build system — no external CSS/JS files without asking.
+
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it
