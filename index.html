@@ -336,45 +336,6 @@
       animation: fade-up 0.6s cubic-bezier(0.16,1,0.3,1) forwards 2.2s;
     }
 
-    /* Scroll-to-explore button (ported from component) */
-    .scroll-explore-btn {
-      position: absolute;
-      bottom: 36px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: rgba(255,255,255,0.55);
-      font-family: inherit;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 10px 20px;
-      border-radius: 100px;
-      cursor: pointer;
-      text-decoration: none;
-      opacity: 0;
-      animation: fade-up 0.6s ease forwards 2.6s;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
-    }
-    .scroll-explore-btn:hover {
-      color: var(--white);
-      border-color: rgba(212,162,52,0.4);
-      background: rgba(212,162,52,0.08);
-    }
-    .scroll-arrow {
-      animation: bounce-arrow 1.4s ease-in-out infinite;
-      display: flex;
-    }
-    @keyframes bounce-arrow {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(4px); }
-    }
 
     .btn-secondary {
       background: transparent;
@@ -1899,15 +1860,6 @@
       </div>
     </section>
 
-    <a href="#hall-of-fame" class="scroll-explore-btn">
-      Scroll to explore
-      <span class="scroll-arrow">
-        <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M11 5V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M6 12L11 17L16 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-      </span>
-    </a>
   </div>
 
   <!-- ─── INTERACTION HINTS ─── -->
