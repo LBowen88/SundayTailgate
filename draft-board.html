@@ -1142,13 +1142,15 @@
     /* ── traded picks panel ── */
     function renderTrades(picks26, teams) {
       if (!picks26?.length) return;
+      const traded = picks26.filter(tp => tp.roster_id !== tp.owner_id);
+      if (!traded.length) return;
       const panel = document.getElementById('trade-panel');
       const list  = document.getElementById('tp-list');
       if (!panel) return;
       panel.style.display = 'block';
       const count = document.getElementById('tp-count');
-      if (count) count.textContent = `${picks26.length} pick${picks26.length!==1?'s':''} moved`;
-      if (list) list.innerHTML = picks26.sort((a,b) => a.round-b.round).map(tp => {
+      if (count) count.textContent = `${traded.length} pick${traded.length!==1?'s':''} moved`;
+      if (list) list.innerHTML = traded.sort((a,b) => a.round-b.round).map(tp => {
         const from = teams.find(t => t.roster_id === tp.roster_id);
         const to   = teams.find(t => t.roster_id === tp.owner_id);
         if (!from || !to) return '';
