@@ -620,7 +620,8 @@
       window.addEventListener('resize', setNavHeight);
     })();
 
-    const LEAGUE_ID  = '1200568850395955200';
+    const LEAGUE_ID  = '1200568850395955200'; // 2025 season — standings & brackets
+    const LEAGUE_ID_2026 = '1381185776049475584'; // 2026 season — traded picks
     const BASE       = 'https://api.sleeper.app/v1';
     const ROUNDS     = 15;
     const TOTAL_WKS  = 17;
@@ -886,7 +887,7 @@
           api(`/league/${LEAGUE_ID}/users`),
           api(`/league/${LEAGUE_ID}/winners_bracket`).catch(()=>[]),
           api(`/league/${LEAGUE_ID}/losers_bracket`).catch(()=>[]),
-          api(`/league/${LEAGUE_ID}/traded_picks`).catch(()=>[])
+          api(`/league/${LEAGUE_ID_2026}/traded_picks`).catch(()=>[])
         ]);
 
         const userMap = {};
