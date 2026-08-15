@@ -1,673 +1,671 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2026 Keeper Options — Sunday Tailgate FFL</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #06080f; --navy: #0d1b3e; --gold: #d4a234; --gold-2: #f0cc7a;
-      --green: #3dfd98; --white: #ffffff;
-      --red: #cc3333; --blue: #1e3d8f; --crimson: #8b1a24;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--bg);
-      background-image:
-        radial-gradient(ellipse 85% 55% at 8% 0%,   rgba(30,61,143,0.18)  0%, transparent 60%),
-        radial-gradient(ellipse 60% 45% at 94% 98%,  rgba(139,26,36,0.14)  0%, transparent 60%),
-        radial-gradient(ellipse 50% 35% at 50% 12%,  rgba(212,162,52,0.07) 0%, transparent 55%),
-        radial-gradient(ellipse 40% 30% at 88% 30%,  rgba(30,61,143,0.07)  0%, transparent 50%),
-        radial-gradient(ellipse 35% 25% at 12% 75%,  rgba(139,26,36,0.07)  0%, transparent 50%);
-      color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh;
-    }
-    body::after {
-      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.045;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 220px 220px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2027 Keeper Options — Sunday Tailgate FFL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root {
+--bg: #06080f; --navy: #0d1b3e; --gold: #d4a234; --gold-2: #f0cc7a;
+--green: #3dfd98; --white: #ffffff;
+--red: #cc3333; --blue: #1e3d8f; --crimson: #8b1a24;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body {
+background-color: var(--bg);
+background-image:
+radial-gradient(ellipse 85% 55% at 8% 0%, rgba(30,61,143,0.18) 0%, transparent 60%),
+radial-gradient(ellipse 60% 45% at 94% 98%, rgba(139,26,36,0.14) 0%, transparent 60%),
+radial-gradient(ellipse 50% 35% at 50% 12%, rgba(212,162,52,0.07) 0%, transparent 55%),
+radial-gradient(ellipse 40% 30% at 88% 30%, rgba(30,61,143,0.07) 0%, transparent 50%),
+radial-gradient(ellipse 35% 25% at 12% 75%, rgba(139,26,36,0.07) 0%, transparent 50%);
+color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh;
+}
+body::after {
+content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.045;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+background-size: 220px 220px;
+}
 
-    /* ─── NAV ─── */
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; position: sticky; top: 0; z-index: 200; background: rgba(6,8,15,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo img { height: 48px; width: auto; }
-    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
-    .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.87rem; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--white); }
-    .nav-links a.active { color: var(--gold); font-weight: 700; }
-    .nav-has-dropdown { position: relative; }
-    .nav-dropdown-toggle { display: flex; align-items: center; gap: 4px; cursor: pointer; }
-    .nav-chevron { font-size: 0.6rem; opacity: 0.5; transition: transform 0.2s; }
-    .nav-has-dropdown.open .nav-chevron { transform: rotate(180deg); }
-    .nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: var(--navy); border: 1px solid rgba(212,162,52,0.22); border-radius: 10px; padding: 6px 0; min-width: 230px; list-style: none; z-index: 9999; box-shadow: 0 16px 48px rgba(0,0,0,0.65); max-height: 80vh; overflow-y: auto; }
-    .nav-has-dropdown.open .nav-dropdown-menu { display: block; }
-    .nav-dropdown-menu li a { display: flex; align-items: center; gap: 10px; padding: 9px 16px; font-size: 0.84rem; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: background 0.15s, color 0.15s; white-space: nowrap; }
-    .nav-dropdown-menu li a:hover { background: rgba(212,162,52,0.1); color: var(--gold); }
-    .nav-dropdown-menu li.dd-sep { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4px; padding-top: 4px; }
+/* ─── NAV ─── */
+nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; position: sticky; top: 0; z-index: 200; background: rgba(6,8,15,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo img { height: 48px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.87rem; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--white); }
+.nav-links a.active { color: var(--gold); font-weight: 700; }
+.nav-has-dropdown { position: relative; }
+.nav-dropdown-toggle { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.nav-chevron { font-size: 0.6rem; opacity: 0.5; transition: transform 0.2s; }
+.nav-has-dropdown.open .nav-chevron { transform: rotate(180deg); }
+.nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: var(--navy); border: 1px solid rgba(212,162,52,0.22); border-radius: 10px; padding: 6px 0; min-width: 230px; list-style: none; z-index: 9999; box-shadow: 0 16px 48px rgba(0,0,0,0.65); max-height: 80vh; overflow-y: auto; }
+.nav-has-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu li a { display: flex; align-items: center; gap: 10px; padding: 9px 16px; font-size: 0.84rem; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+.nav-dropdown-menu li a:hover { background: rgba(212,162,52,0.1); color: var(--gold); }
+.nav-dropdown-menu li.dd-sep { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4px; padding-top: 4px; }
 
-    /* ─── HERO ─── */
-    .page-hero { position: relative; overflow: hidden; padding: 40px 48px 28px; text-align: center; z-index: 1; }
-    .page-hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 65% 80% at 50% -5%, rgba(30,61,143,0.22) 0%, transparent 65%); }
-    .page-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 0.67rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); background: rgba(212,162,52,0.09); border: 1px solid rgba(212,162,52,0.28); padding: 6px 18px; border-radius: 100px; }
-    .page-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-dot 2s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.6rem, 5vw, 4.8rem); letter-spacing: 0.06em; line-height: 0.95; margin-bottom: 14px; }
-    .page-title span { color: var(--gold); text-shadow: 0 0 50px rgba(212,162,52,0.3); }
-    .page-subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.35); max-width: 580px; margin: 0 auto 10px; line-height: 1.65; }
+/* ─── HERO ─── */
+.page-hero { position: relative; overflow: hidden; padding: 40px 48px 28px; text-align: center; z-index: 1; }
+.page-hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 65% 80% at 50% -5%, rgba(30,61,143,0.22) 0%, transparent 65%); }
+.page-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 0.67rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); background: rgba(212,162,52,0.09); border: 1px solid rgba(212,162,52,0.28); padding: 6px 18px; border-radius: 100px; }
+.page-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.6rem, 5vw, 4.8rem); letter-spacing: 0.06em; line-height: 0.95; margin-bottom: 14px; }
+.page-title span { color: var(--gold); text-shadow: 0 0 50px rgba(212,162,52,0.3); }
+.page-subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.35); max-width: 580px; margin: 0 auto 10px; line-height: 1.65; }
 
-    /* ─── INTERACTION HINT BAR ─── */
-    .hint-bar {
-      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-      max-width: 900px; margin: 0 auto 16px; padding: 10px 16px;
-      background: rgba(212,162,52,0.05); border: 1px solid rgba(212,162,52,0.12);
-      border-radius: 8px; position: relative; z-index: 1;
-    }
-    .hint-bar .hint-icon { flex-shrink: 0; font-size: 0.72rem; color: rgba(212,162,52,0.6); }
-    .hint-bar .hint-text { font-size: 0.72rem; font-weight: 500; color: rgba(255,255,255,0.38); line-height: 1.5; }
-    .hint-touch { display: none; }
-    .hint-mouse { display: inline; }
-    @media (hover: none) and (pointer: coarse) {
-      .hint-touch { display: inline; }
-      .hint-mouse { display: none; }
-    }
+/* ─── INTERACTION HINT BAR ─── */
+.hint-bar {
+display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+max-width: 900px; margin: 0 auto 16px; padding: 10px 16px;
+background: rgba(212,162,52,0.05); border: 1px solid rgba(212,162,52,0.12);
+border-radius: 8px; position: relative; z-index: 1;
+}
+.hint-bar .hint-icon { flex-shrink: 0; font-size: 0.72rem; color: rgba(212,162,52,0.6); }
+.hint-bar .hint-text { font-size: 0.72rem; font-weight: 500; color: rgba(255,255,255,0.38); line-height: 1.5; }
+.hint-touch { display: none; }
+.hint-mouse { display: inline; }
+@media (hover: none) and (pointer: coarse) {
+.hint-touch { display: inline; }
+.hint-mouse { display: none; }
+}
 
-    /* ─── LEGEND ─── */
-    .legend-bar {
-      position: relative; z-index: 1;
-      max-width: 900px; margin: 0 auto 20px; padding: 0 48px;
-      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 20px;
-    }
-    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.45); }
-    .legend-swatch { width: 28px; height: 20px; border-radius: 4px; flex-shrink: 0; }
-    .ls-available { background: rgba(61,253,152,0.12); border: 1px solid rgba(61,253,152,0.35); }
-    .ls-keeper   { background: rgba(212,162,52,0.18); border: 1px solid rgba(212,162,52,0.5); }
-    .ls-traded   { background: rgba(204,51,51,0.1); border: 1px dashed rgba(204,51,51,0.4); }
-    .ls-empty    { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+/* ─── LEGEND ─── */
+.legend-bar {
+position: relative; z-index: 1;
+max-width: 900px; margin: 0 auto 20px; padding: 0 48px;
+display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 20px;
+}
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.45); }
+.legend-swatch { width: 28px; height: 20px; border-radius: 4px; flex-shrink: 0; }
+.ls-available { background: rgba(61,253,152,0.12); border: 1px solid rgba(61,253,152,0.35); }
+.ls-keeper { background: rgba(212,162,52,0.18); border: 1px solid rgba(212,162,52,0.5); }
+.ls-traded { background: rgba(204,51,51,0.1); border: 1px dashed rgba(204,51,51,0.4); }
+.ls-empty { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
 
-    /* ─── GRID WRAPPER ─── */
-    .kb-outer { position: relative; z-index: 1; padding: 0 24px 80px; overflow: auto; -webkit-overflow-scrolling: touch; max-height: calc(100vh - var(--nav-h, 81px) - 16px); }
-    .kb-outer::-webkit-scrollbar { height: 5px; }
-    .kb-outer::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 3px; }
-    .kb-outer::-webkit-scrollbar-thumb { background: rgba(212,162,52,0.35); border-radius: 3px; }
+/* ─── GRID WRAPPER ─── */
+.kb-outer { position: relative; z-index: 1; padding: 0 24px 80px; overflow: auto; -webkit-overflow-scrolling: touch; max-height: calc(100vh - var(--nav-h, 81px) - 16px); }
+.kb-outer::-webkit-scrollbar { height: 5px; }
+.kb-outer::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 3px; }
+.kb-outer::-webkit-scrollbar-thumb { background: rgba(212,162,52,0.35); border-radius: 3px; }
 
-    /* ─── GRID ─── */
-    .kb-grid {
-      display: grid;
-      grid-template-columns: 44px repeat(var(--col-count, 10), minmax(150px, 1fr));
-      gap: 3px;
-      min-width: 1420px;
-    }
+/* ─── GRID ─── */
+.kb-grid {
+display: grid;
+grid-template-columns: 44px repeat(var(--col-count, 10), minmax(150px, 1fr));
+gap: 3px;
+min-width: 1420px;
+}
 
-    /* Round label cells */
-    .kb-rnd {
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.02);
-      border-radius: 6px; padding: 6px 0;
-      position: sticky; left: 0; z-index: 5;
-    }
-    .kb-rnd.phase-1 { color: rgba(212,162,52,0.6); }
-    .kb-rnd.phase-2 { color: rgba(61,253,152,0.5); }
-    .kb-rnd.phase-3 { color: rgba(255,255,255,0.25); }
+/* Round label cells */
+.kb-rnd {
+display: flex; align-items: center; justify-content: center;
+font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.06em;
+color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.02);
+border-radius: 6px; padding: 6px 0;
+position: sticky; left: 0; z-index: 5;
+}
+.kb-rnd.phase-1 { color: rgba(212,162,52,0.6); }
+.kb-rnd.phase-2 { color: rgba(61,253,152,0.5); }
+.kb-rnd.phase-3 { color: rgba(255,255,255,0.25); }
 
-    /* Column header cells */
-    .kb-team-hd {
-      display: flex; flex-direction: column; align-items: center; gap: 5px;
-      padding: 10px 6px 8px;
-      background: #0a1120; border-radius: 8px;
-      border-top: 3px solid var(--tc, rgba(255,255,255,0.1));
-      text-align: center;
-      position: sticky; top: 0; z-index: 12;
-    }
-    .kb-corner-hd {
-      position: sticky; top: 0; left: 0; z-index: 15;
-      background: #0a1120;
-    }
-    .kb-team-hd-name { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.03em; color: rgba(255,255,255,0.85); white-space: normal; word-break: break-word; line-height: 1.25; max-width: 100%; text-transform: uppercase; }
-    .kb-team-hd-count { font-size: 0.52rem; font-weight: 600; color: rgba(255,255,255,0.25); white-space: nowrap; }
+/* Column header cells */
+.kb-team-hd {
+display: flex; flex-direction: column; align-items: center; gap: 5px;
+padding: 10px 6px 8px;
+background: #0a1120; border-radius: 8px;
+border-top: 3px solid var(--tc, rgba(255,255,255,0.1));
+text-align: center;
+position: sticky; top: 0; z-index: 12;
+}
+.kb-corner-hd {
+position: sticky; top: 0; left: 0; z-index: 15;
+background: #0a1120;
+}
+.kb-team-hd-name { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.03em; color: rgba(255,255,255,0.85); white-space: normal; word-break: break-word; line-height: 1.25; max-width: 100%; text-transform: uppercase; }
+.kb-team-hd-count { font-size: 0.52rem; font-weight: 600; color: rgba(255,255,255,0.25); white-space: nowrap; }
 
-    /* Player cells */
-    .kb-cell {
-      border-radius: 7px; padding: 7px 8px; min-height: 68px;
-      display: flex; flex-direction: column; gap: 3px; justify-content: center;
-    }
-    /* Available keeper */
-    .kb-cell.avail {
-      background: rgba(61,253,152,0.055); border: 1px solid rgba(61,253,152,0.18);
-      cursor: default; transition: background 0.15s, border-color 0.15s;
-    }
-    .kb-cell.avail:hover { background: rgba(61,253,152,0.1); border-color: rgba(61,253,152,0.35); }
-    /* Confirmed 2025 keeper (already on 1 strike) */
-    .kb-cell.keeper {
-      background: rgba(212,162,52,0.10); border: 1px solid rgba(212,162,52,0.4);
-    }
-    .kb-cell.keeper:hover { background: rgba(212,162,52,0.16); }
-    /* Pick traded — CAN'T keep */
-    .kb-cell.traded {
-      background: rgba(204,51,51,0.06); border: 1px dashed rgba(204,51,51,0.3);
-      position: relative; overflow: hidden;
-    }
-    .kb-cell.traded::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(-45deg, transparent 0px, transparent 7px, rgba(204,51,51,0.05) 7px, rgba(204,51,51,0.05) 8px);
-    }
-    /* Empty */
-    .kb-cell.empty {
-      background: rgba(255,255,255,0.012); border: 1px solid rgba(255,255,255,0.04);
-    }
+/* Player cells */
+.kb-cell {
+border-radius: 7px; padding: 7px 8px; min-height: 68px;
+display: flex; flex-direction: column; gap: 3px; justify-content: center;
+}
+/* Available keeper */
+.kb-cell.avail {
+background: rgba(61,253,152,0.055); border: 1px solid rgba(61,253,152,0.18);
+cursor: default; transition: background 0.15s, border-color 0.15s;
+}
+.kb-cell.avail:hover { background: rgba(61,253,152,0.1); border-color: rgba(61,253,152,0.35); }
+/* Confirmed 2026 keeper (already on a strike) */
+.kb-cell.keeper {
+background: rgba(212,162,52,0.10); border: 1px solid rgba(212,162,52,0.4);
+}
+.kb-cell.keeper:hover { background: rgba(212,162,52,0.16); }
+/* Pick traded — CAN'T keep */
+.kb-cell.traded {
+background: rgba(204,51,51,0.06); border: 1px dashed rgba(204,51,51,0.3);
+position: relative; overflow: hidden;
+}
+.kb-cell.traded::before {
+content: ''; position: absolute; inset: 0;
+background: repeating-linear-gradient(-45deg, transparent 0px, transparent 7px, rgba(204,51,51,0.05) 7px, rgba(204,51,51,0.05) 8px);
+}
+/* Empty */
+.kb-cell.empty {
+background: rgba(255,255,255,0.012); border: 1px solid rgba(255,255,255,0.04);
+}
 
-    /* Player name inside cell */
-    .kb-player { display: flex; flex-direction: column; gap: 2px; position: relative; z-index: 1; }
-    .kb-p-name { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.9); line-height: 1.25; }
-    .kb-p-name.keeper-name { color: var(--gold); }
-    .kb-p-meta { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-    .kb-pos { font-size: 0.5rem; font-weight: 800; padding: 1px 4px; border-radius: 3px; letter-spacing: 0.3px; }
-    .pos-QB { background: rgba(212,162,52,0.2); color: #f0cc7a; }
-    .pos-RB { background: rgba(61,253,152,0.15); color: #3dfd98; }
-    .pos-WR { background: rgba(120,180,255,0.15); color: #a0c4ff; }
-    .pos-TE { background: rgba(255,140,0,0.15); color: #ffab4e; }
-    .pos-K  { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.4); }
-    .pos-DEF{ background: rgba(160,120,255,0.15); color: #c4a0ff; }
-    .kb-keeper-badge {
-      font-size: 0.46rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
-      background: rgba(212,162,52,0.2); color: var(--gold);
-      border: 1px solid rgba(212,162,52,0.4); padding: 1px 5px; border-radius: 3px;
-    }
-    .kb-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 2px 0; }
+/* Player name inside cell */
+.kb-player { display: flex; flex-direction: column; gap: 2px; position: relative; z-index: 1; }
+.kb-p-name { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.9); line-height: 1.25; }
+.kb-p-name.keeper-name { color: var(--gold); }
+.kb-p-meta { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.kb-pos { font-size: 0.5rem; font-weight: 800; padding: 1px 4px; border-radius: 3px; letter-spacing: 0.3px; }
+.pos-QB { background: rgba(212,162,52,0.2); color: #f0cc7a; }
+.pos-RB { background: rgba(61,253,152,0.15); color: #3dfd98; }
+.pos-WR { background: rgba(120,180,255,0.15); color: #a0c4ff; }
+.pos-TE { background: rgba(255,140,0,0.15); color: #ffab4e; }
+.pos-K { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.4); }
+.pos-DEF{ background: rgba(160,120,255,0.15); color: #c4a0ff; }
+.kb-keeper-badge {
+font-size: 0.46rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+background: rgba(212,162,52,0.2); color: var(--gold);
+border: 1px solid rgba(212,162,52,0.4); padding: 1px 5px; border-radius: 3px;
+}
+.kb-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 2px 0; }
 
-    /* Traded pick cell content */
-    .kb-traded-label {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center; gap: 3px; width: 100%;
-    }
-    .kb-traded-top { font-size: 0.52rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(204,51,51,0.6); }
-    .kb-traded-player { font-size: 0.64rem; font-weight: 600; color: rgba(255,255,255,0.3); line-height: 1.2; text-align: center; }
-    .kb-traded-player em { font-style: normal; font-size: 0.48rem; display: block; color: rgba(255,255,255,0.2); }
+/* Traded pick cell content */
+.kb-traded-label {
+position: relative; z-index: 1;
+display: flex; flex-direction: column; align-items: center; gap: 3px; width: 100%;
+}
+.kb-traded-top { font-size: 0.52rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(204,51,51,0.6); }
+.kb-traded-player { font-size: 0.64rem; font-weight: 600; color: rgba(255,255,255,0.3); line-height: 1.2; text-align: center; }
+.kb-traded-player em { font-style: normal; font-size: 0.48rem; display: block; color: rgba(255,255,255,0.2); }
 
-    /* Phase separator row */
-    .kb-phase-label {
-      grid-column: 1 / -1; padding: 6px 8px; margin-top: 4px;
-      font-size: 0.56rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.16em;
-      color: rgba(255,255,255,0.2);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .kb-phase-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
+/* Phase separator row */
+.kb-phase-label {
+grid-column: 1 / -1; padding: 6px 8px; margin-top: 4px;
+font-size: 0.56rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.16em;
+color: rgba(255,255,255,0.2);
+display: flex; align-items: center; gap: 10px;
+}
+.kb-phase-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
 
-    /* ─── LOADING ─── */
-    .kb-loading { text-align: center; padding: 80px 20px; color: rgba(255,255,255,0.22); font-size: 0.9rem; }
+/* ─── LOADING ─── */
+.kb-loading { text-align: center; padding: 80px 20px; color: rgba(255,255,255,0.22); font-size: 0.9rem; }
 
-    /* ─── FOOTER STATS ─── */
-    .kb-footer {
-      position: relative; z-index: 1;
-      max-width: 1400px; margin: 0 auto; padding: 0 24px 60px;
-    }
-    .kb-footer-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); margin-bottom: 12px; padding-left: 4px; }
-    .kb-footer-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .kb-footer-card {
-      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px; padding: 12px 16px; min-width: 160px;
-      border-left: 2px solid var(--tc, rgba(255,255,255,0.1));
-    }
-    .kb-footer-team { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
-    .kb-footer-stats { display: flex; gap: 14px; }
-    .kb-fs-item { text-align: center; }
-    .kb-fs-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--gold); line-height: 1; }
-    .kb-fs-lbl { font-size: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.22); }
+/* ─── FOOTER STATS ─── */
+.kb-footer {
+position: relative; z-index: 1;
+max-width: 1400px; margin: 0 auto; padding: 0 24px 60px;
+}
+.kb-footer-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); margin-bottom: 12px; padding-left: 4px; }
+.kb-footer-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.kb-footer-card {
+background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
+border-radius: 10px; padding: 12px 16px; min-width: 160px;
+border-left: 2px solid var(--tc, rgba(255,255,255,0.1));
+}
+.kb-footer-team { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
+.kb-footer-stats { display: flex; gap: 14px; }
+.kb-fs-item { text-align: center; }
+.kb-fs-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--gold); line-height: 1; }
+.kb-fs-lbl { font-size: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.22); }
 
-    /* ─── HAMBURGER ─── */
-    .nav-hamburger {
-      display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
-      background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
-      cursor: pointer; padding: 8px 10px; z-index: 201; flex-shrink: 0;
-    }
-    .nav-hamburger span { display: block; width: 20px; height: 2px; background: rgba(255,255,255,0.75); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
-    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* ─── HAMBURGER ─── */
+.nav-hamburger {
+display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+cursor: pointer; padding: 8px 10px; z-index: 201; flex-shrink: 0;
+}
+.nav-hamburger span { display: block; width: 20px; height: 2px; background: rgba(255,255,255,0.75); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      nav { padding: 14px 20px; }
-      .nav-hamburger { display: flex; }
-      .nav-links {
-        display: none; position: absolute; top: 100%; left: 0; right: 0;
-        background: rgba(6,8,15,0.97); backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-        flex-direction: column; align-items: stretch; gap: 0; padding: 8px 0 14px; z-index: 200; list-style: none;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links li { width: 100%; }
-      .nav-links > li > a, .nav-links > li > .nav-dropdown-toggle { display: block; padding: 12px 24px; font-size: 0.92rem; }
-      .nav-dropdown-menu { position: static !important; transform: none !important; left: auto !important; background: rgba(255,255,255,0.04); border: none; border-radius: 0; padding: 4px 0; box-shadow: none; min-width: 0; }
-      .nav-dropdown-menu li a { padding: 9px 36px; font-size: 0.82rem; }
-      .page-hero { padding: 32px 24px 20px; }
-      .legend-bar { padding: 0 24px; }
-      .kb-outer { padding: 0 16px 60px; }
-      .hint-bar { margin: 0 24px 16px; padding-left: 24px !important; padding-right: 24px !important; }
-    }
-    @media (max-width: 480px) {
-      nav { padding: 12px 16px; }
-      .page-hero { padding: 28px 16px 16px; }
-      .legend-bar { padding: 0 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
-      .kb-outer { padding: 0 8px 40px; }
-      .hint-bar { margin: 0 16px 12px; padding-left: 16px !important; padding-right: 16px !important; }
-    }
-  </style>
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+nav { padding: 14px 20px; }
+.nav-hamburger { display: flex; }
+.nav-links {
+display: none; position: absolute; top: 100%; left: 0; right: 0;
+background: rgba(6,8,15,0.97); backdrop-filter: blur(20px);
+border-bottom: 1px solid rgba(255,255,255,0.08);
+flex-direction: column; align-items: stretch; gap: 0; padding: 8px 0 14px; z-index: 200; list-style: none;
+}
+.nav-links.open { display: flex; }
+.nav-links li { width: 100%; }
+.nav-links > li > a, .nav-links > li > .nav-dropdown-toggle { display: block; padding: 12px 24px; font-size: 0.92rem; }
+.nav-dropdown-menu { position: static !important; transform: none !important; left: auto !important; background: rgba(255,255,255,0.04); border: none; border-radius: 0; padding: 4px 0; box-shadow: none; min-width: 0; }
+.nav-dropdown-menu li a { padding: 9px 36px; font-size: 0.82rem; }
+.page-hero { padding: 32px 24px 20px; }
+.legend-bar { padding: 0 24px; }
+.kb-outer { padding: 0 16px 60px; }
+.hint-bar { margin: 0 24px 16px; padding-left: 24px !important; padding-right: 24px !important; }
+}
+@media (max-width: 480px) {
+nav { padding: 12px 16px; }
+.page-hero { padding: 28px 16px 16px; }
+.legend-bar { padding: 0 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
+.kb-outer { padding: 0 8px 40px; }
+.hint-bar { margin: 0 16px 12px; padding-left: 16px !important; padding-right: 16px !important; }
+}
+</style>
 </head>
 <body>
 
-  <!-- ─── NAV ─── -->
-  <nav>
-    <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="Sunday Tailgate FFL" /></a>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li class="nav-has-dropdown" id="nav-teams-li">
-        <a href="#" class="nav-dropdown-toggle" onclick="toggleTeamsDropdown(event);">Teams <span class="nav-chevron">▾</span></a>
-        <ul class="nav-dropdown-menu" id="nav-teams-dropdown"><li><a href="#">Loading…</a></li></ul>
-      </li>
-      <li><a href="draft-board.html">2026 Draft Board</a></li>
-      <li><a href="keeper-options.html" class="active">2026 Keeper Options</a></li>
-      <li><a href="keeper-tracker.html">Historical Keeper Tracker</a></li>
-      <li><a href="scoring.html">League Scoring System</a></li>
-    </ul>
-  </nav>
+<!-- ─── NAV ─── -->
+<nav>
+<a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="Sunday Tailgate FFL" /></a>
+<button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+<ul class="nav-links" id="nav-links">
+<li><a href="index.html">Home</a></li>
+<li class="nav-has-dropdown" id="nav-teams-li">
+<a href="#" class="nav-dropdown-toggle" onclick="toggleTeamsDropdown(event);">Teams <span class="nav-chevron">▾</span></a>
+<ul class="nav-dropdown-menu" id="nav-teams-dropdown"><li><a href="#">Loading…</a></li></ul>
+</li>
+<li><a href="draft-board.html">2026 Draft Board</a></li>
+<li><a href="rosters.html">2026 Rosters</a></li>
+<li><a href="keeper-options.html" class="active">2027 Keeper Options</a></li>
+<li><a href="keeper-tracker.html">Historical Keeper Tracker</a></li>
+<li><a href="scoring.html">League Scoring System</a></li>
+</ul>
+</nav>
 
-  <!-- ─── HERO ─── -->
-  <div class="page-hero">
-    <div class="page-hero-glow"></div>
-    <div class="page-eyebrow"><span class="page-eyebrow-dot"></span>Sunday Tailgate FFL · 2026 Season</div>
-    <h1 class="page-title">2026 <span>Keeper Options</span></h1>
-    <p class="page-subtitle">Every player eligible for 2026 keeper consideration, organised by their draft round cost. Crossed against each team's 2026 pick ownership — traded picks mean that player cannot be kept.</p>
-  </div>
+<!-- ─── HERO ─── -->
+<div class="page-hero">
+<div class="page-hero-glow"></div>
+<div class="page-eyebrow"><span class="page-eyebrow-dot"></span>Sunday Tailgate FFL · 2027 Planning</div>
+<h1 class="page-title">2027 <span>Keeper Options</span></h1>
+<p class="page-subtitle">Every player eligible for 2027 keeper consideration, organised by their 2026 draft round cost. Crossed against each team's 2027 pick ownership — traded picks mean that player cannot be kept.</p>
+</div>
 
-  <!-- ─── INTERACTION HINTS ─── -->
-  <div class="hint-bar" style="padding-left:48px;padding-right:48px;">
-    <span class="hint-icon">&#9432;</span>
-    <span class="hint-text">
-      Use the Teams menu to visit individual team pages
-    </span>
-  </div>
+<!-- ─── INTERACTION HINTS ─── -->
+<div class="hint-bar" style="padding-left:48px;padding-right:48px;">
+<span class="hint-icon">&#9432;</span>
+<span class="hint-text">
+Use the Teams menu to visit individual team pages
+</span>
+</div>
 
-  <!-- ─── LEGEND ─── -->
-  <div class="legend-bar">
-    <div class="legend-item"><div class="legend-swatch ls-available"></div>Available keeper option</div>
-    <div class="legend-item"><div class="legend-swatch ls-keeper"></div>Confirmed 2025 keeper — 1 strike used</div>
-    <div class="legend-item"><div class="legend-swatch ls-traded"></div>Pick traded — cannot keep</div>
-    <div class="legend-item"><div class="legend-swatch ls-empty"></div>No eligible player in this round</div>
-  </div>
+<!-- ─── LEGEND ─── -->
+<div class="legend-bar">
+<div class="legend-item"><div class="legend-swatch ls-available"></div>Available keeper option</div>
+<div class="legend-item"><div class="legend-swatch ls-keeper"></div>Kept in 2026 — on a strike</div>
+<div class="legend-item"><div class="legend-swatch ls-traded"></div>Pick traded — cannot keep</div>
+<div class="legend-item"><div class="legend-swatch ls-empty"></div>No eligible player in this round</div>
+</div>
 
-  <!-- ─── GRID ─── -->
-  <div class="kb-outer">
-    <div id="kb-grid" class="kb-grid">
-      <div class="kb-loading" style="grid-column:1/-1;">Loading keeper data…</div>
-    </div>
-  </div>
+<!-- ─── GRID ─── -->
+<div class="kb-outer">
+<div id="kb-grid" class="kb-grid">
+<div class="kb-loading" style="grid-column:1/-1;">Loading keeper data…</div>
+</div>
+</div>
 
-  <!-- ─── FOOTER SUMMARY ─── -->
-  <div class="kb-footer">
-    <div class="kb-footer-title">Team Summary</div>
-    <div class="kb-footer-row" id="kb-footer-row">
-    </div>
-  </div>
+<!-- ─── FOOTER SUMMARY ─── -->
+<div class="kb-footer">
+<div class="kb-footer-title">Team Summary</div>
+<div class="kb-footer-row" id="kb-footer-row">
+</div>
+</div>
 
-  <script>
-    // Set nav height CSS variable for sticky headers
-    (function setNavHeight() {
-      const nav = document.querySelector('nav');
-      if (nav) {
-        const h = nav.getBoundingClientRect().height;
-        document.documentElement.style.setProperty('--nav-h', h + 'px');
-      }
-      window.addEventListener('resize', setNavHeight);
-    })();
+<script>
+(function setNavHeight() {
+const nav = document.querySelector('nav');
+if (nav) {
+const h = nav.getBoundingClientRect().height;
+document.documentElement.style.setProperty('--nav-h', h + 'px');
+}
+window.addEventListener('resize', setNavHeight);
+})();
 
-    const LEAGUE_ID = '1200568850395955200';
-    const BASE = 'https://api.sleeper.app/v1';
-    const api = p => fetch(`${BASE}${p}`).then(r => r.json());
+// ── 2026 league (the draft that just happened — players on rosters now)
+const LEAGUE_ID = '1381185776049475584';
+const BASE = 'https://api.sleeper.app/v1';
+const api = p => fetch(`${BASE}${p}`).then(r => r.json());
 
-    // Confirmed 2025 keepers (player name → { strikeCount })
-    const KEEPERS_2025 = new Set([
-      'Derrick Henry',"De'Von Achane",'Jahmyr Gibbs','Saquon Barkley',
-      'Justin Jefferson','Bijan Robinson','Puka Nacua','Mike Evans',
-      'Josh Allen','Chase Brown'
-    ]);
+function ini(name) { return (name||'?').replace(/[^a-zA-Z ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase()||'??'; }
+function abbr(name) {
+const n = (name||'').toLowerCase();
+if (n.includes('mccaf')||n.includes('nature')) return 'MCCF';
+if (n.includes('mayfield')) return 'MAYD';
+if (n.includes('kenfig')) return 'KENF';
+if (n.includes('pound')) return 'ROCK';
+if (n.includes('blugh')) return 'MBLG';
+if (n.includes('guns')) return 'GUNS';
+if (n.includes('cooper')) return 'DC10';
+if (n.includes('glorified')) return 'GLOR';
+if (n.includes('dawg')) return 'DAWG';
+if (n.includes('paintin')) return 'PMNG';
+return name.slice(0,4).toUpperCase();
+}
+function getTeamColors(name) {
+const n = (name||'').toLowerCase().replace(/[^a-z0-9 ]/g,'');
+if (n.includes('paintin')) return { bg:'#f2ead8', fg:'#111111' };
+if (n.includes('dawg')) return { bg:'#cc0000', fg:'#ffffff' };
+if (n.includes('glorified')) return { bg:'#003087', fg:'#ffffff' };
+if (n.includes('dancooper')||n.includes('cooper10')) return { bg:'#39ff14', fg:'#000000' };
+if (n.includes('guns')||n.includes('rosen')) return { bg:'#ff69b4', fg:'#000000' };
+if (n.includes('blugh')) return { bg:'#87ceeb', fg:'#000000' };
+if (n.includes('pound the rock')) return { bg:'#ffd700', fg:'#000000' };
+if (n.includes('kenfig')||n.includes('bengal')) return { bg:'#ff6600', fg:'#000000' };
+if (n.includes('mayfield')) return { bg:'#1a5c2a', fg:'#ffffff' };
+if (n.includes('mccaf')||n.includes('nature')) return { bg:'#111111', fg:'#ffde00' };
+return { bg:'#1a2a4a', fg:'#ffffff' };
+}
+function helmetSVG(name, size) {
+size = size || 32;
+const { bg, fg } = getTeamColors(name);
+const initials = ini(name);
+const uid = 'hsvg_' + (name || '').replace(/[^a-zA-Z0-9]/g, '').slice(0, 14).toLowerCase();
+const fs = initials.length > 2 ? 8 : 10;
+const S = 'M 36 36 Q 41 34 41 24 L 41 15 Q 41 3 26 2 Q 12 1 8 12 Q 6 18 8 27 Q 10 35 19 38 Q 28 41 36 38 Z';
+return `<svg width="${size}" height="${size}" viewBox="0 0 44 43" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+<defs>
+<linearGradient id="${uid}sh" x1="0.4" y1="0" x2="0.6" y2="1">
+<stop offset="0%" stop-color="#fff" stop-opacity="0.15"/>
+<stop offset="45%" stop-color="#000" stop-opacity="0"/>
+<stop offset="100%" stop-color="#000" stop-opacity="0.45"/>
+</linearGradient>
+<radialGradient id="${uid}sp" cx="74%" cy="18%" r="28%">
+<stop offset="0%" stop-color="#fff" stop-opacity="0.85"/>
+<stop offset="35%" stop-color="#fff" stop-opacity="0.30"/>
+<stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<path d="${S}" fill="${bg}"/>
+<path d="${S}" fill="url(#${uid}sh)"/>
+<path d="${S}" fill="url(#${uid}sp)"/>
+<path d="${S}" fill="none" stroke="rgba(0,0,0,0.40)" stroke-width="0.8"/>
+<circle cx="28" cy="24" r="5.5" fill="${bg}"/>
+<circle cx="28" cy="24" r="5.5" fill="rgba(0,0,0,0.15)"/>
+<circle cx="28" cy="24" r="5.5" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="0.7"/>
+<circle cx="28" cy="24" r="3.2" fill="rgba(0,0,0,0.82)"/>
+<rect x="4" y="13" width="3" height="18" rx="1.5" fill="${fg}" opacity="0.75"/>
+<rect x="1" y="13" width="10" height="3" rx="1.5" fill="${fg}" opacity="0.72"/>
+<rect x="1" y="19.5" width="10" height="3" rx="1.5" fill="${fg}" opacity="0.68"/>
+<rect x="1" y="26" width="9" height="3" rx="1.5" fill="${fg}" opacity="0.62"/>
+<path d="M 8 37 Q 18 43 28 42 Q 38 41 41 36"
+fill="none" stroke="${fg}" stroke-width="1.4" stroke-opacity="0.45" stroke-linecap="round"/>
+<text x="21" y="20" text-anchor="middle" dominant-baseline="middle"
+font-family="'Arial Black', Impact, sans-serif"
+font-size="${fs}" font-weight="900" fill="${fg}" fill-opacity="0.92"
+style="user-select:none;">${initials}</text>
+</svg>`;
+}
 
-    function ini(name) { return (name||'?').replace(/[^a-zA-Z ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase()||'??'; }
-    function abbr(name) {
-      const n = (name||'').toLowerCase();
-      if (n.includes('mccaf')||n.includes('nature')) return 'MCCF';
-      if (n.includes('mayfield'))   return 'MAYD';
-      if (n.includes('kenfig'))     return 'KENF';
-      if (n.includes('pound'))      return 'ROCK';
-      if (n.includes('blugh'))      return 'MBLG';
-      if (n.includes('guns'))       return 'GUNS';
-      if (n.includes('cooper'))     return 'DC10';
-      if (n.includes('glorified'))  return 'GLOR';
-      if (n.includes('dawg'))       return 'DAWG';
-      if (n.includes('paintin'))    return 'PMNG';
-      return name.slice(0,4).toUpperCase();
-    }
-    function getTeamColors(name) {
-      const n = (name||'').toLowerCase().replace(/[^a-z0-9 ]/g,'');
-      if (n.includes('paintin'))                             return { bg:'#f2ead8', fg:'#111111' };
-      if (n.includes('dawg'))                                return { bg:'#cc0000', fg:'#ffffff' };
-      if (n.includes('glorified'))                           return { bg:'#003087', fg:'#ffffff' };
-      if (n.includes('dancooper')||n.includes('cooper10'))   return { bg:'#39ff14', fg:'#000000' };
-      if (n.includes('guns')||n.includes('rosen'))           return { bg:'#ff69b4', fg:'#000000' };
-      if (n.includes('blugh'))                               return { bg:'#87ceeb', fg:'#000000' };
-      if (n.includes('pound the rock'))                      return { bg:'#ffd700', fg:'#000000' };
-      if (n.includes('kenfig')||n.includes('bengal'))        return { bg:'#ff6600', fg:'#000000' };
-      if (n.includes('mayfield'))                            return { bg:'#1a5c2a', fg:'#ffffff' };
-      if (n.includes('mccaf')||n.includes('nature'))         return { bg:'#111111', fg:'#ffde00' };
-      return { bg:'#1a2a4a', fg:'#ffffff' };
-    }
-    function helmetSVG(name, size) {
-      size = size || 32;
-      const { bg, fg } = getTeamColors(name);
-      const initials = ini(name);
-      const uid = 'hsvg_' + (name || '').replace(/[^a-zA-Z0-9]/g, '').slice(0, 14).toLowerCase();
-      const fs = initials.length > 2 ? 8 : 10;
-      const S = 'M 36 36 Q 41 34 41 24 L 41 15 Q 41 3 26 2 Q 12 1 8 12 Q 6 18 8 27 Q 10 35 19 38 Q 28 41 36 38 Z';
-      return `<svg width="${size}" height="${size}" viewBox="0 0 44 43" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
-        <defs>
-          <linearGradient id="${uid}sh" x1="0.4" y1="0" x2="0.6" y2="1">
-            <stop offset="0%"   stop-color="#fff" stop-opacity="0.15"/>
-            <stop offset="45%"  stop-color="#000" stop-opacity="0"/>
-            <stop offset="100%" stop-color="#000" stop-opacity="0.45"/>
-          </linearGradient>
-          <radialGradient id="${uid}sp" cx="74%" cy="18%" r="28%">
-            <stop offset="0%"   stop-color="#fff" stop-opacity="0.85"/>
-            <stop offset="35%"  stop-color="#fff" stop-opacity="0.30"/>
-            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <path d="${S}" fill="${bg}"/>
-        <path d="${S}" fill="url(#${uid}sh)"/>
-        <path d="${S}" fill="url(#${uid}sp)"/>
-        <path d="${S}" fill="none" stroke="rgba(0,0,0,0.40)" stroke-width="0.8"/>
-        <circle cx="28" cy="24" r="5.5" fill="${bg}"/>
-        <circle cx="28" cy="24" r="5.5" fill="rgba(0,0,0,0.15)"/>
-        <circle cx="28" cy="24" r="5.5" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="0.7"/>
-        <circle cx="28" cy="24" r="3.2" fill="rgba(0,0,0,0.82)"/>
-        <rect x="4"   y="13"   width="3"  height="18" rx="1.5" fill="${fg}" opacity="0.75"/>
-        <rect x="1"   y="13"   width="10" height="3"  rx="1.5" fill="${fg}" opacity="0.72"/>
-        <rect x="1"   y="19.5" width="10" height="3"  rx="1.5" fill="${fg}" opacity="0.68"/>
-        <rect x="1"   y="26"   width="9"  height="3"  rx="1.5" fill="${fg}" opacity="0.62"/>
-        <path d="M 8 37 Q 18 43 28 42 Q 38 41 41 36"
-          fill="none" stroke="${fg}" stroke-width="1.4" stroke-opacity="0.45" stroke-linecap="round"/>
-        <text x="21" y="20" text-anchor="middle" dominant-baseline="middle"
-          font-family="'Arial Black', Impact, sans-serif"
-          font-size="${fs}" font-weight="900" fill="${fg}" fill-opacity="0.92"
-          style="user-select:none;">${initials}</text>
-      </svg>`;
-    }
+function posClass(pos) {
+if (!pos) return '';
+const p = pos.toUpperCase();
+if (['QB','RB','WR','TE','K','DEF'].includes(p)) return `pos-${p}`;
+return '';
+}
 
-    function posClass(pos) {
-      if (!pos) return '';
-      const p = pos.toUpperCase();
-      if (['QB','RB','WR','TE','K','DEF'].includes(p)) return `pos-${p}`;
-      return '';
-    }
+// ─── MAIN ──────────────────────────────────────────────────
+async function init() {
+try {
+const [rosters, users, wb, lb, tradedPicks, drafts] = await Promise.all([
+api(`/league/${LEAGUE_ID}/rosters`),
+api(`/league/${LEAGUE_ID}/users`),
+api(`/league/${LEAGUE_ID}/winners_bracket`).catch(()=>[]),
+api(`/league/${LEAGUE_ID}/losers_bracket`).catch(()=>[]),
+api(`/league/${LEAGUE_ID}/traded_picks`),
+api(`/league/${LEAGUE_ID}/drafts`)
+]);
 
-    // ─── MAIN ──────────────────────────────────────────────────
-    async function init() {
-      try {
-        const [rosters, users, wb, lb, tradedPicks, drafts] = await Promise.all([
-          api(`/league/${LEAGUE_ID}/rosters`),
-          api(`/league/${LEAGUE_ID}/users`),
-          api(`/league/${LEAGUE_ID}/winners_bracket`).catch(()=>[]),
-          api(`/league/${LEAGUE_ID}/losers_bracket`).catch(()=>[]),
-          api(`/league/${LEAGUE_ID}/traded_picks`),
-          api(`/league/${LEAGUE_ID}/drafts`)
-        ]);
+// User map
+const userMap = {};
+(users||[]).forEach(u => { userMap[u.user_id] = u.metadata?.team_name || u.display_name; });
 
-        // User map
-        const userMap = {};
-        (users||[]).forEach(u => { userMap[u.user_id] = u.metadata?.team_name || u.display_name; });
+// Build teams
+const allTeams = (rosters||[]).map(r => ({
+roster_id: r.roster_id,
+name: userMap[r.owner_id] || 'Unknown',
+wins: r.settings?.wins||0,
+fpts: (r.settings?.fpts||0)+(r.settings?.fpts_decimal||0)/100,
+players: r.players||[]
+}));
 
-        // Build teams
-        const allTeams = (rosters||[]).map(r => ({
-          roster_id: r.roster_id,
-          name: userMap[r.owner_id] || 'Unknown',
-          wins: r.settings?.wins||0,
-          fpts: (r.settings?.fpts||0)+(r.settings?.fpts_decimal||0)/100,
-          players: r.players||[]
-        }));
+// Standings / placements
+const pl = {};
+[[1,2],[3,4],[5,6],[7,8]].forEach(([wp,lp]) => {
+const m=(wb||[]).find(x=>x.p===wp); if(m?.w!=null)pl[m.w]=wp; if(m?.l!=null)pl[m.l]=lp;
+});
+const tb=(lb||[]).find(m=>m.p!=null)||(lb||[])[0];
+if(tb){ if(tb.w!=null&&!pl[tb.w])pl[tb.w]=10; if(tb.l!=null&&!pl[tb.l])pl[tb.l]=9; }
+let np=1;
+[...allTeams].sort((a,b)=>b.wins-a.wins||b.fpts-a.fpts).forEach(t=>{
+if(pl[t.roster_id]==null){while(Object.values(pl).includes(np))np++;pl[t.roster_id]=np++;}
+});
 
-        // Standings / placements
-        const pl = {};
-        [[1,2],[3,4],[5,6],[7,8]].forEach(([wp,lp]) => {
-          const m=(wb||[]).find(x=>x.p===wp); if(m?.w!=null)pl[m.w]=wp; if(m?.l!=null)pl[m.l]=lp;
-        });
-        const tb=(lb||[]).find(m=>m.p!=null)||(lb||[])[0];
-        if(tb){ if(tb.w!=null&&!pl[tb.w])pl[tb.w]=10; if(tb.l!=null&&!pl[tb.l])pl[tb.l]=9; }
-        let np=1;
-        [...allTeams].sort((a,b)=>b.wins-a.wins||b.fpts-a.fpts).forEach(t=>{
-          if(pl[t.roster_id]==null){while(Object.values(pl).includes(np))np++;pl[t.roster_id]=np++;}
-        });
+// Fixed column order
+const ROSTER_ORDER = {7:0, 9:1, 10:2, 1:3, 3:4, 4:5, 2:6, 8:7, 6:8, 5:9};
+const teams = [...allTeams].sort((a,b) => (ROSTER_ORDER[a.roster_id]??99) - (ROSTER_ORDER[b.roster_id]??99));
 
-        // Fixed column order: McCaffreaks(7) → Mayfield(9) → Kenfig(10) → Pound(1) → Blughes(3) → Guns(4) → Cooper(2) → Glorified(8) → Dawg(6) → Paintin'(5)
-        const ROSTER_ORDER = {7:0, 9:1, 10:2, 1:3, 3:4, 4:5, 2:6, 8:7, 6:8, 5:9};
-        const teams = [...allTeams].sort((a,b) => (ROSTER_ORDER[a.roster_id]??99) - (ROSTER_ORDER[b.roster_id]??99));
+// 2026 draft picks
+const draftId = drafts[0]?.draft_id;
+const picks2026 = draftId ? await api(`/draft/${draftId}/picks`) : [];
 
-        // 2025 draft picks
-        const draftId = drafts[0]?.draft_id;
-        const picks2025 = draftId ? await api(`/draft/${draftId}/picks`) : [];
+// Build: player_id → { round, name, pos }
+// Also detect which players were keepers in 2026 (is_keeper flag)
+const draftData = {};
+const keeperIds2026 = new Set(); // player IDs kept in 2026
+picks2026.forEach(p => {
+if (p.player_id) {
+const name = [p.metadata?.first_name, p.metadata?.last_name].filter(Boolean).join(' ');
+draftData[p.player_id] = { round: p.round, name, pos: p.metadata?.position || '' };
+if (p.is_keeper) keeperIds2026.add(p.player_id);
+}
+});
 
-        // player_id → { round, name, pos }
-        const draftData = {};
-        picks2025.forEach(p => {
-          if (p.player_id) {
-            const name = [p.metadata?.first_name, p.metadata?.last_name].filter(Boolean).join(' ');
-            draftData[p.player_id] = { round: p.round, name, pos: p.metadata?.position || '' };
-          }
-        });
+// 2027 traded picks (picks traded away that affect 2027 keeper eligibility)
+const picks2027traded = (tradedPicks||[]).filter(p => String(p.season) === '2027');
 
-        // 2026 traded picks
-        const picks2026 = (tradedPicks||[]).filter(p => String(p.season) === '2026');
+// tradedAway[rid] = Set<round>
+const tradedAway = {};
+picks2027traded.forEach(p => {
+if (p.owner_id !== p.roster_id) {
+if (!tradedAway[p.roster_id]) tradedAway[p.roster_id] = new Set();
+tradedAway[p.roster_id].add(p.round);
+}
+});
 
-        // tradedAway[rid] = Set<round> — team's own pick traded away
-        const tradedAway = {};
-        picks2026.forEach(p => {
-          if (p.owner_id !== p.roster_id) {
-            if (!tradedAway[p.roster_id]) tradedAway[p.roster_id] = new Set();
-            tradedAway[p.roster_id].add(p.round);
-          }
-        });
+// picksReceived[rid] = Set<round>
+const picksReceived = {};
+picks2027traded.forEach(p => {
+if (p.owner_id !== p.roster_id) {
+if (!picksReceived[p.owner_id]) picksReceived[p.owner_id] = new Set();
+picksReceived[p.owner_id].add(p.round);
+}
+});
 
-        // picksReceived[rid] = Set<round> — team received another team's pick for this round
-        const picksReceived = {};
-        picks2026.forEach(p => {
-          if (p.owner_id !== p.roster_id) {
-            if (!picksReceived[p.owner_id]) picksReceived[p.owner_id] = new Set();
-            picksReceived[p.owner_id].add(p.round);
-          }
-        });
+function isBlocked(rid, round) {
+return tradedAway[rid]?.has(round) && !picksReceived[rid]?.has(round);
+}
 
-        // A team is blocked in round R only if their own pick is gone AND they didn't receive a replacement
-        function isBlocked(rid, round) {
-          return tradedAway[rid]?.has(round) && !picksReceived[rid]?.has(round);
-        }
+// For each team: map round → [ players ]
+const keeperMap = {};
+teams.forEach(team => {
+keeperMap[team.roster_id] = {};
+team.players.forEach(pid => {
+const d = draftData[pid];
+if (!d) return;
+const round = d.round;
+if (!keeperMap[team.roster_id][round]) keeperMap[team.roster_id][round] = [];
+keeperMap[team.roster_id][round].push({
+name: d.name,
+pos: d.pos,
+isKept2026: keeperIds2026.has(pid),
+pid
+});
+});
+});
 
-        // For each team: map round → [ players ]
-        // keeperMap[roster_id][round] = [ { name, pos, isKeeper2025 } ]
-        const keeperMap = {};
-        teams.forEach(team => {
-          keeperMap[team.roster_id] = {};
-          team.players.forEach(pid => {
-            const d = draftData[pid];
-            if (!d) return;
-            const round = d.round;
-            if (!keeperMap[team.roster_id][round]) keeperMap[team.roster_id][round] = [];
-            keeperMap[team.roster_id][round].push({ name: d.name, pos: d.pos, isKeeper2025: KEEPERS_2025.has(d.name) });
-          });
-        });
+// Render nav dropdown
+renderNavDropdown(teams, pl);
 
-        // Render nav dropdown
-        renderNavDropdown(teams, pl);
+// Render main grid
+renderGrid(teams, keeperMap, isBlocked, pl);
 
-        // Render main grid
-        renderGrid(teams, keeperMap, isBlocked, pl);
+// Render footer summary
+renderFooter(teams, keeperMap, isBlocked);
 
-        // Render footer summary
-        renderFooter(teams, keeperMap, isBlocked);
+} catch(err) {
+console.error(err);
+document.getElementById('kb-grid').innerHTML = `<div class="kb-loading" style="grid-column:1/-1;color:rgba(255,95,87,0.6);">Error loading data: ${err.message}</div>`;
+}
+}
 
-      } catch(err) {
-        console.error(err);
-        document.getElementById('kb-grid').innerHTML = `<div class="kb-loading" style="grid-column:1/-1;color:rgba(255,95,87,0.6);">Error loading data: ${err.message}</div>`;
-      }
-    }
+function renderGrid(teams, keeperMap, isBlocked, pl) {
+const ROUNDS = 15;
+const PHASE_LABELS = { 6: 'Mid Rounds · 6–10', 11: 'Late Rounds · 11–15' };
+const PHASE_CLASS = { 6: 'phase-2', 11: 'phase-3' };
 
-    function renderGrid(teams, keeperMap, isBlocked, pl) {
-      const ROUNDS = 15;
-      const PHASE_LABELS = { 6: 'Mid Rounds · 6–10', 11: 'Late Rounds · 11–15' };
-      const PHASE_CLASS  = { 6: 'phase-2', 11: 'phase-3' };
+document.getElementById('kb-grid').style.setProperty('--col-count', teams.length);
 
-      document.getElementById('kb-grid').style.setProperty('--col-count', teams.length);
+let html = '';
 
-      let html = '';
+// ── Column header row ──
+html += `<div class="kb-rnd kb-corner-hd" style="background:#0a1120;"><span style="font-size:0.5rem;color:rgba(255,255,255,0.15);letter-spacing:0.1em;">RD</span></div>`;
+teams.forEach(team => {
+const { bg } = getTeamColors(team.name);
+const readable = isReadable(bg) ? bg : '#d4a234';
+html += `<div class="kb-team-hd" style="--tc:${readable};">
+${helmetSVG(team.name, 26)}
+<div class="kb-team-hd-name" style="color:${readable};">${team.name}</div>
+<div class="kb-team-hd-count" id="hd-count-${team.roster_id}">—</div>
+</div>`;
+});
 
-      // ── Column header row ──
-      html += `<div class="kb-rnd kb-corner-hd" style="background:#0a1120;"><span style="font-size:0.5rem;color:rgba(255,255,255,0.15);letter-spacing:0.1em;">RD</span></div>`;
-      teams.forEach(team => {
-        const { bg } = getTeamColors(team.name);
-        const readable = isReadable(bg) ? bg : '#d4a234';
-        html += `<div class="kb-team-hd" style="--tc:${readable};">
-          ${helmetSVG(team.name, 26)}
-          <div class="kb-team-hd-name" style="color:${readable};">${team.name}</div>
-          <div class="kb-team-hd-count" id="hd-count-${team.roster_id}">—</div>
-        </div>`;
-      });
+// ── Round rows ──
+for (let r = 1; r <= ROUNDS; r++) {
+if (PHASE_LABELS[r]) {
+html += `<div class="kb-phase-label" style="color:${r===6?'rgba(61,253,152,0.35)':'rgba(255,255,255,0.2)'};">${PHASE_LABELS[r]}</div>`;
+}
 
-      // ── Round rows ──
-      for (let r = 1; r <= ROUNDS; r++) {
-        // Phase separator
-        if (PHASE_LABELS[r]) {
-          html += `<div class="kb-phase-label" style="color:${r===6?'rgba(61,253,152,0.35)':'rgba(255,255,255,0.2)'};">${PHASE_LABELS[r]}</div>`;
-        }
+const phCls = PHASE_CLASS[r] || (r <= 5 ? 'phase-1' : r <= 10 ? 'phase-2' : 'phase-3');
+html += `<div class="kb-rnd ${phCls}">R${r}</div>`;
 
-        const phCls = PHASE_CLASS[r] || (r <= 5 ? 'phase-1' : r <= 10 ? 'phase-2' : 'phase-3');
-        html += `<div class="kb-rnd ${phCls}">R${r}</div>`;
+teams.forEach(team => {
+const rid = team.roster_id;
+const blocked = isBlocked(rid, r);
+const players = keeperMap[rid]?.[r] || [];
 
-        teams.forEach(team => {
-          const rid = team.roster_id;
-          const blocked = isBlocked(rid, r);
-          const players = keeperMap[rid]?.[r] || [];
+if (blocked) {
+html += `<div class="kb-cell traded">
+<div class="kb-traded-label">
+<div class="kb-traded-top">Traded</div>
+${players.length ? `<div class="kb-traded-player">${players.map(p => p.name).join(', ')}<em>pick unavailable</em></div>` : ''}
+</div>
+</div>`;
+} else if (players.length === 0) {
+html += `<div class="kb-cell empty"></div>`;
+} else {
+const hasKept2026 = players.some(p => p.isKept2026);
+html += `<div class="kb-cell ${hasKept2026 ? 'keeper' : 'avail'}">`;
+players.forEach((p, i) => {
+if (i > 0) html += `<div class="kb-divider"></div>`;
+html += `<div class="kb-player">
+<div class="kb-p-name ${p.isKept2026 ? 'keeper-name' : ''}">${p.name}</div>
+<div class="kb-p-meta">
+<span class="kb-pos ${posClass(p.pos)}">${p.pos||'?'}</span>
+${p.isKept2026 ? `<span class="kb-keeper-badge">★ Kept 2026</span>` : ''}
+</div>
+</div>`;
+});
+html += `</div>`;
+}
+});
+}
 
-          if (blocked) {
-            // Pick net-traded away — can't keep here
-            html += `<div class="kb-cell traded">
-              <div class="kb-traded-label">
-                <div class="kb-traded-top">Traded</div>
-                ${players.length ? `<div class="kb-traded-player">${players.map(p => `${p.name}`).join(', ')}<em>pick unavailable</em></div>` : ''}
-              </div>
-            </div>`;
-          } else if (players.length === 0) {
-            html += `<div class="kb-cell empty"></div>`;
-          } else {
-            const hasConfirmedKeeper = players.some(p => p.isKeeper2025);
-            html += `<div class="kb-cell ${hasConfirmedKeeper ? 'keeper' : 'avail'}">`;
-            players.forEach((p, i) => {
-              if (i > 0) html += `<div class="kb-divider"></div>`;
-              html += `<div class="kb-player">
-                <div class="kb-p-name ${p.isKeeper2025 ? 'keeper-name' : ''}">${p.name}</div>
-                <div class="kb-p-meta">
-                  <span class="kb-pos ${posClass(p.pos)}">${p.pos||'?'}</span>
-                  ${p.isKeeper2025 ? `<span class="kb-keeper-badge">★ 1 Strike</span>` : ''}
-                </div>
-              </div>`;
-            });
-            html += `</div>`;
-          }
-        });
-      }
+document.getElementById('kb-grid').innerHTML = html;
 
-      document.getElementById('kb-grid').innerHTML = html;
+// Update header counts
+teams.forEach(team => {
+const rid = team.roster_id;
+let avail = 0, blocked = 0;
+for (let r = 1; r <= ROUNDS; r++) {
+const players = keeperMap[rid]?.[r] || [];
+if (!players.length) continue;
+if (isBlocked(rid, r)) blocked++;
+else avail++;
+}
+const el = document.getElementById(`hd-count-${rid}`);
+if (el) el.textContent = `${avail} options · ${blocked} blocked`;
+});
+}
 
-      // Update header counts
-      teams.forEach(team => {
-        const rid = team.roster_id;
-        let avail = 0, blocked = 0;
-        for (let r = 1; r <= ROUNDS; r++) {
-          const players = keeperMap[rid]?.[r] || [];
-          if (!players.length) continue;
-          if (isBlocked(rid, r)) blocked++;
-          else avail++;
-        }
-        const el = document.getElementById(`hd-count-${rid}`);
-        if (el) el.textContent = `${avail} options · ${blocked} blocked`;
-      });
-    }
+function renderFooter(teams, keeperMap, isBlocked) {
+const ROUNDS = 15;
+const el = document.getElementById('kb-footer-row');
+el.innerHTML = teams.map(team => {
+const rid = team.roster_id;
+const { bg } = getTeamColors(team.name);
+const readable = isReadable(bg) ? bg : '#d4a234';
+let avail = 0, blocked = 0, keepers = 0;
+for (let r = 1; r <= ROUNDS; r++) {
+const players = keeperMap[rid]?.[r] || [];
+if (!players.length) continue;
+if (isBlocked(rid, r)) blocked++;
+else {
+avail++;
+if (players.some(p => p.isKept2026)) keepers++;
+}
+}
+return `<div class="kb-footer-card" style="--tc:${readable};">
+<div class="kb-footer-team">${team.name}</div>
+<div class="kb-footer-stats">
+<div class="kb-fs-item"><div class="kb-fs-val" style="color:${readable};">${avail}</div><div class="kb-fs-lbl">Options</div></div>
+<div class="kb-fs-item"><div class="kb-fs-val" style="color:rgba(204,51,51,0.8);">${blocked}</div><div class="kb-fs-lbl">Blocked</div></div>
+<div class="kb-fs-item"><div class="kb-fs-val" style="color:var(--gold);">${keepers}</div><div class="kb-fs-lbl">On Strike</div></div>
+</div>
+</div>`;
+}).join('');
+}
 
-    function renderFooter(teams, keeperMap, isBlocked) {
-      const ROUNDS = 15;
-      const el = document.getElementById('kb-footer-row');
-      el.innerHTML = teams.map(team => {
-        const rid = team.roster_id;
-        const { bg } = getTeamColors(team.name);
-        const readable = isReadable(bg) ? bg : '#d4a234';
-        let avail = 0, blocked = 0, keepers = 0;
-        for (let r = 1; r <= ROUNDS; r++) {
-          const players = keeperMap[rid]?.[r] || [];
-          if (!players.length) continue;
-          if (isBlocked(rid, r)) blocked++;
-          else {
-            avail++;
-            if (players.some(p => p.isKeeper2025)) keepers++;
-          }
-        }
-        return `<div class="kb-footer-card" style="--tc:${readable};">
-          <div class="kb-footer-team">${team.name}</div>
-          <div class="kb-footer-stats">
-            <div class="kb-fs-item"><div class="kb-fs-val" style="color:${readable};">${avail}</div><div class="kb-fs-lbl">Options</div></div>
-            <div class="kb-fs-item"><div class="kb-fs-val" style="color:rgba(204,51,51,0.8);">${blocked}</div><div class="kb-fs-lbl">Blocked</div></div>
-            <div class="kb-fs-item"><div class="kb-fs-val" style="color:var(--gold);">${keepers}</div><div class="kb-fs-lbl">On Strike</div></div>
-          </div>
-        </div>`;
-      }).join('');
-    }
+function isReadable(hex) {
+if (!hex || !hex.startsWith('#')) return true;
+const h = hex.replace('#','');
+if (h.length < 6) return true;
+const toL = c => { c/=255; return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4); };
+const lum = 0.2126*toL(parseInt(h.slice(0,2),16)) + 0.7152*toL(parseInt(h.slice(2,4),16)) + 0.0722*toL(parseInt(h.slice(4,6),16));
+return lum >= 0.08;
+}
 
-    function isReadable(hex) {
-      if (!hex || !hex.startsWith('#')) return true;
-      const h = hex.replace('#','');
-      if (h.length < 6) return true;
-      const toL = c => { c/=255; return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4); };
-      const lum = 0.2126*toL(parseInt(h.slice(0,2),16)) + 0.7152*toL(parseInt(h.slice(2,4),16)) + 0.0722*toL(parseInt(h.slice(4,6),16));
-      return lum >= 0.08;
-    }
+// ─── NAV ──────────────────────────────────────────────────
+function renderNavDropdown(teams, pl) {
+const menu = document.getElementById('nav-teams-dropdown');
+if (!menu) return;
+const icon = n => n===1?'🥇':n===2?'🥈':n===3?'🥉':n>=9?'🚽':'';
+const sorted = [...teams].sort((a,b)=>(pl[a.roster_id]||99)-(pl[b.roster_id]||99));
+menu.innerHTML = sorted.map((t,i) =>
+`<li${i===8?' class="dd-sep"':''}><a href="team.html?roster_id=${t.roster_id}">${helmetSVG(t.name,26)}<span>${t.name}${icon(pl[t.roster_id]||99)?' '+icon(pl[t.roster_id]||99):''}</span></a></li>`
+).join('');
+}
 
-    // ─── NAV ──────────────────────────────────────────────────
-    function renderNavDropdown(teams, pl) {
-      const menu = document.getElementById('nav-teams-dropdown');
-      if (!menu) return;
-      const icon = n => n===1?'🥇':n===2?'🥈':n===3?'🥉':n>=9?'🚽':'';
-      const sorted = [...teams].sort((a,b)=>(pl[a.roster_id]||99)-(pl[b.roster_id]||99));
-      menu.innerHTML = sorted.map((t,i) =>
-        `<li${i===8?' class="dd-sep"':''}><a href="team.html?roster_id=${t.roster_id}">${helmetSVG(t.name,26)}<span>${t.name}${icon(pl[t.roster_id]||99)?' '+icon(pl[t.roster_id]||99):''}</span></a></li>`
-      ).join('');
-    }
+function toggleMobileNav() {
+document.getElementById('nav-links').classList.toggle('open');
+document.getElementById('nav-hamburger').classList.toggle('open');
+}
+function toggleTeamsDropdown(e) {
+e.preventDefault();
+document.getElementById('nav-teams-li')?.classList.toggle('open');
+}
+document.addEventListener('click', e => {
+const li = document.getElementById('nav-teams-li');
+if (li && !li.contains(e.target)) li.classList.remove('open');
+});
+document.addEventListener('keydown', e => {
+if (e.key==='Escape') document.getElementById('nav-teams-li')?.classList.remove('open');
+});
 
-    function toggleMobileNav() {
-      document.getElementById('nav-links').classList.toggle('open');
-      document.getElementById('nav-hamburger').classList.toggle('open');
-    }
-    function toggleTeamsDropdown(e) {
-      e.preventDefault();
-      document.getElementById('nav-teams-li')?.classList.toggle('open');
-    }
-    document.addEventListener('click', e => {
-      const li = document.getElementById('nav-teams-li');
-      if (li && !li.contains(e.target)) li.classList.remove('open');
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key==='Escape') document.getElementById('nav-teams-li')?.classList.remove('open');
-    });
-
-    init();
-  </script>
+init();
+</script>
 </body>
 </html>

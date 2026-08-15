@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 Rosters — Sunday Tailgate FFL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f14;
+      --bg2: #13161d;
+      --bg3: #1a1e27;
+      --border: rgba(255,255,255,0.07);
+      --gold: #d4a234;
+      --gold-dim: rgba(212,162,52,0.15);
+      --green: #3dfd98;
+      --green-dim: rgba(61,253,152,0.12);
+      --text: #e8eaf0;
+      --text-muted: rgba(232,234,240,0.45);
+      --text-dim: rgba(232,234,240,0.25);
+      --pos-qb: #f0a040;
+      --pos-rb: #3dfd98;
+      --pos-wr: #5eabff;
+      --pos-te: #c77dff;
+      --pos-k: #ff6b6b;
+      --pos-def: #aab4c8;
+      --pos-flex: #ffd166;
+    }
+
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,20,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 56px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--gold-dim); border: 1px solid rgba(212,162,52,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--gold); letter-spacing: 0.5px;
+    }
+    .nav-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 1.5px; color: var(--text); }
+    .nav-links { display: flex; gap: 2px; list-style: none; }
+    .nav-links li a {
+      display: block; padding: 6px 12px; border-radius: 6px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none; white-space: nowrap;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links li a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-links li a.active { color: var(--gold); background: var(--gold-dim); }
+    .nav-mobile-btn { display: none; background: none; border: none; color: var(--text); cursor: pointer; font-size: 1.3rem; }
+    @media (max-width: 820px) {
+      .nav-links { display: none; }
+      .nav-mobile-btn { display: block; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(180deg, rgba(212,162,52,0.06) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 24px 28px;
+      text-align: center;
+    }
+    .hero-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: 2px; color: var(--text); }
+    .hero-meta { margin-top: 10px; font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; }
+    .hero-meta .dot { color: var(--border); }
+    .refresh-indicator { display: flex; align-items: center; gap: 6px; }
+    .refresh-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .refresh-dot.loading { background: var(--gold); animation: spin-dot 1s linear infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes spin-dot { to { transform: rotate(360deg); } }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      padding: 14px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .toolbar-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-dim); margin-right: 4px; }
+    .team-chip {
+      padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-muted); font-size: 0.7rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    }
+    .team-chip:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+    .team-chip.active { background: var(--gold-dim); border-color: rgba(212,162,52,0.4); color: var(--gold); }
+    .view-toggle { margin-left: auto; display: flex; gap: 4px; }
+    .view-btn {
+      padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-muted); font-size: 0.72rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .view-btn.active { background: var(--gold-dim); border-color: rgba(212,162,52,0.4); color: var(--gold); }
+
+    /* ── MAIN CONTENT ── */
+    .content { padding: 20px 24px 60px; max-width: 1600px; margin: 0 auto; }
+
+    /* ── LOADING / ERROR ── */
+    .state-msg {
+      text-align: center; padding: 80px 20px;
+      font-size: 0.85rem; color: var(--text-muted);
+    }
+    .state-msg .spinner {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 3px solid var(--border); border-top-color: var(--gold);
+      animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .state-msg.error { color: #ff6b6b; }
+
+    /* ── ROSTER GRID ── */
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+    .roster-grid.list-view { grid-template-columns: 1fr; }
+
+    /* ── TEAM CARD ── */
+    .team-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; transition: border-color 0.2s;
+    }
+    .team-card:hover { border-color: rgba(255,255,255,0.13); }
+    .team-card.dimmed { opacity: 0.25; }
+
+    .card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px 12px; border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .card-initials {
+      width: 38px; height: 38px; border-radius: 9px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.5px;
+      background: var(--bg3); border: 1px solid var(--border);
+    }
+    .card-team-info { flex: 1; min-width: 0; }
+    .card-team-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 1px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-owner { font-size: 0.67rem; color: var(--text-muted); margin-top: 1px; }
+    .card-count { font-size: 0.7rem; color: var(--text-dim); margin-left: auto; white-space: nowrap; }
+
+    /* ── PLAYER ROWS ── */
+    .pos-section { }
+    .pos-section-hdr {
+      padding: 6px 16px 4px;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-dim); border-bottom: 1px solid var(--border);
+    }
+    .pos-section-hdr.starters-hdr { color: var(--gold); border-color: rgba(212,162,52,0.12); background: rgba(212,162,52,0.03); }
+    .pos-section-hdr.bench-hdr { color: var(--text-dim); }
+    .pos-section-hdr.ir-hdr { color: #ff6b6b; border-color: rgba(255,107,107,0.12); background: rgba(255,107,107,0.03); }
+
+    .player-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 16px; border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+    .player-row:last-child { border-bottom: none; }
+    .player-row:hover { background: rgba(255,255,255,0.025); }
+    .player-row.bench-row { opacity: 0.7; }
+    .player-row.empty-row { opacity: 0.3; }
+
+    .pos-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 20px; border-radius: 4px; flex-shrink: 0;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .pos-chip.QB  { background: rgba(240,160,64,0.18);  color: var(--pos-qb);  }
+    .pos-chip.RB  { background: rgba(61,253,152,0.15);  color: var(--pos-rb);  }
+    .pos-chip.WR  { background: rgba(94,171,255,0.15);  color: var(--pos-wr);  }
+    .pos-chip.TE  { background: rgba(199,125,255,0.15); color: var(--pos-te);  }
+    .pos-chip.K   { background: rgba(255,107,107,0.15); color: var(--pos-k);   }
+    .pos-chip.DEF { background: rgba(170,180,200,0.15); color: var(--pos-def); }
+    .pos-chip.FLEX{ background: rgba(255,209,102,0.15); color: var(--pos-flex);}
+    .pos-chip.BN  { background: rgba(255,255,255,0.06); color: var(--text-dim);}
+    .pos-chip.IR  { background: rgba(255,107,107,0.12); color: #ff6b6b; }
+    .pos-chip.TAXI{ background: rgba(94,171,255,0.12);  color: #5eabff; }
+
+    .player-name { font-size: 0.8rem; font-weight: 600; color: var(--text); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .player-team { font-size: 0.67rem; color: var(--text-muted); white-space: nowrap; }
+    .player-empty { font-size: 0.75rem; color: var(--text-dim); font-style: italic; }
+
+    /* Slot label in list view */
+    .slot-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+      color: var(--text-dim); width: 36px; text-align: right; flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 24px; text-align: center; border-top: 1px solid var(--border);
+      font-size: 0.67rem; color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-mark">STF</div>
+    <span class="nav-title">Sunday Tailgate FFL</span>
+  </a>
+  <button class="nav-mobile-btn" onclick="toggleMobileNav()" aria-label="Open menu">☰</button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="draft-board.html">2026 Draft Board</a></li>
+    <li><a href="rosters.html" class="active">2026 Rosters</a></li>
+    <li><a href="keeper-options.html">2026 Keeper Options</a></li>
+    <li><a href="keeper-tracker.html">Historical Keeper Tracker</a></li>
+    <li><a href="scoring.html">League Scoring System</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Sunday Tailgate FFL · 2026 Season</div>
+  <h1 class="hero-title">2026 Season Rosters</h1>
+  <div class="hero-meta">
+    <span>10 Teams · Full PPR</span>
+    <span class="dot">·</span>
+    <span class="refresh-indicator">
+      <span class="refresh-dot" id="refresh-dot"></span>
+      <span id="last-updated-text">Loading…</span>
+    </span>
+    <span class="dot">·</span>
+    <span>Auto-refreshes every 60s</span>
+  </div>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <span class="toolbar-label">Filter</span>
+  <div id="team-chips"></div>
+  <div class="view-toggle">
+    <button class="view-btn active" id="btn-grid" onclick="setView('grid')">⊞ Grid</button>
+    <button class="view-btn" id="btn-list" onclick="setView('list')">≡ List</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div id="roster-grid" class="roster-grid">
+    <div class="state-msg"><div class="spinner"></div>Loading rosters…</div>
+  </div>
+</div>
+
+<footer>Data from Sleeper · Projections are 2026 pre-season estimates</footer>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const LEAGUE_ID   = '1381185776049475584';
+const BASE        = 'https://api.sleeper.app/v1';
+const PLAYERS_KEY = 'stffl_players_v1';
+const PLAYERS_TTL = 24 * 60 * 60 * 1000; // 24h
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let players    = {};   // { player_id: { name, position, team, ... } }
+let rosters    = [];   // raw sleeper rosters
+let users      = [];   // raw sleeper users
+let projections= {};   // { player_id: pts }
+let leagueSettings = { roster_positions: ['QB','RB','RB','WR','WR','TE','FLEX','K','DEF','BN','BN','BN','BN','BN','BN'] };
+
+let activeFilter = 'all';
+let currentView  = 'grid';
+let refreshTimer = null;
+let countdownTimer = null;
+let secondsToRefresh = 60;
+
+// Position display order
+const POS_ORDER = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF'];
+
+// ─── TEAM COLOURS (cycle) ─────────────────────────────────────────────────────
+const TEAM_COLOURS = [
+  '#d4a234','#3dfd98','#5eabff','#c77dff','#ff6b6b',
+  '#ffd166','#06d6a0','#ef476f','#118ab2','#ffd60a'
+];
+
+// ─── FETCH HELPERS ────────────────────────────────────────────────────────────
+async function api(path) {
+  const r = await fetch(BASE + path);
+  if (!r.ok) throw new Error(`HTTP ${r.status}: ${path}`);
+  return r.json();
+}
+
+async function loadPlayers() {
+  try {
+    const raw = localStorage.getItem(PLAYERS_KEY);
+    if (raw) {
+      const { data, ts } = JSON.parse(raw);
+      if (Date.now() - ts < PLAYERS_TTL) { players = data; return; }
+    }
+  } catch {}
+  const data = await api('/players/nfl');
+  players = data;
+  try { localStorage.setItem(PLAYERS_KEY, JSON.stringify({ data, ts: Date.now() })); } catch {}
+}
+
+async function loadLeague() {
+  try {
+    const league = await api(`/league/${LEAGUE_ID}`);
+    if (league?.roster_positions) leagueSettings.roster_positions = league.roster_positions;
+  } catch {}
+}
+
+async function loadProjections() {
+  try {
+    const data = await api(`/projections/nfl/regular/2026`);
+    // data is { player_id: { pts_ppr: X, ... } }
+    Object.entries(data).forEach(([pid, stats]) => {
+      projections[pid] = stats?.pts_ppr ?? stats?.pts_std ?? 0;
+    });
+  } catch {
+    // 2026 projections may not be available yet — silently skip
+  }
+}
+
+async function refreshRosters() {
+  setLoading(true);
+  try {
+    [rosters, users] = await Promise.all([
+      api(`/league/${LEAGUE_ID}/rosters`),
+      api(`/league/${LEAGUE_ID}/users`)
+    ]);
+    buildTeamChips();
+    renderRosters();
+    updateLastUpdated();
+  } catch (e) {
+    showError(e.message);
+  } finally {
+    setLoading(false);
+  }
+}
+
+// ─── INITIAL LOAD ─────────────────────────────────────────────────────────────
+(async () => {
+  try {
+    await Promise.all([loadPlayers(), loadLeague()]);
+    await refreshRosters();
+    startAutoRefresh();
+  } catch (e) {
+    showError('Failed to load data: ' + e.message);
+  }
+})();
+
+// ─── AUTO-REFRESH ─────────────────────────────────────────────────────────────
+function startAutoRefresh() {
+  secondsToRefresh = 60;
+  clearInterval(countdownTimer);
+  countdownTimer = setInterval(() => {
+    secondsToRefresh--;
+    if (secondsToRefresh <= 0) {
+      secondsToRefresh = 60;
+      refreshRosters();
+    } else {
+      const txt = document.getElementById('last-updated-text');
+      const base = txt.dataset.base || '';
+      if (base) txt.textContent = `${base} · refresh in ${secondsToRefresh}s`;
+    }
+  }, 1000);
+}
+
+function updateLastUpdated() {
+  const now = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const txt = document.getElementById('last-updated-text');
+  txt.textContent = `Updated ${now}`;
+  txt.dataset.base = `Updated ${now}`;
+}
+
+// ─── UI STATE ─────────────────────────────────────────────────────────────────
+function setLoading(on) {
+  const dot = document.getElementById('refresh-dot');
+  if (on) dot.classList.add('loading'); else dot.classList.remove('loading');
+}
+
+function showError(msg) {
+  document.getElementById('roster-grid').innerHTML =
+    `<div class="state-msg error">⚠ ${msg}<br><small>Check console for details.</small></div>`;
+}
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('btn-grid').classList.toggle('active', v === 'grid');
+  document.getElementById('btn-list').classList.toggle('active', v === 'list');
+  document.getElementById('roster-grid').className = 'roster-grid' + (v === 'list' ? ' list-view' : '');
+  renderRosters();
+}
+
+function toggleMobileNav() {
+  const nl = document.getElementById('nav-links');
+  nl.style.display = nl.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// ─── TEAM CHIPS ───────────────────────────────────────────────────────────────
+function buildTeamChips() {
+  const container = document.getElementById('team-chips');
+  if (container.children.length > 1) return; // already built
+
+  container.innerHTML = '';
+  const all = document.createElement('button');
+  all.className = 'team-chip active';
+  all.textContent = 'All Teams';
+  all.onclick = () => filterTeam('all');
+  container.appendChild(all);
+
+  const sortedRosters = getSortedRosters();
+  sortedRosters.forEach(({ teamName }) => {
+    const btn = document.createElement('button');
+    btn.className = 'team-chip';
+    btn.textContent = teamName;
+    btn.dataset.team = teamName;
+    btn.onclick = () => filterTeam(teamName);
+    container.appendChild(btn);
+  });
+}
+
+function filterTeam(team) {
+  activeFilter = team;
+  document.querySelectorAll('.team-chip').forEach(c => {
+    c.classList.toggle('active',
+      (team === 'all' && c.textContent === 'All Teams') ||
+      (c.dataset.team === team)
+    );
+  });
+  renderRosters();
+}
+
+// ─── DATA HELPERS ─────────────────────────────────────────────────────────────
+function getUserMap() {
+  const map = {};
+  users.forEach(u => { map[u.user_id] = u; });
+  return map;
+}
+
+function getSortedRosters() {
+  const userMap = getUserMap();
+  return [...rosters]
+    .sort((a, b) => a.roster_id - b.roster_id)
+    .map((r, i) => {
+      const user = userMap[r.owner_id] || {};
+      const teamName = user.metadata?.team_name || user.display_name || `Team ${r.roster_id}`;
+      const ownerName = user.display_name || '—';
+      const colour = TEAM_COLOURS[i % TEAM_COLOURS.length];
+      const initials = teamName.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+      return { roster: r, teamName, ownerName, colour, initials, roster_id: r.roster_id };
+    });
+}
+
+function getPlayer(pid) {
+  return players[pid] || { full_name: `Player ${pid}`, position: 'BN', team: '—' };
+}
+
+function playerPts(pid) {
+  return projections[pid] ?? 0;
+}
+
+// ─── ROSTER DISPLAY ──────────────────────────────────────────────────────────
+// Uses Sleeper's actual starters[], reserve[], taxi[] — same data as the app.
+//
+// • Active season: starters[] is populated in slot order (matches roster_positions).
+//   Each index corresponds to the matching non-BN slot in the league settings.
+// • Off-season: starters[] is empty/all-zeros — fall back to grouping by position.
+// • reserve[] = IR players. taxi[] = taxi squad (if league uses it).
+
+function buildRosterDisplay(roster) {
+  const rp         = leagueSettings.roster_positions;
+  const starterSlots = rp.filter(p => p !== 'BN' && p !== 'IR');
+
+  const allPlayerIds = roster.players  || [];
+  const starterIds   = roster.starters || [];
+  const reserveIds   = roster.reserve  || [];
+  const taxiIds      = roster.taxi     || [];
+
+  const reserveSet = new Set(reserveIds.filter(Boolean));
+  const taxiSet    = new Set(taxiIds.filter(Boolean));
+
+  // Detect active week: starters contains at least one real non-zero player ID
+  const activeWeek = starterIds.some(id => id && id !== '0');
+
+  let starters, bench;
+
+  if (activeWeek) {
+    // ── Season mode: respect manager's exact lineup ──
+    starters = starterSlots.map((slot, i) => ({
+      slot,
+      pid: (starterIds[i] && starterIds[i] !== '0') ? starterIds[i] : null
+    }));
+    const starterSet = new Set(starterIds.filter(id => id && id !== '0'));
+    bench = allPlayerIds
+      .filter(pid => !starterSet.has(pid) && !reserveSet.has(pid) && !taxiSet.has(pid))
+      .sort((a, b) => playerPts(b) - playerPts(a))
+      .map(pid => ({ slot: 'BN', pid }));
+  } else {
+    // ── Off-season mode: group all rostered players by position ──
+    const active = allPlayerIds.filter(pid => !reserveSet.has(pid) && !taxiSet.has(pid));
+    // Sort by position priority then projected pts
+    const POS_PRI = { QB:0, RB:1, WR:2, TE:3, K:4, DEF:5 };
+    active.sort((a, b) => {
+      const pa = getPlayer(a), pb = getPlayer(b);
+      const posA = (pa.fantasy_positions?.[0] || pa.position || 'Z');
+      const posB = (pb.fantasy_positions?.[0] || pb.position || 'Z');
+      const priA = POS_PRI[posA] ?? 9;
+      const priB = POS_PRI[posB] ?? 9;
+      if (priA !== priB) return priA - priB;
+      return playerPts(b) - playerPts(a);
+    });
+    starters = active.map(pid => {
+      const p   = getPlayer(pid);
+      const pos = (p.fantasy_positions?.[0] || p.position || 'BN');
+      return { slot: pos, pid };
+    });
+    bench = []; // no bench section off-season — all shown in starters
+  }
+
+  const reserve = reserveIds.filter(Boolean).map(pid => ({ slot: 'IR', pid }));
+  const taxi    = taxiIds.filter(Boolean).map(pid => ({ slot: 'TAXI', pid }));
+
+  return { starters, bench, reserve, taxi, activeWeek };
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function renderRosters() {
+  const grid = document.getElementById('roster-grid');
+  const sorted = getSortedRosters();
+  if (!sorted.length) { grid.innerHTML = '<div class="state-msg">No roster data.</div>'; return; }
+
+  grid.innerHTML = '';
+
+  sorted.forEach(({ roster, teamName, ownerName, colour, initials }) => {
+    const dimmed = activeFilter !== 'all' && activeFilter !== teamName;
+    const { starters, bench, reserve, taxi, activeWeek } = buildRosterDisplay(roster);
+
+    const card = document.createElement('div');
+    card.className = 'team-card' + (dimmed ? ' dimmed' : '');
+
+    const totalPlayers = (roster.players || []).length;
+    const projStr = `${totalPlayers} players`;
+
+    const startersSection = starters.length ? `
+      <div class="pos-section">
+        <div class="pos-section-hdr starters-hdr">${activeWeek ? 'Starters' : 'Roster'}</div>
+        ${starters.map(({ slot, pid }) => renderPlayerRow(slot, pid, false)).join('')}
+      </div>` : '';
+
+    const benchSection = bench.length ? `
+      <div class="pos-section">
+        <div class="pos-section-hdr bench-hdr">Bench</div>
+        ${bench.map(({ slot, pid }) => renderPlayerRow('BN', pid, true)).join('')}
+      </div>` : '';
+
+    const irSection = reserve.length ? `
+      <div class="pos-section">
+        <div class="pos-section-hdr ir-hdr">Injured Reserve (IR)</div>
+        ${reserve.map(({ pid }) => renderPlayerRow('IR', pid, true)).join('')}
+      </div>` : '';
+
+    const taxiSection = taxi.length ? `
+      <div class="pos-section">
+        <div class="pos-section-hdr bench-hdr">Taxi Squad</div>
+        ${taxi.map(({ pid }) => renderPlayerRow('TAXI', pid, true)).join('')}
+      </div>` : '';
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-initials" style="color:${colour}; border-color:${colour}30; background:${colour}18">${initials}</div>
+        <div class="card-team-info">
+          <div class="card-team-name">${teamName}</div>
+          <div class="card-owner">${ownerName}</div>
+        </div>
+        <div class="card-count">${projStr}</div>
+      </div>
+      ${startersSection}${benchSection}${irSection}${taxiSection}`;
+
+    grid.appendChild(card);
+  });
+}
+
+// Normalise Sleeper's verbose slot names to display labels
+function displaySlot(slot) {
+  if (!slot) return 'BN';
+  if (slot.includes('FLEX')) return 'FLEX';
+  return slot;
+}
+
+function renderPlayerRow(slot, pid, isBench) {
+  const label = displaySlot(slot);
+  if (!pid) {
+    return `<div class="player-row empty-row">
+      <span class="pos-chip FLEX">${label}</span>
+      <span class="player-empty">Empty</span>
+    </div>`;
+  }
+  const p       = getPlayer(pid);
+  const name    = p.full_name || p.name || `Player ${pid}`;
+  const nflTeam = p.team || (p.position === 'DEF' ? 'DEF' : '—');
+  // For bench/IR/taxi show the player's real position; for lineup slots show the slot label
+  const chipPos = (slot === 'BN' || slot === 'IR' || slot === 'TAXI')
+    ? (p.fantasy_positions?.[0] || p.position || slot)
+    : label;
+  const chipClass = chipPos.includes('FLEX') ? 'FLEX' : chipPos;
+
+  return `<div class="player-row ${isBench ? 'bench-row' : ''}">
+    <span class="pos-chip ${chipClass}">${chipPos}</span>
+    <span class="player-name">${name}</span>
+    <span class="player-team">${nflTeam}</span>
+  </div>`;
+}
+</script>
+</body>
+</html>
