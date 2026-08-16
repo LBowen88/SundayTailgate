@@ -138,7 +138,11 @@
       overflow: hidden; transition: border-color 0.2s;
     }
     .team-card:hover { border-color: rgba(255,255,255,0.13); }
-    .team-card.dimmed { opacity: 0.25; }
+    .team-card.dimmed { opacity: 0.18; pointer-events: none; }
+    .team-card.compare-active {
+      border-color: rgba(61,253,152,0.35);
+      box-shadow: 0 0 0 1px rgba(61,253,152,0.18);
+    }
 
     .card-header {
       display: flex; align-items: center; gap: 12px;
@@ -278,7 +282,7 @@ let users      = [];   // raw sleeper users
 let projections= {};   // { player_id: pts }
 let leagueSettings = { roster_positions: ['QB','RB','RB','WR','WR','TE','FLEX','K','DEF','BN','BN','BN','BN','BN','BN'] };
 
-let activeFilter = 'all';
+let selectedTeams = new Set(); // empty = all teams shown
 let currentView  = 'grid';
 let refreshTimer = null;
 let countdownTimer = null;
@@ -432,14 +436,49 @@ function buildTeamChips() {
 }
 
 function filterTeam(team) {
-  activeFilter = team;
+  if (team === 'all') {
+    selectedTeams.clear();
+  } else {
+    if (selectedTeams.has(team)) {
+      selectedTeams.delete(team);
+    } else {
+      selectedTeams.add(team);
+    }
+  }
+
+  // Update chip active states
   document.querySelectorAll('.team-chip').forEach(c => {
-    c.classList.toggle('active',
-      (team === 'all' && c.textContent === 'All Teams') ||
-      (c.dataset.team === team)
-    );
+    if (c.textContent === 'All Teams') {
+      c.classList.toggle('active', selectedTeams.size === 0);
+    } else {
+      c.classList.toggle('active', selectedTeams.has(c.dataset.team));
+    }
   });
+
+  // Show/hide compare badge
+  updateCompareBadge();
   renderRosters();
+}
+
+function updateCompareBadge() {
+  let badge = document.getElementById('compare-badge');
+  if (selectedTeams.size >= 2) {
+    if (!badge) {
+      badge = document.createElement('div');
+      badge.id = 'compare-badge';
+      badge.style.cssText = `
+        display:inline-flex; align-items:center; gap:6px;
+        background:rgba(61,253,152,0.12); border:1px solid rgba(61,253,152,0.35);
+        color:#3dfd98; font-size:0.65rem; font-weight:800; letter-spacing:0.1em;
+        text-transform:uppercase; padding:4px 10px; border-radius:100px;
+        margin-left:8px; flex-shrink:0;
+      `;
+      document.getElementById('team-chips').after(badge);
+    }
+    badge.textContent = `⇄ Compare mode · ${selectedTeams.size} teams`;
+  } else if (badge) {
+    badge.remove();
+  }
 }
 
 // ─── DATA HELPERS ─────────────────────────────────────────────────────────────
@@ -538,17 +577,25 @@ function buildRosterDisplay(roster) {
 // ─── RENDER ──────────────────────────────────────────────────────────────────
 function renderRosters() {
   const grid = document.getElementById('roster-grid');
-  const sorted = getSortedRosters();
+  let sorted = getSortedRosters();
   if (!sorted.length) { grid.innerHTML = '<div class="state-msg">No roster data.</div>'; return; }
+
+  // In compare mode: selected teams float to the front, unselected are dimmed at end
+  if (selectedTeams.size >= 2) {
+    const selected = sorted.filter(t => selectedTeams.has(t.teamName));
+    const rest = sorted.filter(t => !selectedTeams.has(t.teamName));
+    sorted = [...selected, ...rest];
+  }
 
   grid.innerHTML = '';
 
   sorted.forEach(({ roster, teamName, ownerName, colour, initials }) => {
-    const dimmed = activeFilter !== 'all' && activeFilter !== teamName;
+    const dimmed = selectedTeams.size > 0 && !selectedTeams.has(teamName);
     const { starters, bench, reserve, taxi, activeWeek } = buildRosterDisplay(roster);
 
     const card = document.createElement('div');
-    card.className = 'team-card' + (dimmed ? ' dimmed' : '');
+    const compareActive = selectedTeams.size >= 2 && selectedTeams.has(teamName);
+    card.className = 'team-card' + (dimmed ? ' dimmed' : '') + (compareActive ? ' compare-active' : '');
 
     const totalPlayers = (roster.players || []).length;
     const projStr = `${totalPlayers} players`;
