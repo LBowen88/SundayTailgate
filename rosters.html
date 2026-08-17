@@ -465,6 +465,12 @@ function filterTeam(team) {
   // Show/hide compare badge
   updateCompareBadge();
   renderRosters();
+
+  // Scroll to top of rosters when entering compare mode
+  if (selectedTeams.size >= 2) {
+    const grid = document.getElementById('roster-grid');
+    if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 function updateCompareBadge() {
