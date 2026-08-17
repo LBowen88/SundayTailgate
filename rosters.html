@@ -230,7 +230,7 @@
     <li><a href="index.html">Home</a></li>
     <li><a href="draft-board.html">2026 Draft Board</a></li>
     <li><a href="rosters.html" class="active">2026 Rosters</a></li>
-    <li><a href="keeper-options.html">2026 Keeper Options</a></li>
+    <li><a href="keeper-options.html">2027 Keeper Options</a></li>
     <li><a href="keeper-tracker.html">Historical Keeper Tracker</a></li>
     <li><a href="scoring.html">League Scoring System</a></li>
   </ul>
@@ -466,8 +466,8 @@ function filterTeam(team) {
   updateCompareBadge();
   renderRosters();
 
-  // Scroll to top of rosters when entering compare mode
-  if (selectedTeams.size >= 2) {
+  // Scroll to top of rosters when a team is selected (1 or more)
+  if (selectedTeams.size >= 1) {
     const grid = document.getElementById('roster-grid');
     if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -593,8 +593,8 @@ function renderRosters() {
   let sorted = getSortedRosters();
   if (!sorted.length) { grid.innerHTML = '<div class="state-msg">No roster data.</div>'; return; }
 
-  // In compare mode: selected teams float to the front, unselected are dimmed at end
-  if (selectedTeams.size >= 2) {
+  // Selected teams float to the front, unselected dimmed at end (1 or more)
+  if (selectedTeams.size >= 1) {
     const selected = sorted.filter(t => selectedTeams.has(t.teamName));
     const rest = sorted.filter(t => !selectedTeams.has(t.teamName));
     sorted = [...selected, ...rest];
